@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Classes {
     public static class DataManager {
-
-        public enum Days { Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday };
+        public const int DAYCOUNT = 7;
 
         public static List<Class> Classes {
             get { return classes; }

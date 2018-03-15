@@ -23,13 +23,13 @@
         <TextBlock Text="Days" Margin="0, 15, 0, 0"/>
         <WrapPanel Orientation="Horizontal" Margin="0, 5">
 
-            <CheckBox Content="Sunday" Margin="5"/>
-            <CheckBox Content="Monday" Margin="5"/>
-            <CheckBox Content="Tuesday" Margin="5"/>
-            <CheckBox Content="Wednesday" Margin="5"/>
-            <CheckBox Content="Thursday" Margin="5"/>
-            <CheckBox Content="Friday" Margin="5"/>
-            <CheckBox Content="Saturday" Margin="5"/>
+            <CheckBox Name="Sunday" Content="Sunday" Margin="5"/>
+            <CheckBox Name="Monday" Content="Monday" Margin="5"/>
+            <CheckBox Name="Tuesday" Content="Tuesday" Margin="5"/>
+            <CheckBox Name="Wednesday" Content="Wednesday" Margin="5"/>
+            <CheckBox Name="Thursday" Content="Thursday" Margin="5"/>
+            <CheckBox Name="Friday" Content="Friday" Margin="5"/>
+            <CheckBox Name="Saturday" Content="Saturday" Margin="5"/>
 
         </WrapPanel>
 

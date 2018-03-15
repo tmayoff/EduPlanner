@@ -24,8 +24,14 @@ namespace Classes {
         }
 
         private void Add_Click(object sender, RoutedEventArgs e) {
+            bool[] days = new bool[DataManager.DAYCOUNT];
 
-            Class newClass = new Class(txtClassName.Text, timeClassStart, timeClassEnd);
+            for (DayOfWeek day = DayOfWeek.Sunday; day <= DayOfWeek.Saturday; day++) {
+                CheckBox checkBox = FindName(day.ToString()) as CheckBox;
+                days[(int)day] = checkBox.IsChecked == true;
+            }
+
+            Class newClass = new Class(txtClassName.Text, days, timeClassStart, timeClassEnd);
             DataManager.classes.Add(newClass);
 
             Close();
