@@ -10,24 +10,25 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Classes {
+
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AddClass.xaml
     /// </summary>
-    public partial class MainWindow : Window {
+    public partial class AddClass : Window {
 
-        public List<Class> classes = new List<Class>();
-
-        public MainWindow() {
+        public AddClass() {
             InitializeComponent();
         }
 
-        private void AddClass_Click(object sender, RoutedEventArgs e) {
-            AddClass classWindow = new AddClass();
-            classWindow.Show();
+        private void Add_Click(object sender, RoutedEventArgs e) {
+
+            Class newClass = new Class(txtClassName.Text, timeClassStart, timeClassEnd);
+            DataManager.classes.Add(newClass);
+
+            Close();
         }
     }
 }
