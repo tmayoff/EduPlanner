@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MaterialDesignThemes.Wpf;
 
 namespace Classes {
     /// <summary>
@@ -19,15 +21,37 @@ namespace Classes {
     /// </summary>
     public partial class MainWindow : Window {
 
-        public List<Class> classes = new List<Class>();
+        private List<Class> classes;
 
         public MainWindow() {
             InitializeComponent();
+
+            classes = new List<Class>();
+        }
+
+        public void UpdateView() {
+            for (int i = 0; i < DataManager.DAYCOUNT; i++) {
+                classes.Add(DataManager.classes[i]);
+
+                //if (classes.Contains(DataManager.classes[i]))
+                //    continue;
+
+                //classes.Add(DataManager.classes[i]);
+
+                //ClassCard card = new ClassCard { Class = classes[i] };
+
+                //AgendaView.Children.Add(card);
+            }
         }
 
         private void AddClass_Click(object sender, RoutedEventArgs e) {
             AddClass classWindow = new AddClass();
+            classWindow.Closed += new EventHandler(AddClass_Closed);
             classWindow.Show();
+        }
+
+        private void AddClass_Closed(object sender, EventArgs e) {
+            UpdateView();
         }
     }
 }

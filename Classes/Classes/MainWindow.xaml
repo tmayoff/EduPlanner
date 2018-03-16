@@ -28,8 +28,9 @@
             </Menu>
         </DockPanel>
 
-        <StackPanel Grid.Row="1" Margin="15">
-            <ComboBox ItemsSource="{Binding Source={x:Static local:DataManager.Classes}}"/>
+        <StackPanel Name="AgendaView" Grid.Row="1" Margin="15">
+
+
         </StackPanel>
 
     </Grid>

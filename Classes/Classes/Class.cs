@@ -13,10 +13,11 @@ namespace Classes {
         public TimePicker StartTime { get; set; }
         public TimePicker EndTime { get; set; }
 
-        public bool[] days = new bool[DataManager.DAYCOUNT];
+        public bool[] Days = new bool[DataManager.DAYCOUNT];
 
         public Class(string name, bool[] days, TimePicker startTime, TimePicker endTime) {
             Name = name;
+            Days = days;
             StartTime = startTime;
             EndTime = endTime;
         }

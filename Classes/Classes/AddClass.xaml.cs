@@ -32,6 +32,7 @@ namespace Classes {
             }
 
             Class newClass = new Class(txtClassName.Text, days, timeClassStart, timeClassEnd);
+
             DataManager.classes.Add(newClass);
 
             Close();

@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Classes {
     public static class DataManager {
-        public const int DAYCOUNT = 7;
 
-        public static List<Class> Classes {
-            get { return classes; }
-        }
+        public const int DAYCOUNT = 7;
 
         public static List<Class> classes = new List<Class>();
     }
