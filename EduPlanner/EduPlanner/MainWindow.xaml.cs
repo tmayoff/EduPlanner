@@ -61,6 +61,10 @@ namespace EduPlanner {
             }
         }
 
+        private void ViewAllClasses(object sener, RoutedEventArgs e) {
+
+        }
+
         private void AddClass_Click(object sender, RoutedEventArgs e) {
             AddClass classWindow = new AddClass();
             classWindow.Closed += new EventHandler(AddClass_Closed);
