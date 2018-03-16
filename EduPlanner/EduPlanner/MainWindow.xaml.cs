@@ -61,7 +61,7 @@ namespace EduPlanner {
             }
         }
 
-        private void ViewAllClasses(object sener, RoutedEventArgs e) {
+        private void ViewAllClasses_Click(object sener, RoutedEventArgs e) {
 
         }
 
