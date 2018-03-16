@@ -20,22 +20,31 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <!-- Top Menu -->
         <materialDesign:ColorZone Mode="PrimaryDark" Padding="15">
             <DockPanel>
                 <StackPanel Orientation="Horizontal">
-                    <!--<ToggleButton Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />-->
-                    <Button VerticalAlignment="Center" Margin="0 0 0 0" Content="Add Class" Click="AddClass_Click"/>
                 </StackPanel>
             </DockPanel>
         </materialDesign:ColorZone>
 
+        <!-- Agenda View -->
+        <ScrollViewer Grid.Row="1" Margin="15" VerticalScrollBarVisibility="Auto">
+            <StackPanel Name="AgendaView">
 
+                
 
-        <StackPanel Name="AgendaView" Grid.Row="1" Margin="15">
+            </StackPanel>
+        </ScrollViewer>
 
-        </StackPanel>
-
-
-
+        <!-- Add Button -->
+        <Button Grid.Row="1" 
+                Margin="25"
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Right"
+                Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                Click="AddClass_Click">
+            <materialDesign:PackIcon Kind="Plus"/>
+        </Button>
     </Grid>
 </Window>
