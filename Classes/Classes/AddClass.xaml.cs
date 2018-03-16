@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MaterialDesignThemes.Wpf;
 
 namespace EduPlanner {
 
@@ -26,13 +27,18 @@ namespace EduPlanner {
         private void Add_Click(object sender, RoutedEventArgs e) {
             bool[] days = new bool[DataManager.DAYCOUNT];
 
+            if (txtClassName.Text == "") {
+                DialogHost.Show("Please enter a name");
+                return;
+            }
+
             for (DayOfWeek day = DayOfWeek.Sunday; day <= DayOfWeek.Saturday; day++) {
                 CheckBox checkBox = FindName(day.ToString()) as CheckBox;
                 days[(int)day] = checkBox.IsChecked == true;
             }
 
             Class newClass = new Class(txtClassName.Text, days, timeClassStart, timeClassEnd);
-
+            DataManager.schedule.AddClass(newClass);
             Close();
         }
     }

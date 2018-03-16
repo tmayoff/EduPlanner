@@ -29,14 +29,14 @@ namespace EduPlanner {
         private string startTime = "Start at: ";
         private string endTime = "Ends at: ";
 
-        public ClassCard() {
+        public ClassCard(Class _class) {
             InitializeComponent();
 
-            if (Class != null) {
-                className = Class.Name;
-                startTime = "Starts at: " + Class.StartTime;
-                endTime = "Ends at: " + Class.EndTime;
-            }
+            Class = _class;
+
+            className = Class.Name;
+            startTime = "Starts at: " + Class.StartTime.SelectedTime.Value.TimeOfDay;
+            endTime = "Ends at: " + Class.EndTime.SelectedTime.Value.TimeOfDay;
 
             DataContext = this;
         }

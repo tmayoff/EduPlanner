@@ -31,7 +31,15 @@ namespace EduPlanner {
         }
 
         public void UpdateView() {
+            for (int i = 0; i < AgendaView.Children.Count; i++) {
+                AgendaView.Children.Clear();
+            }
 
+            for (int i = 0; i < schedule.classes.Count; i++) {
+                ClassCard card = new ClassCard(schedule.classes[i]);
+
+                AgendaView.Children.Add(card);
+            }
         }
 
         private void AddClass_Click(object sender, RoutedEventArgs e) {

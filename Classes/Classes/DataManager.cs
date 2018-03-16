@@ -10,5 +10,9 @@ namespace EduPlanner {
         public const int DAYCOUNT = 7;
 
         public static Schedule schedule;
+
+        public static void Save() {
+
+        }
     }
 }

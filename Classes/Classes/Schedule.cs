@@ -9,6 +9,10 @@ namespace EduPlanner {
 
         public List<Class> classes;
 
+        public Schedule() {
+            classes = new List<Class>();
+        }
+
         public void AddClass(Class _class) {
             classes.Add(_class);
         }
