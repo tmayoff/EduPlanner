@@ -7,7 +7,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid Margin="15">
         <materialDesign:Card Padding="20">
             <Grid>
                 <Grid.RowDefinitions>
@@ -17,7 +17,7 @@
 
                 <TextBlock Text="{Binding Path=DayName}"/>
 
-                <StackPanel Grid.Row="1">
+                <StackPanel Name="DaysPanel" Grid.Row="1" Tag="{Binding Path=DayName}">
 
                 </StackPanel>
             </Grid>

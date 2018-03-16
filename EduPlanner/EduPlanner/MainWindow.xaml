@@ -24,6 +24,7 @@
         <materialDesign:ColorZone Mode="PrimaryDark" Padding="15">
             <DockPanel>
                 <StackPanel Orientation="Horizontal">
+                    <Button Content="View All Classes" Click="ViewAllClasses_Click"/>
                 </StackPanel>
             </DockPanel>
         </materialDesign:ColorZone>
@@ -32,7 +33,7 @@
         <ScrollViewer Grid.Row="1" Margin="15" VerticalScrollBarVisibility="Auto">
             <StackPanel Name="AgendaView">
 
-                
+
 
             </StackPanel>
         </ScrollViewer>

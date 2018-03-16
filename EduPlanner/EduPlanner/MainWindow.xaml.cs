@@ -44,16 +44,18 @@ namespace EduPlanner {
 
         public void UpdateView() {
 
-            //Loop through all the days
-            for (int i = 0; i < DataManager.DAYCOUNT; i++) {
-                StackPanel dayCard = FindName(((DayOfWeek)i).ToString()) as StackPanel;
+            for (int i = 0; i < AgendaView.Children.Count; i++) {
 
-                //Loop through the classes and check if its on this day
-                for (int j = 0; j < schedule.classes.Count; j++) {
-                    if (schedule.classes[j].Days[i]) {
-                        ClassCard card = new ClassCard(schedule.classes[j]);
+                DayCard child = AgendaView.Children[i] as DayCard;
+                StackPanel dayPanel = child.FindName("DaysPanel") as StackPanel;
+                for (int j = 0; j < dayPanel.Children.Count; j++) {
+                    dayPanel.Children.RemoveAt(j);
+                }
 
-                        dayCard.Children.Add(card);
+                foreach (Class _class in child.Day.classes) {
+                    if (_class.Days[i]) {
+                        ClassCard classCard = new ClassCard(_class);
+                        dayPanel.Children.Add(classCard);
                     }
                 }
             }
