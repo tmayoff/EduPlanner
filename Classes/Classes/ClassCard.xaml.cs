@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Classes {
+namespace EduPlanner {
     /// <summary>
     /// Interaction logic for ClassCard.xaml
     /// </summary>

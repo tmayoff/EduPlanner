@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MaterialDesignThemes.Wpf;
 
-namespace Classes {
+namespace EduPlanner {
 
     public class Class {
         public string Name { get; set; }

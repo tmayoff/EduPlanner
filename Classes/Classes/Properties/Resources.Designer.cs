@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Classes.Properties {
+namespace EduPlanner.Properties {
 
 
     /// <summary>

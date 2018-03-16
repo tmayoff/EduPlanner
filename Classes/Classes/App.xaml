@@ -1,7 +1,7 @@
-﻿<Application x:Class="Classes.App"
+﻿<Application x:Class="EduPlanner.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Classes"
+             xmlns:local="clr-namespace:EduPlanner"
              StartupUri="MainWindow.xaml">
 
     <Application.Resources>

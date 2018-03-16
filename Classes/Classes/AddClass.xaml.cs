@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Classes {
+namespace EduPlanner {
 
     /// <summary>
     /// Interaction logic for AddClass.xaml

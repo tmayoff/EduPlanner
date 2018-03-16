@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Classes {
+namespace EduPlanner {
     public static class DataManager {
 
         public const int DAYCOUNT = 7;

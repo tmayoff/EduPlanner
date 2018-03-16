@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MaterialDesignThemes.Wpf;
 
-namespace Classes {
+namespace EduPlanner {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
