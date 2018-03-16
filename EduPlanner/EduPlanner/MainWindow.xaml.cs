@@ -62,7 +62,8 @@ namespace EduPlanner {
         }
 
         private void ViewAllClasses_Click(object sener, RoutedEventArgs e) {
-
+            ClassesView classesView = new ClassesView();
+            classesView.Show();
         }
 
         private void AddClass_Click(object sender, RoutedEventArgs e) {

@@ -65,6 +65,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ClassesView.xaml.cs">
+      <DependentUpon>ClassesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DayCard.xaml.cs">
       <DependentUpon>DayCard.xaml</DependentUpon>
     </Compile>
@@ -74,6 +77,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ClassCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClassesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
