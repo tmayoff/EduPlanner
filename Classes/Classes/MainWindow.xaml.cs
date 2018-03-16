@@ -21,27 +21,17 @@ namespace EduPlanner {
     /// </summary>
     public partial class MainWindow : Window {
 
-        private List<Class> classes;
+        private Schedule schedule;
 
         public MainWindow() {
             InitializeComponent();
 
-            classes = new List<Class>();
+            schedule = new Schedule();
+            DataManager.schedule = schedule;
         }
 
         public void UpdateView() {
-            for (int i = 0; i < DataManager.DAYCOUNT; i++) {
-                classes.Add(DataManager.classes[i]);
 
-                //if (classes.Contains(DataManager.classes[i]))
-                //    continue;
-
-                //classes.Add(DataManager.classes[i]);
-
-                //ClassCard card = new ClassCard { Class = classes[i] };
-
-                //AgendaView.Children.Add(card);
-            }
         }
 
         private void AddClass_Click(object sender, RoutedEventArgs e) {

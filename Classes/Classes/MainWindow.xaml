@@ -29,16 +29,12 @@
             </DockPanel>
         </materialDesign:ColorZone>
 
-        <!--<materialDesign:DrawerHost Margin="64" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}">>
-            <materialDesign:DrawerHost.LeftDrawerContent>
-                <Button Content="Add Class"/>
-            </materialDesign:DrawerHost.LeftDrawerContent>
-        </materialDesign:DrawerHost>-->
-
         <StackPanel Name="AgendaView" Grid.Row="1" Margin="15">
 
 
         </StackPanel>
+
+
 
     </Grid>
 </Window>
