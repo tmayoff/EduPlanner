@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduPlanner", "Classes\EduPlanner.csproj", "{5FA981EE-D4DD-4F42-B6DB-27118C1BFF51}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduPlanner", "EduPlanner\EduPlanner.csproj", "{5FA981EE-D4DD-4F42-B6DB-27118C1BFF51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
