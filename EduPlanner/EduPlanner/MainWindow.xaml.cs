@@ -27,18 +27,35 @@ namespace EduPlanner {
             InitializeComponent();
 
             schedule = new Schedule();
+
+            InitializeAgendaView();
+
             DataManager.schedule = schedule;
         }
 
-        public void UpdateView() {
-            for (int i = 0; i < AgendaView.Children.Count; i++) {
-                AgendaView.Children.Clear();
-            }
-
-            for (int i = 0; i < schedule.classes.Count; i++) {
-                ClassCard card = new ClassCard(schedule.classes[i]);
-
+        public void InitializeAgendaView() {
+            for (int i = 0; i < DataManager.DAYCOUNT; i++) {
+                Day day = new Day((DayOfWeek)i);
+                schedule.days[i] = day;
+                DayCard card = new DayCard(day);
                 AgendaView.Children.Add(card);
+            }
+        }
+
+        public void UpdateView() {
+
+            //Loop through all the days
+            for (int i = 0; i < DataManager.DAYCOUNT; i++) {
+                StackPanel dayCard = FindName(((DayOfWeek)i).ToString()) as StackPanel;
+
+                //Loop through the classes and check if its on this day
+                for (int j = 0; j < schedule.classes.Count; j++) {
+                    if (schedule.classes[j].Days[i]) {
+                        ClassCard card = new ClassCard(schedule.classes[j]);
+
+                        dayCard.Children.Add(card);
+                    }
+                }
             }
         }
 
