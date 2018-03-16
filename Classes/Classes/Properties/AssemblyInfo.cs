@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Classes")]
+[assembly: AssemblyTitle("EduPlanner")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Classes")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyProduct("EduPlanner")]
+[assembly: AssemblyCopyright("Copyright ©  2018 Tyler Mayoff & Joseph Di Pasquale")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
