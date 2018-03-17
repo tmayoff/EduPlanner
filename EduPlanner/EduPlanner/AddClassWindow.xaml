@@ -1,0 +1,47 @@
+﻿<Window x:Class="EduPlanner.AddClassWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EduPlanner"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="Add a Class" Height="600" Width="400">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="Class Name" Margin="0, 15, 0, 0"/>
+            <TextBox Name="txtClassName" materialDesign:HintAssist.Hint="Name"/>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1">
+            <StackPanel Name="panelDayTime"/>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="2">
+            <Button Name="btnAddDayTime" 
+                Content="Add a time"
+                Margin="0 15 15 0"
+                HorizontalAlignment="Right" 
+                Click="AddDayTime_Click"/>
+
+            <Button Content="Add"
+                    Name="btnAdd"
+                IsEnabled="False"
+                Margin="20" Click="Add_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

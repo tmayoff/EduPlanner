@@ -35,8 +35,8 @@ namespace EduPlanner {
             Class = _class;
 
             className = Class.Name;
-            startTime = "Starts at: " + Class.StartTime.SelectedTime.Value.TimeOfDay;
-            endTime = "Ends at: " + Class.EndTime.SelectedTime.Value.TimeOfDay;
+            //startTime = "Starts at: " + Class.StartTime.SelectedTime.Value.TimeOfDay;
+            //endTime = "Ends at: " + Class.EndTime.SelectedTime.Value.TimeOfDay;
 
             DataContext = this;
         }

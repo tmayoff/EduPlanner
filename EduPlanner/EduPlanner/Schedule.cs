@@ -20,8 +20,8 @@ namespace EduPlanner {
             classes.Add(_class);
 
             for (DayOfWeek day = DayOfWeek.Sunday; day <= DayOfWeek.Saturday; day++) {
-                if (_class.Days[(int)day])
-                    days[(int)day].classes.Add(_class);
+                //if (_class.Days[(int)day])
+                //    days[(int)day].classes.Add(_class);
             }
         }
     }

@@ -10,16 +10,17 @@ namespace EduPlanner {
     public class Class {
         public string Name { get; set; }
 
-        public TimePicker StartTime { get; set; }
-        public TimePicker EndTime { get; set; }
+        public List<TimePicker> StarTimes { get; set; }
+        public List<TimePicker> EndTimes { get; set; }
 
-        public bool[] Days = new bool[DataManager.DAYCOUNT];
+        public List<DayOfWeek> Days { get; set; }
 
-        public Class(string name, bool[] days, TimePicker startTime, TimePicker endTime) {
+        public Class(string name, List<DayOfWeek> days, List<TimePicker> startTimes, List<TimePicker> endTimes) {
             Name = name;
             Days = days;
-            StartTime = startTime;
-            EndTime = endTime;
+
+            StarTimes.AddRange(startTimes.ToArray());
+            EndTimes.AddRange(endTimes.ToArray());
         }
     }
 }

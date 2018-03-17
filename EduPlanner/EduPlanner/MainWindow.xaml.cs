@@ -28,21 +28,28 @@ namespace EduPlanner {
 
             schedule = new Schedule();
 
-            InitializeAgendaView();
-
             DataManager.schedule = schedule;
+
+            InitializeDays();
         }
 
-        public void InitializeAgendaView() {
+        private void InitializeDays() {
             for (int i = 0; i < DataManager.DAYCOUNT; i++) {
                 Day day = new Day((DayOfWeek)i);
                 schedule.days[i] = day;
-                DayCard card = new DayCard(day);
-                AgendaView.Children.Add(card);
             }
         }
 
-        public void UpdateView() {
+        public void UpdateAgendaDays() {
+            for (int i = 0; i < DataManager.DAYCOUNT; i++) {
+                if (schedule.days[i].classes.Count > 0) {
+                    DayCard card = new DayCard(schedule.days[0]);
+                    AgendaView.Children.Add(card);
+                }
+            }
+        }
+
+        public void UpdateAgendaClasses() {
 
             for (int i = 0; i < AgendaView.Children.Count; i++) {
 
@@ -53,12 +60,14 @@ namespace EduPlanner {
                 }
 
                 foreach (Class _class in child.Day.classes) {
-                    if (_class.Days[i]) {
-                        ClassCard classCard = new ClassCard(_class);
-                        dayPanel.Children.Add(classCard);
-                    }
+                    //if (_class.Days[i]) {
+                    //    ClassCard classCard = new ClassCard(_class);
+                    //    dayPanel.Children.Add(classCard);
+                    //}
                 }
             }
+
+            UpdateAgendaDays();
         }
 
         private void ViewAllClasses_Click(object sener, RoutedEventArgs e) {
@@ -67,13 +76,14 @@ namespace EduPlanner {
         }
 
         private void AddClass_Click(object sender, RoutedEventArgs e) {
-            AddClass classWindow = new AddClass();
+            AddClassWindow classWindow = new AddClassWindow();
             classWindow.Closed += new EventHandler(AddClass_Closed);
-            classWindow.Show();
+
+            classWindow.ShowDialog();
         }
 
         private void AddClass_Closed(object sender, EventArgs e) {
-            UpdateView();
+            UpdateAgendaClasses();
         }
     }
 }
