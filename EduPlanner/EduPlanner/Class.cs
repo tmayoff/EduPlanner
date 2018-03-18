@@ -10,7 +10,7 @@ namespace EduPlanner {
     public class Class {
         public string Name { get; set; }
 
-        public List<TimePicker> StarTimes { get; set; }
+        public List<TimePicker> StartTimes { get; set; }
         public List<TimePicker> EndTimes { get; set; }
 
         public List<DayOfWeek> Days { get; set; }
@@ -19,7 +19,10 @@ namespace EduPlanner {
             Name = name;
             Days = days;
 
-            StarTimes.AddRange(startTimes.ToArray());
+            StartTimes = new List<TimePicker>();
+            EndTimes = new List<TimePicker>();
+
+            StartTimes.AddRange(startTimes.ToArray());
             EndTimes.AddRange(endTimes.ToArray());
         }
     }

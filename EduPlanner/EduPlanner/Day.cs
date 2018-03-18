@@ -12,6 +12,8 @@ namespace EduPlanner {
 
         public List<Class> classes;
 
+        public bool created;
+
         public Day(DayOfWeek _day) {
             day = _day;
             classes = new List<Class>();

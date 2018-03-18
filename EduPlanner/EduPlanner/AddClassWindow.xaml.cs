@@ -21,35 +21,40 @@ namespace EduPlanner {
     /// </summary>
     public partial class AddClassWindow : Window {
 
+        List<DayTime> dayTimes;
+
         public AddClassWindow() {
             InitializeComponent();
+
+            dayTimes = new List<DayTime>();
         }
 
         private void AddDayTime_Click(object sender, RoutedEventArgs e) {
             DayTime dayTime = new DayTime(this);
-
+            dayTimes.Add(dayTime);
             panelDayTime.Children.Add(dayTime);
         }
 
         private void Add_Click(object sender, RoutedEventArgs e) {
-            bool[] days = new bool[DataManager.DAYCOUNT];
+            List<TimePicker> starts = new List<TimePicker>();
+            List<TimePicker> ends = new List<TimePicker>();
+            List<DayOfWeek> days = new List<DayOfWeek>();
 
-            for (DayOfWeek day = DayOfWeek.Sunday; day <= DayOfWeek.Saturday; day++) {
-                CheckBox checkBox = FindName(day.ToString()) as CheckBox;
-                days[(int)day] = checkBox.IsChecked == true;
+            for (int i = 0; i < dayTimes.Count; i++) {
+                //Add the start times
+                starts.Add(dayTimes[i].FindName("timeClassStart") as TimePicker);
+                ends.Add(dayTimes[i].FindName("timeClassEnd") as TimePicker);
+
+                //Add days
+                for (int j = 0; j < dayTimes[i].days.Length; j++) {
+                    if (dayTimes[i].days[j])
+                        days.Add((DayOfWeek)j);
+                }
             }
+
+            DataManager.schedule.classes.Add(new Class(txtClassName.Text, days, starts, ends));
 
             Close();
-        }
-
-        public void Validate() {
-            if (txtClassName.Text != "") {
-                btnAdd.IsEnabled = true;
-            }
-        }
-
-        public void UnValidate() {
-            btnAdd.IsEnabled = false;
         }
     }
 }

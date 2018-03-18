@@ -14,27 +14,20 @@
                 <!-- Check boxes -->
                 <WrapPanel Orientation="Horizontal" >
 
-                    <CheckBox Name="Sunday" Content="Sunday" Margin="5" 
-                              LostFocus="ContentChanged" GotFocus="ContentChanged" 
-                              Checked="ContentChanged"  />
-                    <CheckBox Name="Monday" Content="Monday" Margin="5" 
-                              LostFocus="ContentChanged" GotFocus="ContentChanged" 
-                              Checked="ContentChanged" Unchecked="ContentChanged"/>
-                    <CheckBox Name="Tuesday" Content="Tuesday" Margin="5" 
-                              LostFocus="ContentChanged" GotFocus="ContentChanged" 
-                              Checked="ContentChanged" Unchecked="ContentChanged"/>
-                    <CheckBox Name="Wednesday" Content="Wednesday" Margin="5" 
-                              LostFocus="ContentChanged" GotFocus="ContentChanged" 
-                              Checked="ContentChanged" Unchecked="ContentChanged"/>
-                    <CheckBox Name="Thursday" Content="Thursday" Margin="5" 
-                              LostFocus="ContentChanged" GotFocus="ContentChanged" 
-                              Checked="ContentChanged" Unchecked="ContentChanged"/>
-                    <CheckBox Name="Friday" Content="Friday" Margin="5" 
-                              LostFocus="ContentChanged" GotFocus="ContentChanged" 
-                              Checked="ContentChanged" Unchecked="ContentChanged"/>
-                    <CheckBox Name="Saturday" Content="Saturday" Margin="5" 
-                              LostFocus="ContentChanged" GotFocus="ContentChanged" 
-                              Checked="ContentChanged" Unchecked="ContentChanged"/>
+                    <CheckBox Name="Sunday" Content="Sunday" Margin="5"
+                              Checked="Day_Checked" Unchecked="Day_Checked"/>
+                    <CheckBox Name="Monday" Content="Monday" Margin="5"
+                              Checked="Day_Checked" Unchecked="Day_Checked"/>
+                    <CheckBox Name="Tuesday" Content="Tuesday" Margin="5"
+                              Checked="Day_Checked" Unchecked="Day_Checked"/>
+                    <CheckBox Name="Wednesday" Content="Wednesday" Margin="5"
+                              Checked="Day_Checked" Unchecked="Day_Checked"/>
+                    <CheckBox Name="Thursday" Content="Thursday" Margin="5"
+                              Checked="Day_Checked" Unchecked="Day_Checked"/>
+                    <CheckBox Name="Friday" Content="Friday" Margin="5"
+                              Checked="Day_Checked" Unchecked="Day_Checked"/>
+                    <CheckBox Name="Saturday" Content="Saturday" Margin="5"
+                              Checked="Day_Checked" Unchecked="Day_Checked"/>
 
                 </WrapPanel>
 

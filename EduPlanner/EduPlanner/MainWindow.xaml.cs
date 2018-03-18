@@ -41,32 +41,36 @@ namespace EduPlanner {
         }
 
         public void UpdateAgendaDays() {
-            for (int i = 0; i < DataManager.DAYCOUNT; i++) {
-                if (schedule.days[i].classes.Count > 0) {
-                    DayCard card = new DayCard(schedule.days[0]);
-                    AgendaView.Children.Add(card);
+            AgendaView.Children.Clear();
+
+            for (int day = 0; day < DataManager.DAYCOUNT; day++) {
+                for (int @class = 0; @class < schedule.classes.Count; @class++) {
+                    for (int classDay = 0; classDay < schedule.classes[@class].Days.Count; classDay++) {
+
+                        //The class matches the current day
+                        if ((int)schedule.classes[@class].Days[classDay] == day) {
+                            DayCard dayCard = null;
+
+
+                            //The class card hasn't been created
+                            if (!schedule.days[day].created) {
+                                dayCard = new DayCard(schedule.days[day]);
+                                AgendaView.Children.Add(dayCard);
+                                schedule.days[day].created = true;
+                            } else {
+                                object obj = AgendaView.Children[day];
+                            }
+
+                            ClassCard classCard = new ClassCard(schedule.classes[@class]);
+                            StackPanel dayPanel = dayCard.FindName("DaysPanel") as StackPanel;
+                            dayPanel.Children.Add(classCard);
+                        }
+                    }
                 }
             }
         }
 
         public void UpdateAgendaClasses() {
-
-            for (int i = 0; i < AgendaView.Children.Count; i++) {
-
-                DayCard child = AgendaView.Children[i] as DayCard;
-                StackPanel dayPanel = child.FindName("DaysPanel") as StackPanel;
-                for (int j = 0; j < dayPanel.Children.Count; j++) {
-                    dayPanel.Children.RemoveAt(j);
-                }
-
-                foreach (Class _class in child.Day.classes) {
-                    //if (_class.Days[i]) {
-                    //    ClassCard classCard = new ClassCard(_class);
-                    //    dayPanel.Children.Add(classCard);
-                    //}
-                }
-            }
-
             UpdateAgendaDays();
         }
 

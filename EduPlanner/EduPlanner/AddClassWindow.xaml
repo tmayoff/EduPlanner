@@ -40,7 +40,7 @@
 
             <Button Content="Add"
                     Name="btnAdd"
-                IsEnabled="False"
+                IsEnabled="True"
                 Margin="20" Click="Add_Click"/>
         </StackPanel>
     </Grid>

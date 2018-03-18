@@ -20,11 +20,15 @@ namespace EduPlanner {
     /// </summary>
     public partial class DayTime : UserControl {
 
+        public bool[] days;
+
         AddClassWindow classWindow;
 
         public DayTime(AddClassWindow window) {
             InitializeComponent();
             classWindow = window;
+
+            days = new bool[DataManager.DAYCOUNT];
         }
 
         private void Remove_Click(object sender, RoutedEventArgs e) {
@@ -34,14 +38,10 @@ namespace EduPlanner {
             Tuesday.Checked += this.OnContentChanged;
         }
 
-        private void ContentChanged(object sender, RoutedEventArgs e) {
+        private void Day_Checked(object sender, RoutedEventArgs e) {
             CheckBox checkBox = sender as CheckBox;
-            if (checkBox != null) {
-                if (checkBox.IsChecked == true) {
-                    classWindow.Validate();
-                } else
-                    classWindow.UnValidate();
-            }
+            Enum.TryParse(checkBox.Name, out DayOfWeek day);
+            days[(int)day] = checkBox.IsChecked == true;
         }
     }
 }
