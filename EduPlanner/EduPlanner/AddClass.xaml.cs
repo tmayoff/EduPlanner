@@ -10,25 +10,15 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace EduPlanner {
     /// <summary>
-    /// Interaction logic for DayCard.xaml
+    /// Interaction logic for AddClass.xaml
     /// </summary>
-    public partial class DayCard : UserControl {
-
-        public string DayName { get { return Day.ToString(); } }
-
-        public Day Day { get; set; }
-
-        public DayCard(Day _day) {
+    public partial class AddClass : Window {
+        public AddClass() {
             InitializeComponent();
-
-            DataContext = this;
-
-            Day = _day;
         }
     }
 }

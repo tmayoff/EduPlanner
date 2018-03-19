@@ -10,26 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace EduPlanner {
     /// <summary>
-    /// Interaction logic for ClassesView.xaml
+    /// Interaction logic for Class.xaml
     /// </summary>
-    public partial class ClassesView : Window {
-        public ClassesView() {
+    public partial class Class : UserControl {
+        public Class() {
             InitializeComponent();
-
-            InitializeView();
-        }
-
-        private void InitializeView() {
-            Schedule schedule = DataManager.schedule;
-
-            foreach (Class _class in schedule.classes) {
-                ClassCard classCard = new ClassCard(_class);
-                MainView.Children.Add(classCard);
-            }
         }
     }
 }

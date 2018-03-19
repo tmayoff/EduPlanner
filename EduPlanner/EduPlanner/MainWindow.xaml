@@ -5,15 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EduPlanner"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
-        TextOptions.TextRenderingMode="Auto"
+        TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="EduPlanner" Height="600" Width="800">
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -21,28 +22,29 @@
         </Grid.RowDefinitions>
 
         <!-- Top Menu -->
-        <materialDesign:ColorZone Mode="PrimaryDark" Padding="15">
+        <materialDesign:ColorZone Mode="PrimaryMid" 
+                                  Grid.Row="0"
+                                  Padding="5">
             <DockPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="View All Classes" Click="ViewAllClasses_Click"/>
-                </StackPanel>
+                <Grid DockPanel.Dock="Top">
+                    <materialDesign:PopupBox HorizontalAlignment="Right"/>
+                </Grid>
             </DockPanel>
         </materialDesign:ColorZone>
 
-        <!-- Agenda View -->
-        <ScrollViewer Grid.Row="1" Margin="15" VerticalScrollBarVisibility="Auto">
-            <StackPanel Name="AgendaView">
+        <!-- Agenda View-->
+        <StackPanel Name="AgendaView" 
+                    Grid.Row="1"
+                    Margin="20"/>
 
-            </StackPanel>
-        </ScrollViewer>
-
-        <!-- Add Button -->
-        <Button Grid.Row="1" 
+        <!-- Plus Button -->
+        <Button Name="btnAddClass"
                 Margin="25"
-                VerticalAlignment="Bottom" 
-                HorizontalAlignment="Right"
+                Grid.Row="1"
                 Style="{DynamicResource MaterialDesignFloatingActionButton}"
-                Click="AddClass_Click">
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                Click="BtnAddClass_Click">
             <materialDesign:PackIcon Kind="Plus"/>
         </Button>
     </Grid>
