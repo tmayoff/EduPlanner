@@ -17,8 +17,8 @@ namespace EduPlanner {
     /// <summary>
     /// Interaction logic for Class.xaml
     /// </summary>
-    public partial class Class : UserControl {
-        public Class() {
+    public partial class ClassCard : UserControl {
+        public ClassCard() {
             InitializeComponent();
         }
     }

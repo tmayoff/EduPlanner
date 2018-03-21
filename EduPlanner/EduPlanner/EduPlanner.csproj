@@ -63,12 +63,21 @@
     <Compile Include="AddClass.xaml.cs">
       <DependentUpon>AddClass.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Class.cs" />
+    <Compile Include="ClassTime.xaml.cs">
+      <DependentUpon>ClassTime.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Day.cs" />
     <Compile Include="Schedule.cs" />
     <Page Include="AddClass.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Class.xaml">
+    <Page Include="ClassCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClassTime.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -80,8 +89,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Class.xaml.cs">
-      <DependentUpon>Class.xaml</DependentUpon>
+    <Compile Include="ClassCard.xaml.cs">
+      <DependentUpon>ClassCard.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataManager.cs" />
     <Compile Include="MainWindow.xaml.cs">

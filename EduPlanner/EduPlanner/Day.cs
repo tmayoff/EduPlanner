@@ -5,10 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace EduPlanner {
-    public static class DataManager {
+    public class Day {
+        public List<Class> classes;
 
-        public const int DAYCOUNT = 7;
+        public bool hasClass = false;
 
-        public static Schedule schedule;
+        public Day() {
+
+        }
     }
 }

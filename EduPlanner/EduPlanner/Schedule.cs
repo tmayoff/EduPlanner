@@ -6,5 +6,11 @@ using System.Threading.Tasks;
 
 namespace EduPlanner {
     public class Schedule {
+
+        public List<Day> days;
+
+        public Schedule() {
+
+        }
     }
 }

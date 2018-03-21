@@ -36,6 +36,10 @@
         <StackPanel Name="AgendaView" 
                     Grid.Row="1"
                     Margin="20"/>
+        <!--<DataGrid Name="AgendaView"
+                  Grid.Row="1"
+                  Margin="20"/>-->
+
 
         <!-- Plus Button -->
         <Button Name="btnAddClass"
