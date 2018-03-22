@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using MaterialDesignThemes.Wpf;
 
 namespace EduPlanner {
-    [Serializable]
     public class Class {
 
         public string className;

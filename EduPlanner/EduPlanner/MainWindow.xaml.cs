@@ -20,15 +20,12 @@ namespace EduPlanner {
     public partial class MainWindow : Window {
 
         Schedule schedule;
-        Data data;
 
         public MainWindow() {
             InitializeComponent();
 
-            data = new Data();
-            data.Load();
-
-            schedule = DataManager.schedule;
+            schedule = new Schedule();
+            DataManager.schedule = schedule;
         }
 
         private void UpdateAgendaView() {
@@ -54,15 +51,6 @@ namespace EduPlanner {
             AddClass addClass = new AddClass();
             addClass.Closed += new EventHandler(WindowAddClass_Closed);
             addClass.ShowDialog();
-        }
-
-        private void BtnSave(object sender, RoutedEventArgs e) {
-            data.Save();
-        }
-
-        private void BtnLoad(object sender, RoutedEventArgs e) {
-            data.Load();
-            UpdateAgendaView();
         }
 
         private void WindowAddClass_Closed(object sender, EventArgs e) {

@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace EduPlanner {
-    [Serializable]
     public class Day {
         public List<Class> classes;
 
