@@ -19,16 +19,15 @@ namespace EduPlanner {
     /// </summary>
     public partial class AddClass : Window {
 
-        List<ClassTimeControl> classTimes = new List<ClassTimeControl>();
+        List<ClassTime> classTimes = new List<ClassTime>();
 
         public AddClass() {
             InitializeComponent();
         }
 
         private void AddTime_Click(object sender, RoutedEventArgs e) {
-            ClassTime classTime = new ClassTime();
-            ClassTimeControl time = new ClassTimeControl(classTime);
-            time.ClassTimeChanged += new ClassTimeControl.ClassTimeDelegate(Handler);
+            ClassTime time = new ClassTime();
+            time.ClassTimeChanged += new ClassTime.ClassTimeDelegate(Handler);
             classTimes.Add(time);
             spClassTimesViewer.Children.Add(time);
         }
@@ -36,7 +35,7 @@ namespace EduPlanner {
         public void AddClass_Click(object sender, RoutedEventArgs e) {
             //Loop through class times
             for (int i = 0; i < spClassTimesViewer.Children.Count; i++) {
-                ClassTimeControl time = spClassTimesViewer.Children[i] as ClassTimeControl;
+                ClassTime time = spClassTimesViewer.Children[i] as ClassTime;
 
                 WrapPanel panel = time.FindName("wpDays") as WrapPanel;
                 Grid timeGrid = time.FindName("TimeGrid") as Grid;
@@ -55,30 +54,17 @@ namespace EduPlanner {
                             DateTime? startTime = (timeGrid.Children[0] as TimePicker).SelectedTime;
                             DateTime? endTime = (timeGrid.Children[1] as TimePicker).SelectedTime;
 
-                            Class newClass = CheckClassExists(txtClassName.Name);
-                            if (newClass == null) {
-                                newClass = new Class(txtClassName.Text, startTime, endTime, new List<ClassTime>());
-                            }
+                            Class newClass = new Class(txtClassName.Text, startTime, endTime);
 
-                            newClass.times.Add(time.classTime);
                             DataManager.schedule.days[(int)day].classes.Add(newClass);
                             DataManager.schedule.days[(int)day].hasClass = true;
-                            DataManager.schedule.classes.Add(newClass);
+
                         }
                     }
                 }
             }
 
             Close();
-        }
-
-        private Class CheckClassExists(string name) {
-            for (int i = 0; i < DataManager.schedule.classes.Count; i++) {
-                if (DataManager.schedule.classes[i].className == name)
-                    return DataManager.schedule.classes[i];
-            }
-
-            return null;
         }
 
         private void ClassName_TextChanged(object sender, TextChangedEventArgs e) {
@@ -91,7 +77,7 @@ namespace EduPlanner {
 
             //Loop through class times
             for (int i = 0; i < spClassTimesViewer.Children.Count; i++) {
-                ClassTimeControl time = spClassTimesViewer.Children[i] as ClassTimeControl;
+                ClassTime time = spClassTimesViewer.Children[i] as ClassTime;
 
                 WrapPanel panel = time.FindName("wpDays") as WrapPanel;
                 Grid timeGrid = time.FindName("TimeGrid") as Grid;

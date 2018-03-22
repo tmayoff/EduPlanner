@@ -26,6 +26,11 @@
                                   Grid.Row="0"
                                   Padding="5">
             <DockPanel>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                    <Button Content="Save" Click="BtnSave"/>
+                    <Button Content="Load" Click="BtnLoad"/>
+                </StackPanel>
+
                 <Grid DockPanel.Dock="Top">
                     <materialDesign:PopupBox HorizontalAlignment="Right"/>
                 </Grid>

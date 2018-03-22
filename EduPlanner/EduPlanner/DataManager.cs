@@ -19,11 +19,7 @@ namespace EduPlanner {
 
         public int saveTime = 1000;
 
-        public Data() {
-            //timer.Tick += new EventHandler(Save);
-            //timer.Interval = new TimeSpan(0, 0, 0, 0, saveTime);
-            //Save(this, EventArgs.Empty);
-        }
+        public Data() { }
 
         public void Save() {
             WriteToBinaryFile("./SaveFile", DataManager.schedule, false);
@@ -32,7 +28,8 @@ namespace EduPlanner {
         public void Load() {
             if (DataManager.schedule == null)
                 DataManager.schedule = new Schedule();
-            //DataManager.schedule = ReadFromBinaryFile<Schedule>("./SaveFile");
+            if (File.Exists("./SaveFile"))
+                DataManager.schedule = ReadFromBinaryFile<Schedule>("./SaveFile");
         }
 
         /// <summary>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MaterialDesignThemes.Wpf;
 
 namespace EduPlanner {
+    [Serializable]
     public class Class {
 
         public string className;
@@ -13,11 +14,7 @@ namespace EduPlanner {
         public DateTime? startTime;
         public DateTime? endTime;
 
-        public List<ClassTime> times;
-
-        public Class(string className, DateTime? startTime, DateTime? endTime, List<ClassTime> times) {
-            this.times = times;
-
+        public Class(string className, DateTime? startTime, DateTime? endTime) {
             this.className = className;
             this.startTime = startTime;
             this.endTime = endTime;
