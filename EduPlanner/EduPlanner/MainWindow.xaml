@@ -13,7 +13,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="800" Width="1200">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -33,13 +33,10 @@
         </materialDesign:ColorZone>
 
         <!-- Agenda View-->
-        <StackPanel Name="AgendaView" 
-                    Grid.Row="1"
-                    Margin="20"/>
-        <!--<DataGrid Name="AgendaView"
-                  Grid.Row="1"
-                  Margin="20"/>-->
-
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Name="AgendaView" 
+                        Margin="20"/>
+        </ScrollViewer>
 
         <!-- Plus Button -->
         <Button Name="btnAddClass"

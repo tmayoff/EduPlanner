@@ -68,6 +68,9 @@
       <DependentUpon>ClassTime.xaml</DependentUpon>
     </Compile>
     <Compile Include="Day.cs" />
+    <Compile Include="DayCard.xaml.cs">
+      <DependentUpon>DayCard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Schedule.cs" />
     <Page Include="AddClass.xaml">
       <SubType>Designer</SubType>
@@ -78,6 +81,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ClassTime.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DayCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

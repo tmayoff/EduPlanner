@@ -20,7 +20,6 @@ namespace EduPlanner {
     public partial class AddClass : Window {
 
         List<ClassTime> classTimes = new List<ClassTime>();
-        bool[] days = new bool[DataManager.DAYCOUNT];
 
         public AddClass() {
             InitializeComponent();
@@ -34,12 +33,38 @@ namespace EduPlanner {
         }
 
         public void AddClass_Click(object sender, RoutedEventArgs e) {
-            for (int i = 0; i < days.Length; i++) {
-                if (days[i]) {
-                    //Class newClass = new Class();
-                    //DataManager.schedule.days[i].classes.Add(newClass);
+            //Loop through class times
+            for (int i = 0; i < spClassTimesViewer.Children.Count; i++) {
+                ClassTime time = spClassTimesViewer.Children[i] as ClassTime;
+
+                WrapPanel panel = time.FindName("wpDays") as WrapPanel;
+                Grid timeGrid = time.FindName("TimeGrid") as Grid;
+
+                //Loop through checkboxes (days)
+                for (int j = 0; j < panel.Children.Count; j++) {
+
+                    //Check the current checkbox
+                    if (panel.Children[j] is CheckBox) {
+                        CheckBox check = panel.Children[j] as CheckBox;
+                        if (check.IsChecked == true) {
+
+                            //Get day as an enum
+                            Enum.TryParse(check.Name, out DayOfWeek day);
+
+                            DateTime? startTime = (timeGrid.Children[0] as TimePicker).SelectedTime;
+                            DateTime? endTime = (timeGrid.Children[1] as TimePicker).SelectedTime;
+
+                            Class newClass = new Class(txtClassName.Text, startTime, endTime);
+
+                            DataManager.schedule.days[(int)day].classes.Add(newClass);
+                            DataManager.schedule.days[(int)day].hasClass = true;
+
+                        }
+                    }
                 }
             }
+
+            Close();
         }
 
         private void ClassName_TextChanged(object sender, TextChangedEventArgs e) {
@@ -64,8 +89,6 @@ namespace EduPlanner {
                         CheckBox check = panel.Children[j] as CheckBox;
                         if (check.IsChecked == true)
                             dayChecked = true;
-
-                        days[j] = check.IsChecked == true;
                     }
                 }
 

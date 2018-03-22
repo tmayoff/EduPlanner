@@ -15,21 +15,18 @@ using System.Windows.Shapes;
 
 namespace EduPlanner {
     /// <summary>
-    /// Interaction logic for Class.xaml
+    /// Interaction logic for DayCard.xaml
     /// </summary>
-    public partial class ClassCard : UserControl {
+    public partial class DayCard : UserControl {
 
-        public Class _class;
+        public Day day;
 
-        public ClassCard(Class _class) {
+        public DayCard(Day day) {
             InitializeComponent();
 
-            this._class = _class;
+            this.day = day;
 
-            txtClassName.Text = "Class: " + _class.className;
-
-            startTime.Text = "Start Time: " + _class.startTime.Value.ToString("hh:mm:tt");
-            endTime.Text = "End Time: " + _class.endTime.Value.ToString("hh:mm:tt");
+            txtDayName.Text = day.day.ToString();
         }
     }
 }

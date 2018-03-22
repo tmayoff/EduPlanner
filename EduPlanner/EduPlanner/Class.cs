@@ -10,10 +10,10 @@ namespace EduPlanner {
 
         public string className;
 
-        public DateTime startTime;
-        public DateTime endTime;
+        public DateTime? startTime;
+        public DateTime? endTime;
 
-        public Class(string className, DateTime startTime, DateTime endTime) {
+        public Class(string className, DateTime? startTime, DateTime? endTime) {
             this.className = className;
             this.startTime = startTime;
             this.endTime = endTime;

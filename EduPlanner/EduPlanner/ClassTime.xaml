@@ -15,25 +15,25 @@
             <StackPanel>
 
                 <WrapPanel Name="wpDays" Orientation="Horizontal" Margin="20">
-                    <CheckBox Content="Sunday" 
+                    <CheckBox Name="Sunday" Content="Sunday" 
                               Margin="10"
                               Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
-                    <CheckBox Content="Monday" 
+                    <CheckBox Name="Monday" Content="Monday" 
                               Margin="10"
                               Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
-                    <CheckBox Content="Tuesday" 
+                    <CheckBox Name="Tuesday" Content="Tuesday" 
                               Margin="10"
                               Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
-                    <CheckBox Content="Wednesday" 
+                    <CheckBox Name="Wednesday" Content="Wednesday" 
                               Margin="10"
                               Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
-                    <CheckBox Content="Thursday"
+                    <CheckBox Name="Thursday" Content="Thursday"
                               Margin="10"
                               Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
-                    <CheckBox Content="Friday"
+                    <CheckBox Name="Friday" Content="Friday"
                               Margin="10"
                               Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
-                    <CheckBox Content="Saturday" 
+                    <CheckBox Name="Saturday" Content="Saturday" 
                               Margin="10"
                               Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
                 </WrapPanel>
@@ -46,11 +46,16 @@
 
                     <md:TimePicker Name="tpStartTime"
                                    Margin="10 0 10 0"
-                                   Grid.Column="0"/>
+                                   Grid.Column="0"
+                                   Is24Hours="False"
+                                   GotFocus="TimePicker_Changed" LostFocus="TimePicker_Changed"
+                                   />
                     <md:TimePicker Name="tpEndTime"
                                    Margin="10 0 10 15"
                                    Grid.Column="1" 
-                                   GotFocus="TimePicker_Changed" LostFocus="TimePicker_Changed">
+                                   Is24Hours="False"
+                                   GotFocus="TimePicker_Changed" LostFocus="TimePicker_Changed"
+                                   >
                     </md:TimePicker>
 
                 </Grid>

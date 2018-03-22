@@ -8,10 +8,17 @@ namespace EduPlanner {
     public class Day {
         public List<Class> classes;
 
+        public DayOfWeek day;
+
         public bool hasClass = false;
 
-        public Day() {
+        public Day(DayOfWeek day) {
+            classes = new List<Class>();
+            this.day = day;
+        }
 
+        public void Order() {
+            classes = classes.OrderBy(c => c.startTime.Value).ToList();
         }
     }
 }

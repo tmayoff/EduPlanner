@@ -16,18 +16,17 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="50"/>
-                    <ColumnDefinition MinWidth="125" Width="auto"/>
+                    <ColumnDefinition MinWidth="200" Width="auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Name="txtClassName" 
-                           Text="Class" 
+                <TextBlock Name="txtClassName"
+                           Text="Class"
                            Grid.Row="0" Grid.ColumnSpan="3"
-                           FontWeight="Bold" 
+                           FontWeight="Bold"
                            FontSize="24"/>
 
-                <TextBlock Name="startTime" 
-                           Text="Starts at: "
+                <TextBlock Name="startTime" Text="Starts at: "
                            Grid.Row="1" Grid.Column="1"
                            FontSize="18"/>
 

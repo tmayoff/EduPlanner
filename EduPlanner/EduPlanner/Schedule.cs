@@ -10,7 +10,11 @@ namespace EduPlanner {
         public List<Day> days;
 
         public Schedule() {
+            days = new List<Day>();
 
+            for (int i = 0; i < DataManager.DAYCOUNT; i++) {
+                days.Add(new Day((DayOfWeek)i));
+            }
         }
     }
 }
