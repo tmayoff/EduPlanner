@@ -8,13 +8,7 @@ namespace EduPlanner {
     [Serializable]
     public class ClassTime {
 
-        DateTime startTime;
-        DateTime endTime;
-
-        public ClassTime(ClassTimeControl classTimeControl) {
-
-            startTime = classTimeControl.tpStartTime.SelectedTime.Value;
-            endTime = classTimeControl.tpEndTime.SelectedTime.Value;
-        }
+        public DateTime startTime = new DateTime();
+        public DateTime endTime = new DateTime();
     }
 }

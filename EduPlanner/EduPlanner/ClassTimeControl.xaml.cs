@@ -25,8 +25,9 @@ namespace EduPlanner {
 
         public event ClassTimeDelegate ClassTimeChanged;
 
-        public ClassTimeControl() {
+        public ClassTimeControl(ClassTime classTime) {
             InitializeComponent();
+            this.classTime = classTime;
         }
 
         private void RemoveTime_Click(object sender, RoutedEventArgs e) {
@@ -40,6 +41,13 @@ namespace EduPlanner {
 
         private void TimePicker_Changed(object sender, RoutedEventArgs e) {
             ClassTimeChanged?.Invoke();
+
+            if (tpStartTime.SelectedTime != null)
+                classTime.startTime = tpStartTime.SelectedTime.Value;
+
+            if (tpEndTime.SelectedTime != null) {
+                classTime.endTime = tpEndTime.SelectedTime.Value;
+            }
         }
     }
 }

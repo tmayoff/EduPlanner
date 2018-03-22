@@ -17,12 +17,21 @@ namespace EduPlanner {
     /// <summary>
     /// Interaction logic for AddClass.xaml
     /// </summary>
-    public partial class AddClass : Window {
+    public partial class EditClass : Window {
 
         List<ClassTimeControl> classTimes = new List<ClassTimeControl>();
 
-        public AddClass() {
+        Class _class;
+
+        public EditClass(Class _class) {
             InitializeComponent();
+
+            this._class = _class;
+            txtClassName.Text = _class.className;
+
+            foreach (ClassTime time in _class.times) {
+
+            }
         }
 
         private void AddTime_Click(object sender, RoutedEventArgs e) {

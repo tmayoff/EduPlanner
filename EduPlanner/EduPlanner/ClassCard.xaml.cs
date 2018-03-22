@@ -33,8 +33,8 @@ namespace EduPlanner {
         }
 
         private void EditClass_Click(object sender, RoutedEventArgs e) {
-            //EditClass editClass = new EditClass(_class);
-            //editClass.ShowDialog();
+            EditClass editClass = new EditClass(_class);
+            editClass.ShowDialog();
         }
     }
 }
