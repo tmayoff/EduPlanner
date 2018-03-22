@@ -14,7 +14,11 @@ namespace EduPlanner {
         public DateTime? startTime;
         public DateTime? endTime;
 
-        public Class(string className, DateTime? startTime, DateTime? endTime) {
+        public List<ClassTime> times;
+
+        public Class(string className, DateTime? startTime, DateTime? endTime, List<ClassTime> times) {
+            this.times = times;
+
             this.className = className;
             this.startTime = startTime;
             this.endTime = endTime;

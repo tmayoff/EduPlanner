@@ -32,7 +32,7 @@ namespace EduPlanner {
         public void Load() {
             if (DataManager.schedule == null)
                 DataManager.schedule = new Schedule();
-            DataManager.schedule = ReadFromBinaryFile<Schedule>("./SaveFile");
+            //DataManager.schedule = ReadFromBinaryFile<Schedule>("./SaveFile");
         }
 
         /// <summary>

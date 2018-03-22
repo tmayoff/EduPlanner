@@ -31,5 +31,10 @@ namespace EduPlanner {
             startTime.Text = "Start Time: " + _class.startTime.Value.ToString("hh:mm:tt");
             endTime.Text = "End Time: " + _class.endTime.Value.ToString("hh:mm:tt");
         }
+
+        private void EditClass_Click(object sender, RoutedEventArgs e) {
+            //EditClass editClass = new EditClass(_class);
+            //editClass.ShowDialog();
+        }
     }
 }

@@ -19,15 +19,16 @@ namespace EduPlanner {
     /// </summary>
     public partial class AddClass : Window {
 
-        List<ClassTime> classTimes = new List<ClassTime>();
+        List<ClassTimeControl> classTimes = new List<ClassTimeControl>();
 
         public AddClass() {
             InitializeComponent();
         }
 
         private void AddTime_Click(object sender, RoutedEventArgs e) {
-            ClassTime time = new ClassTime();
-            time.ClassTimeChanged += new ClassTime.ClassTimeDelegate(Handler);
+            ClassTimeControl time = new ClassTimeControl();
+            ClassTime classTime = new ClassTime(time);
+            time.ClassTimeChanged += new ClassTimeControl.ClassTimeDelegate(Handler);
             classTimes.Add(time);
             spClassTimesViewer.Children.Add(time);
         }
@@ -35,7 +36,7 @@ namespace EduPlanner {
         public void AddClass_Click(object sender, RoutedEventArgs e) {
             //Loop through class times
             for (int i = 0; i < spClassTimesViewer.Children.Count; i++) {
-                ClassTime time = spClassTimesViewer.Children[i] as ClassTime;
+                ClassTimeControl time = spClassTimesViewer.Children[i] as ClassTimeControl;
 
                 WrapPanel panel = time.FindName("wpDays") as WrapPanel;
                 Grid timeGrid = time.FindName("TimeGrid") as Grid;
@@ -55,6 +56,7 @@ namespace EduPlanner {
                             DateTime? endTime = (timeGrid.Children[1] as TimePicker).SelectedTime;
 
                             Class newClass = new Class(txtClassName.Text, startTime, endTime);
+                            newClass.times.Add(time.classTime);
 
                             DataManager.schedule.days[(int)day].classes.Add(newClass);
                             DataManager.schedule.days[(int)day].hasClass = true;
@@ -77,7 +79,7 @@ namespace EduPlanner {
 
             //Loop through class times
             for (int i = 0; i < spClassTimesViewer.Children.Count; i++) {
-                ClassTime time = spClassTimesViewer.Children[i] as ClassTime;
+                ClassTimeControl time = spClassTimesViewer.Children[i] as ClassTimeControl;
 
                 WrapPanel panel = time.FindName("wpDays") as WrapPanel;
                 Grid timeGrid = time.FindName("TimeGrid") as Grid;

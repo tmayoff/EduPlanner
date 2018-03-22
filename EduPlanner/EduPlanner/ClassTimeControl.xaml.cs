@@ -17,13 +17,15 @@ namespace EduPlanner {
     /// <summary>
     /// Interaction logic for ClassTime.xaml
     /// </summary>
-    public partial class ClassTime : UserControl {
+    public partial class ClassTimeControl : UserControl {
+
+        public ClassTime classTime;
 
         public delegate void ClassTimeDelegate();
 
         public event ClassTimeDelegate ClassTimeChanged;
 
-        public ClassTime() {
+        public ClassTimeControl() {
             InitializeComponent();
         }
 

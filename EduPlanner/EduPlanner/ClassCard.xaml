@@ -38,7 +38,7 @@
                 <md:PopupBox Name="popClassDetails" 
                              Grid.RowSpan="2" Grid.Column="3"
                              HorizontalAlignment="Right">
-
+                    <Button Content="Edit Class" Click="EditClass_Click"/>
                 </md:PopupBox>
             </Grid>
         </md:Card>
