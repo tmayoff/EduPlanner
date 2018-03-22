@@ -11,13 +11,23 @@ namespace EduPlanner {
 
         public string className;
 
-        public DateTime? startTime;
-        public DateTime? endTime;
+        public Dictionary<DayOfWeek, List<DateTime?>> classTimes;
 
-        public Class(string className, DateTime? startTime, DateTime? endTime) {
+        public Class(string className) {
+            classTimes = new Dictionary<DayOfWeek, List<DateTime?>>();
+
+            for (int i = 0; i < DataManager.DAYCOUNT; i++) {
+                List<DateTime?> times = new List<DateTime?>() { null, null };
+                classTimes.Add((DayOfWeek)i, times);
+
+            }
+
             this.className = className;
-            this.startTime = startTime;
-            this.endTime = endTime;
+        }
+
+        public void SetTime(DayOfWeek day, DateTime start, DateTime end) {
+            classTimes[day][0] = start;
+            classTimes[day][1] = end;
         }
     }
 }

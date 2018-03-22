@@ -29,6 +29,7 @@ namespace EduPlanner {
             data.Load();
 
             schedule = DataManager.schedule;
+            UpdateAgendaView();
         }
 
         private void UpdateAgendaView() {
@@ -43,7 +44,7 @@ namespace EduPlanner {
                     AgendaView.Children.Add(dayCard);
 
                     for (int j = 0; j < schedule.days[i].classes.Count; j++) {
-                        ClassCard card = new ClassCard(schedule.days[i].classes[j]);
+                        ClassCard card = new ClassCard(schedule.days[i].classes[j], schedule.days[i]);
                         dayCardPanel.Children.Add(card);
                     }
                 }

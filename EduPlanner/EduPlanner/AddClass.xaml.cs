@@ -25,6 +25,8 @@ namespace EduPlanner {
             InitializeComponent();
         }
 
+        #region Event Handlers
+
         private void AddTime_Click(object sender, RoutedEventArgs e) {
             ClassTime time = new ClassTime();
             time.ClassTimeChanged += new ClassTime.ClassTimeDelegate(Handler);
@@ -54,11 +56,20 @@ namespace EduPlanner {
                             DateTime? startTime = (timeGrid.Children[0] as TimePicker).SelectedTime;
                             DateTime? endTime = (timeGrid.Children[1] as TimePicker).SelectedTime;
 
-                            Class newClass = new Class(txtClassName.Text, startTime, endTime);
+                            //Check if this class already exists
+                            Class newClass = CheckClassExistence(txtClassName.Text);
+                            if (newClass == null) {
+                                //Creates a new one if not
+                                newClass = new Class(txtClassName.Text);
+                                DataManager.schedule.classes.Add(newClass);
+                            }
+
+                            //Changes the old one
+                            newClass.classTimes[day][0] = startTime;
+                            newClass.classTimes[day][1] = endTime;
 
                             DataManager.schedule.days[(int)day].classes.Add(newClass);
                             DataManager.schedule.days[(int)day].hasClass = true;
-
                         }
                     }
                 }
@@ -69,6 +80,19 @@ namespace EduPlanner {
 
         private void ClassName_TextChanged(object sender, TextChangedEventArgs e) {
             Handler();
+        }
+
+        #endregion
+
+        private Class CheckClassExistence(string name) {
+            if (DataManager.schedule.classes != null) {
+                for (int i = 0; i < DataManager.schedule.classes.Count; i++) {
+                    if (DataManager.schedule.classes[i].className == name)
+                        return DataManager.schedule.classes[i];
+                }
+            }
+
+            return null;
         }
 
         private void Handler() {
