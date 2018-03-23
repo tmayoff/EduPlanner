@@ -19,7 +19,7 @@ namespace EduPlanner {
         }
 
         public void Order() {
-            //classes = classes.OrderBy(c => c.startTime.Value).ToList();
+            classes = classes.OrderBy(c => c.classTimes[day][0].Value).ToList();
         }
     }
 }
