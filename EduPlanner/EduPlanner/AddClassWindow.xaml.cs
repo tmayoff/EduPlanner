@@ -17,11 +17,11 @@ namespace EduPlanner {
     /// <summary>
     /// Interaction logic for AddClass.xaml
     /// </summary>
-    public partial class AddClass : Window {
+    public partial class AddClassWindow : Window {
 
         List<ClassTime> classTimes = new List<ClassTime>();
 
-        public AddClass() {
+        public AddClassWindow() {
             InitializeComponent();
         }
 

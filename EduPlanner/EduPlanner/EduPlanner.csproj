@@ -63,10 +63,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AddClass.xaml.cs">
-      <DependentUpon>AddClass.xaml</DependentUpon>
+    <Compile Include="AddClassWindow.xaml.cs">
+      <DependentUpon>AddClassWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AddHomeworkWindow.xaml.cs">
+      <DependentUpon>AddHomeworkWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Class.cs" />
+    <Compile Include="ClassHomeworkCard.xaml.cs">
+      <DependentUpon>ClassHomeworkCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ClassList.xaml.cs">
+      <DependentUpon>ClassList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ClassTime.xaml.cs">
       <DependentUpon>ClassTime.xaml</DependentUpon>
     </Compile>
@@ -74,15 +83,28 @@
     <Compile Include="DayCard.xaml.cs">
       <DependentUpon>DayCard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EditClass.xaml.cs">
-      <DependentUpon>EditClass.xaml</DependentUpon>
+    <Compile Include="EditClassWindow.xaml.cs">
+      <DependentUpon>EditClassWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Homework.cs" />
     <Compile Include="Schedule.cs" />
-    <Page Include="AddClass.xaml">
+    <Page Include="AddClassWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddHomeworkWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ClassCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClassHomeworkCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClassList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -94,7 +116,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="EditClass.xaml">
+    <Page Include="EditClassWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

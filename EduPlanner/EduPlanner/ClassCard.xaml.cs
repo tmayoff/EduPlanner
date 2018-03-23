@@ -34,8 +34,14 @@ namespace EduPlanner {
             endTime.Text = "End Time: " + _class.classTimes[day.day][1].Value.ToString("hh:mm:tt");
         }
 
+        private void AddHomework_Click(object sender, RoutedEventArgs e) {
+            AddHomeworkWindow window = new AddHomeworkWindow(_class, day);
+            window.Closed += DataManager.mainWindow.WindowAddHomework_Closed;
+            window.ShowDialog();
+        }
+
         private void EditClass_Click(object sender, RoutedEventArgs e) {
-            EditClass editClass = new EditClass(_class);
+            EditClassWindow editClass = new EditClassWindow(_class);
             editClass.Closed += DataManager.mainWindow.WindowAddEditClass_Closed;
             editClass.ShowDialog();
         }

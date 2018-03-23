@@ -17,13 +17,13 @@ namespace EduPlanner {
     /// <summary>
     /// Interaction logic for AddClass.xaml
     /// </summary>
-    public partial class EditClass : Window {
+    public partial class EditClassWindow : Window {
 
         List<ClassTime> classTimes = new List<ClassTime>();
 
         Class _class;
 
-        public EditClass(Class _class) {
+        public EditClassWindow(Class _class) {
             InitializeComponent();
 
             this._class = _class;

@@ -63,10 +63,19 @@ namespace EduPlanner {
             }
         }
 
-        #region Event Handlers
+        public void UpdateHomeworkView() {
+            for (int i = 0; i < DataManager.schedule.classes.Count; i++) {
+                if (DataManager.schedule.classes[i].hasHomework) {
+                    ClassHomeworkCard homeworkCard = new ClassHomeworkCard(DataManager.schedule.classes[i]);
+                    spHomeWork.Children.Add(homeworkCard);
+                }
+            }
+        }
+
+        #region Button Handlers
 
         public void Refresh(object sender, EventArgs e) {
-            DateTime currentDateTime = DateTime.Today;
+            DateTime currentDateTime = DateTime.Now;
 
             for (int i = 0; i < AgendaView.Children.Count; i++) {
 
@@ -87,9 +96,9 @@ namespace EduPlanner {
                         DateTime start = _class.classTimes[day.day][0].Value;
                         DateTime end = _class.classTimes[day.day][1].Value;
 
-                        if (currentDateTime >= start && currentDateTime <= end) {
+                        if (currentDateTime.TimeOfDay >= start.TimeOfDay && currentDateTime.TimeOfDay <= end.TimeOfDay) {
                             classCardCard.Background = Brushes.LightGreen;
-                            txtCurrentClass.Text = _class.className;
+                            txtCurrentClass.Text = "Current Class: " + _class.className;
                         } else {
                             classCardCard.Background = Brushes.White;
                             txtCurrentClass.Text = "";
@@ -100,8 +109,17 @@ namespace EduPlanner {
             }
         }
 
+        private void BtnRefreshList_Click(object sender, RoutedEventArgs e) {
+            Refresh(sender, EventArgs.Empty);
+        }
+
+        private void BtnClassList_Click(object sender, RoutedEventArgs e) {
+            ClassList classList = new ClassList();
+            classList.Show();
+        }
+
         private void BtnAddClass_Click(object sender, RoutedEventArgs e) {
-            AddClass addClass = new AddClass();
+            AddClassWindow addClass = new AddClassWindow();
             addClass.Closed += new EventHandler(WindowAddEditClass_Closed);
             addClass.ShowDialog();
         }
@@ -115,8 +133,16 @@ namespace EduPlanner {
             UpdateAgendaView();
         }
 
+        #endregion
+
+        #region Window Event Handlers
+
         public void WindowAddEditClass_Closed(object sender, EventArgs e) {
             UpdateAgendaView();
+        }
+
+        public void WindowAddHomework_Closed(object sender, EventArgs e) {
+            UpdateHomeworkView();
         }
 
         private void Window_Closed(object sender, EventArgs e) {
@@ -124,7 +150,5 @@ namespace EduPlanner {
         }
 
         #endregion
-
-
     }
 }

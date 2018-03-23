@@ -13,8 +13,13 @@ namespace EduPlanner {
 
         public Dictionary<DayOfWeek, List<DateTime?>> classTimes;
 
+        public List<Homework> homeworks = new List<Homework>();
+
+        public bool hasHomework = false;
+
         public Class(string className) {
             ResetTimes();
+            homeworks = new List<Homework>();
 
             this.className = className;
         }

@@ -21,15 +21,28 @@
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <!--<ColumnDefinition Width="auto"/>-->
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
 
         <!-- Top Menu -->
         <materialDesign:ColorZone Mode="PrimaryMid" 
-                                  Grid.Row="0"
+                                  Grid.Row="0" Grid.ColumnSpan="3"
                                   Padding="5">
             <DockPanel>
                 <Grid DockPanel.Dock="Top">
-                    <TextBlock Name="txtCurrentClass" HorizontalAlignment="Left"/>
-                    <materialDesign:PopupBox HorizontalAlignment="Right"/>
+                    <TextBlock Name="txtCurrentClass" 
+                               HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <materialDesign:PopupBox HorizontalAlignment="Right">
+                        <StackPanel>
+                            <Button Content="Class List"
+                                    Click="BtnClassList_Click"/>
+                            <Button Content="Refresh List"
+                                    Click="BtnRefreshList_Click"/>
+                        </StackPanel>
+                    </materialDesign:PopupBox>
                 </Grid>
             </DockPanel>
         </materialDesign:ColorZone>
@@ -40,10 +53,25 @@
                         Margin="20"/>
         </ScrollViewer>
 
+        <materialDesign:Card Grid.Row="1" Grid.Column="1">
+            <Expander ExpandDirection="Right">
+
+                <StackPanel>
+
+                    <TextBlock Text="Homework"
+                     Margin="15"
+                     FontSize="24"/>
+
+                    <StackPanel Name="spHomeWork"/>
+
+                </StackPanel>
+            </Expander>
+        </materialDesign:Card>
+
         <!-- Plus Button -->
         <Button Name="btnAddClass"
                 Margin="25"
-                Grid.Row="1"
+                Grid.Row="1" Grid.ColumnSpan="2"
                 Style="{DynamicResource MaterialDesignFloatingActionButton}"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Right"
