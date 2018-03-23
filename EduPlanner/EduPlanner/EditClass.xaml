@@ -34,10 +34,10 @@
                 Margin="10" 
                 Click="AddTime_Click"/>
 
-            <Button Name="btnAddClass" Content="Add Class"
+            <Button Name="btnSaveClass" Content="Save Class"
                     Margin="10"
                     IsEnabled="False"
-                    Click="AddClass_Click"/>
+                    Click="SaveClass_Click"/>
 
         </StackPanel>
     </Grid>

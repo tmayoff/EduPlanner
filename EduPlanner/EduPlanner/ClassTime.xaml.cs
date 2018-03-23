@@ -30,6 +30,7 @@ namespace EduPlanner {
         private void RemoveTime_Click(object sender, RoutedEventArgs e) {
             StackPanel panel = Parent as StackPanel;
             panel.Children.Remove(this);
+            ClassTimeChanged?.Invoke();
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e) {

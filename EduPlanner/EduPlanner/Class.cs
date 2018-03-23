@@ -14,13 +14,7 @@ namespace EduPlanner {
         public Dictionary<DayOfWeek, List<DateTime?>> classTimes;
 
         public Class(string className) {
-            classTimes = new Dictionary<DayOfWeek, List<DateTime?>>();
-
-            for (int i = 0; i < DataManager.DAYCOUNT; i++) {
-                List<DateTime?> times = new List<DateTime?>() { null, null };
-                classTimes.Add((DayOfWeek)i, times);
-
-            }
+            ResetTimes();
 
             this.className = className;
         }
@@ -28,6 +22,16 @@ namespace EduPlanner {
         public void SetTime(DayOfWeek day, DateTime start, DateTime end) {
             classTimes[day][0] = start;
             classTimes[day][1] = end;
+        }
+
+        public void ResetTimes() {
+            classTimes = new Dictionary<DayOfWeek, List<DateTime?>>();
+
+            for (int i = 0; i < DataManager.DAYCOUNT; i++) {
+                List<DateTime?> times = new List<DateTime?>() { null, null };
+                classTimes.Add((DayOfWeek)i, times);
+
+            }
         }
     }
 }

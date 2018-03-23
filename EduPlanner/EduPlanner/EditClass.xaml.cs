@@ -19,7 +19,7 @@ namespace EduPlanner {
     /// </summary>
     public partial class EditClass : Window {
 
-        List<ClassTimeControl> classTimes = new List<ClassTimeControl>();
+        List<ClassTime> classTimes = new List<ClassTime>();
 
         Class _class;
 
@@ -29,23 +29,71 @@ namespace EduPlanner {
             this._class = _class;
             txtClassName.Text = _class.className;
 
-            foreach (ClassTime time in _class.times) {
+            for (int i = 0; i < _class.classTimes.Count; i++) {
+                if (_class.classTimes[(DayOfWeek)i][0] != null && _class.classTimes[(DayOfWeek)i][1] != null) {
 
+                    ClassTime time = ClassTimeExist(_class.classTimes[(DayOfWeek)i][0]);
+
+                    if (time == null)
+                        time = new ClassTime();
+
+                    time.tpStartTime.SelectedTime = _class.classTimes[(DayOfWeek)i][0];
+                    time.tpEndTime.SelectedTime = _class.classTimes[(DayOfWeek)i][1];
+
+                    //Loop through class times
+                    WrapPanel wrap = time.FindName("wpDays") as WrapPanel;
+                    for (int j = 0; j < wrap.Children.Count; j++) {
+
+                        if (wrap.Children[j] is CheckBox) {
+                            CheckBox check = wrap.Children[j] as CheckBox;
+
+                            if (check.Content.ToString() == ((DayOfWeek)i).ToString()) {
+                                check.IsChecked = true;
+                            }
+                        }
+                    }
+
+                    time.ClassTimeChanged += new ClassTime.ClassTimeDelegate(Handler);
+                    classTimes.Add(time);
+                    if (!spClassTimesViewer.Children.Contains(time))
+                        spClassTimesViewer.Children.Add(time);
+                }
             }
         }
 
-        private void AddTime_Click(object sender, RoutedEventArgs e) {
-            ClassTime classTime = new ClassTime();
-            ClassTimeControl time = new ClassTimeControl(classTime);
-            time.ClassTimeChanged += new ClassTimeControl.ClassTimeDelegate(Handler);
-            classTimes.Add(time);
-            spClassTimesViewer.Children.Add(time);
+        private ClassTime ClassTimeExist(DateTime? start) {
+            for (int i = 0; i < classTimes.Count; i++) {
+                if (classTimes[i].tpStartTime.SelectedTime == start)
+                    return classTimes[i];
+            }
+
+            return null;
         }
 
-        public void AddClass_Click(object sender, RoutedEventArgs e) {
+        private void ClassName_TextChanged(object sender, TextChangedEventArgs e) {
+            Handler();
+        }
+
+        private void AddTime_Click(object sender, RoutedEventArgs e) {
+            ClassTime time = new ClassTime();
+            time.ClassTimeChanged += new ClassTime.ClassTimeDelegate(Handler);
+            classTimes.Add(time);
+            spClassTimesViewer.Children.Add(time);
+
+            Handler();
+        }
+
+        private void SaveClass_Click(object sender, RoutedEventArgs e) {
+            //Reset
+            for (int i = 0; i < DataManager.schedule.days.Count; i++) {
+                DataManager.schedule.days[i].classes.Remove(_class);
+            }
+
+            _class.ResetTimes();
+
             //Loop through class times
             for (int i = 0; i < spClassTimesViewer.Children.Count; i++) {
-                ClassTimeControl time = spClassTimesViewer.Children[i] as ClassTimeControl;
+                ClassTime time = spClassTimesViewer.Children[i] as ClassTime;
 
                 WrapPanel panel = time.FindName("wpDays") as WrapPanel;
                 Grid timeGrid = time.FindName("TimeGrid") as Grid;
@@ -64,15 +112,13 @@ namespace EduPlanner {
                             DateTime? startTime = (timeGrid.Children[0] as TimePicker).SelectedTime;
                             DateTime? endTime = (timeGrid.Children[1] as TimePicker).SelectedTime;
 
-                            Class newClass = CheckClassExists(txtClassName.Name);
-                            if (newClass == null) {
-                                newClass = new Class(txtClassName.Text, startTime, endTime, new List<ClassTime>());
-                            }
+                            _class.className = txtClassName.Text;
 
-                            newClass.times.Add(time.classTime);
-                            DataManager.schedule.days[(int)day].classes.Add(newClass);
+                            _class.classTimes[day][0] = startTime;
+                            _class.classTimes[day][1] = endTime;
+
+                            DataManager.schedule.days[(int)day].classes.Add(_class);
                             DataManager.schedule.days[(int)day].hasClass = true;
-                            DataManager.schedule.classes.Add(newClass);
                         }
                     }
                 }
@@ -81,26 +127,13 @@ namespace EduPlanner {
             Close();
         }
 
-        private Class CheckClassExists(string name) {
-            for (int i = 0; i < DataManager.schedule.classes.Count; i++) {
-                if (DataManager.schedule.classes[i].className == name)
-                    return DataManager.schedule.classes[i];
-            }
-
-            return null;
-        }
-
-        private void ClassName_TextChanged(object sender, TextChangedEventArgs e) {
-            Handler();
-        }
-
         private void Handler() {
             bool dayChecked = false;
             bool timePicked = false;
 
             //Loop through class times
             for (int i = 0; i < spClassTimesViewer.Children.Count; i++) {
-                ClassTimeControl time = spClassTimesViewer.Children[i] as ClassTimeControl;
+                ClassTime time = spClassTimesViewer.Children[i] as ClassTime;
 
                 WrapPanel panel = time.FindName("wpDays") as WrapPanel;
                 Grid timeGrid = time.FindName("TimeGrid") as Grid;
@@ -125,9 +158,9 @@ namespace EduPlanner {
             }
 
             if (dayChecked && timePicked && txtClassName.Text != "")
-                btnAddClass.IsEnabled = true;
+                btnSaveClass.IsEnabled = true;
             else
-                btnAddClass.IsEnabled = false;
+                btnSaveClass.IsEnabled = false;
         }
     }
 }

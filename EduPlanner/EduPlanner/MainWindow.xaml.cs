@@ -29,10 +29,11 @@ namespace EduPlanner {
             data.Load();
 
             schedule = DataManager.schedule;
+            DataManager.mainWindow = this;
             UpdateAgendaView();
         }
 
-        private void UpdateAgendaView() {
+        public void UpdateAgendaView() {
             AgendaView.Children.Clear();
 
             for (int i = 0; i < schedule.days.Count; i++) {
@@ -53,7 +54,7 @@ namespace EduPlanner {
 
         private void BtnAddClass_Click(object sender, RoutedEventArgs e) {
             AddClass addClass = new AddClass();
-            addClass.Closed += new EventHandler(WindowAddClass_Closed);
+            addClass.Closed += new EventHandler(WindowAddEditClass_Closed);
             addClass.ShowDialog();
         }
 
@@ -66,7 +67,7 @@ namespace EduPlanner {
             UpdateAgendaView();
         }
 
-        private void WindowAddClass_Closed(object sender, EventArgs e) {
+        public void WindowAddEditClass_Closed(object sender, EventArgs e) {
             UpdateAgendaView();
         }
     }

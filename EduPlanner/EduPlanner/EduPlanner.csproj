@@ -74,6 +74,9 @@
     <Compile Include="DayCard.xaml.cs">
       <DependentUpon>DayCard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EditClass.xaml.cs">
+      <DependentUpon>EditClass.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Schedule.cs" />
     <Page Include="AddClass.xaml">
       <SubType>Designer</SubType>
@@ -90,6 +93,10 @@
     <Page Include="DayCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditClass.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

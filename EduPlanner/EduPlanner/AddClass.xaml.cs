@@ -32,6 +32,7 @@ namespace EduPlanner {
             time.ClassTimeChanged += new ClassTime.ClassTimeDelegate(Handler);
             classTimes.Add(time);
             spClassTimesViewer.Children.Add(time);
+            Handler();
         }
 
         public void AddClass_Click(object sender, RoutedEventArgs e) {
