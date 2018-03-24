@@ -37,6 +37,7 @@ namespace EduPlanner {
             schedule = DataManager.schedule;
             DataManager.mainWindow = this;
             UpdateAgendaView();
+            UpdateHomeworkView();
 
             //Timer
             Refresh(this, EventArgs.Empty);
@@ -61,13 +62,26 @@ namespace EduPlanner {
                     }
                 }
             }
+
+            UpdateHomeworkView();
         }
 
         public void UpdateHomeworkView() {
+            spHomeWork.Children.Clear();
+
+            //Loop through classes
             for (int i = 0; i < DataManager.schedule.classes.Count; i++) {
-                if (DataManager.schedule.classes[i].hasHomework) {
-                    ClassHomeworkCard homeworkCard = new ClassHomeworkCard(DataManager.schedule.classes[i]);
-                    spHomeWork.Children.Add(homeworkCard);
+                ClassHomeworkCard classCard = new ClassHomeworkCard(DataManager.schedule.classes[i]);
+                spHomeWork.Children.Add(classCard);
+                StackPanel classWorkPanel = classCard.FindName("classHomework") as StackPanel;
+
+                //Loop through homeworks
+                for (int j = 0; j < classCard._class.homeworks.Count; j++) {
+                    if (!classCard._class.homeworks[j].completed) {
+                        HomeworkCard card = new HomeworkCard(classCard._class, classCard._class.homeworks[j]);
+                        classCard.homeworks.Add(classCard._class.homeworks[j]);
+                        classWorkPanel.Children.Add(card);
+                    }
                 }
             }
         }
@@ -141,7 +155,7 @@ namespace EduPlanner {
             UpdateAgendaView();
         }
 
-        public void WindowAddHomework_Closed(object sender, EventArgs e) {
+        public void WindowAddEditHomework_Closed(object sender, EventArgs e) {
             UpdateHomeworkView();
         }
 

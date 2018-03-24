@@ -53,6 +53,8 @@ namespace EduPlanner {
             Homework homework = new Homework(txtAssignmentName.Text, txtDescription.Text, time, _class);
             _class.homeworks.Add(homework);
             _class.hasHomework = true;
+
+            Close();
         }
     }
 }

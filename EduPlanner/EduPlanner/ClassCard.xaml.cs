@@ -36,7 +36,7 @@ namespace EduPlanner {
 
         private void AddHomework_Click(object sender, RoutedEventArgs e) {
             AddHomeworkWindow window = new AddHomeworkWindow(_class, day);
-            window.Closed += DataManager.mainWindow.WindowAddHomework_Closed;
+            window.Closed += DataManager.mainWindow.WindowAddEditHomework_Closed;
             window.ShowDialog();
         }
 

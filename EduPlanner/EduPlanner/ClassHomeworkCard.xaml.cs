@@ -19,16 +19,28 @@ namespace EduPlanner {
     /// </summary>
     public partial class ClassHomeworkCard : UserControl {
 
-        Class _class;
+        public List<Homework> homeworks;
 
-        string className;
+        public string ClassName { get; set; }
+        public string HomeworkCount {
+            get {
+                if (homeworks.Count == 0)
+                    return "";
+                return homeworks.Count.ToString();
+            }
+        }
+
+        public Class _class;
 
         public ClassHomeworkCard(Class _class) {
             InitializeComponent();
+            DataContext = this;
 
             this._class = _class;
 
-            className = _class.className;
+            homeworks = new List<Homework>();
+
+            ClassName = _class.className;
         }
     }
 }

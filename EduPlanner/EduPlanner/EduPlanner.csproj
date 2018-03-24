@@ -86,7 +86,13 @@
     <Compile Include="EditClassWindow.xaml.cs">
       <DependentUpon>EditClassWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EditHomeworkWindow.xaml.cs">
+      <DependentUpon>EditHomeworkWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Homework.cs" />
+    <Compile Include="HomeworkCard.xaml.cs">
+      <DependentUpon>HomeworkCard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Schedule.cs" />
     <Page Include="AddClassWindow.xaml">
       <SubType>Designer</SubType>
@@ -119,6 +125,14 @@
     <Page Include="EditClassWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EditHomeworkWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HomeworkCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

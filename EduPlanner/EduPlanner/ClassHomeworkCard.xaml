@@ -4,10 +4,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EduPlanner"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
-
-        <Expander Name="classHomework" Header="{Binding Path=className}"/>
+        <Expander>
+            <Expander.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Path=ClassName}" Margin="0 5 5 0"/>
+                    <md:ColorZone md:ColorZoneAssist.Mode="Dark">
+                        <TextBlock Text="{Binding Path=HomeworkCount}"/>
+                    </md:ColorZone>
+                </StackPanel>
+            </Expander.Header>
+            <StackPanel Name="classHomework"/>
+        </Expander>
     </StackPanel>
 </UserControl>
