@@ -14,11 +14,11 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Margin="15" Orientation="Horizontal">
-            <TextBlock Text="Assignment Name: "
-                       FontSize="20"/>
-            <TextBox Name="txtAssignmentName" md:HintAssist.Hint="Assignment Name"
-                     FontSize="12"
+        <StackPanel Grid.Row="0" Margin="15">
+            <TextBlock Text="Assignment: " FontSize="20"/>
+            <TextBox Name="txtAssignmentName" Margin="10 5 0 0"
+                     md:HintAssist.Hint="Assignment Name"
+                     md:ValidationAssist.UsePopup="True"
                      TextChanged="TextBox_TextChanged"/>
         </StackPanel>
 

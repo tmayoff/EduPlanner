@@ -26,11 +26,45 @@ namespace EduPlanner {
 
             this.homework = homework;
             this._class = _class;
+
+            txtAssignmentName.Text = homework.assignmentName;
+            dpDueDate.SelectedDate = homework.dueDate;
+            tpDueTime.SelectedTime = homework.dueDate;
+
+            Handler();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e) {
+        #region Event Handlers
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e) {
+            Handler();
+        }
+
+        private void DateTime_Changed(object sender, RoutedEventArgs e) {
+            Handler();
+        }
+
+        private void BtnSaveHomework_Click(object sender, RoutedEventArgs e) {
+            DateTime dateTime = dpDueDate.SelectedDate.Value;
+            DateTime timeTime = tpDueTime.SelectedTime.Value;
+            DateTime time = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, timeTime.Hour, timeTime.Minute, timeTime.Second);
+
+            homework.assignmentName = txtAssignmentName.Text;
+            homework.dueDate = time;
+            homework.description = txtDescription.Text;
+        }
+
+        private void BtnDeleteHomework_Click(object sender, RoutedEventArgs e) {
             _class.homeworks.Remove(homework);
             Close();
+        }
+
+        #endregion
+
+        private void Handler() {
+            if (tpDueTime.SelectedTime != null && dpDueDate.SelectedDate != null && txtAssignmentName.Text != "") {
+                btnSaveHomework.IsEnabled = true;
+            }
         }
     }
 }

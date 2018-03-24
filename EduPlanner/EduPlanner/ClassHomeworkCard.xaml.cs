@@ -36,9 +36,10 @@ namespace EduPlanner {
             InitializeComponent();
             DataContext = this;
 
+            homeworks = new List<Homework>();
+
             this._class = _class;
 
-            homeworks = new List<Homework>();
 
             ClassName = _class.className;
         }

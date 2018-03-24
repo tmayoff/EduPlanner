@@ -19,13 +19,18 @@ namespace EduPlanner {
     /// </summary>
     public partial class HomeworkCard : UserControl {
 
-        public string HomeworkTitle { get; set; }
+        public string HomeworkTitle {
+            get {
+                return homework.assignmentName;
+            }
+        }
 
         Class _class;
         Homework homework;
 
         public HomeworkCard(Class _class, Homework homework) {
             InitializeComponent();
+            DataContext = this;
 
             this.homework = homework;
             this._class = _class;

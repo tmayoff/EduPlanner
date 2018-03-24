@@ -48,10 +48,18 @@
         </materialDesign:ColorZone>
 
         <!-- Agenda View-->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0 0 20 0">
-            <StackPanel Name="AgendaView" 
-                        Grid.Row="1"
-                        Margin="20 20 0 10"/>
+        <ScrollViewer Grid.Row="1" Margin="0 0 20 0"
+                      VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Name="AgendaView" 
+                            Grid.Column="1"
+                            Margin="20 20 0 10"/>
+            </Grid>
         </ScrollViewer>
 
         <materialDesign:Card Grid.Row="1" Grid.Column="1">
@@ -63,7 +71,9 @@
                      Margin="15"
                      FontSize="24"/>
 
-                    <StackPanel Name="spHomeWork"/>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel Name="spHomeWork"/>
+                    </ScrollViewer>
 
                 </StackPanel>
             </Expander>
