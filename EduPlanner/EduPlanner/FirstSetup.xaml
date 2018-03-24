@@ -1,0 +1,33 @@
+﻿<Window x:Class="EduPlanner.FirstSetup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EduPlanner"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="FirstSetup" Height="600" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+        </Grid.ColumnDefinitions>
+
+        <md:ColorZone Mode="PrimaryMid" 
+                                  Grid.Row="0" Grid.ColumnSpan="3"
+                                  Padding="5">
+            <DockPanel>
+                <Grid DockPanel.Dock="Top">
+                    <TextBlock Name="txtCurrentClass" 
+                               HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <md:PopupBox HorizontalAlignment="Right">
+                        <StackPanel>
+                        </StackPanel>
+                    </md:PopupBox>
+                </Grid>
+            </DockPanel>
+        </md:ColorZone>
+    </Grid>
+</Window>

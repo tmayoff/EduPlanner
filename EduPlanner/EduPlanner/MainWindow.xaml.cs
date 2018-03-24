@@ -1,5 +1,6 @@
 ﻿using MaterialDesignThemes.Wpf;
 using System;
+using System.Deployment.Application;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,7 @@ namespace EduPlanner {
         int timerIntervalMin = 5;
 
         public MainWindow() {
+
             InitializeComponent();
 
             data = new Data();

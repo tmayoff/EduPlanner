@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "arcane-sentinel-199003",
+  "private_key_id": "c46967aae28af18fcd7e24d263060515351bd109",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDEOR+s6LxX/2VA\nphQh4wa6FLU6VyjlGyMnJUz68N/7v+NmuOqxgr2ck95iQqSBVfkcKF8t+Df/qPrz\nxdQyHlSR4BqUlJ8lYXWIvrEPyJwElutFQUIwEKLa+8ivtq3srzvC3lRo1lbQtyrs\n1qbl4B3sLz5QIaIHQeMs4z+9/3PjZ5ZFf8DfMhs1A0Ak0HiLjgriDuUAWCGNd/ze\n1yedArCdlofg2DKqUglfO1ULGaE9kY6bJelBF7GLPgwhu6ZwlXIYc0CJSSz81znK\nCKdCsHsptsy6Ip3QYfMbr0MiOHA+/Rec83iV132xmIvkHyguHmffG/ZNYqTAMTwg\nL/CjnN5bAgMBAAECggEAEDxDvSxCjStiBs/XAZjFsTbOaeXVSeONbIs/C9JLTgqp\n95FcRdSx+JcZgtrNvq/M3UIP4f9ULtCd9vaK4Jy21Z0LxfhoFJE0Rty0TMCF/DE6\nhS/pmI1/1AuaJsPAL0GueaiopkX5x+on4JHAHGwHPcgI6VtnCx+t+sRQvVk6DvoZ\nXvORj9eAHjILnwc/7187uemWQXzXBQMSV7M9UN2iwFxS2ZHChy3iJNPHZdFjiyoL\nVyil5LkVCEfzqbXKkJrULtbbYO7LlEc6dAp2mIfBK8zoH7Xzb4g1D/wA4a/Lu+DY\nsmTgLbKdMCEV/TeAPwyo7bmwb6FTjnwwafkD6ptIgQKBgQD5Atr5PAGLXWWu68Eq\n1ey3LzLLLj52BlcmBxTrROL26HnwHTHo0FevilstENms5tdNndVX8x21taAHSN8p\nCKhI0LaMe/O46Rhl7qqZhWcvSYjAoSw+ym0B70mfbwsGVRXBxkdCKEmVJkAjG7Ve\nERGRPYPzVAlLCqCQfItpMQXcgQKBgQDJuvyRR1CSmEZOlN34WMhLdBoaqr7iLmQ3\nO/WlvLVmwilyo1ouJESlMYe+Vsr5Dq4Mt7oIqMmUqXPQsfxF9j+BuLXfAAkpDk06\nSpmIXpa2YWRRzG4pUmhkMXgU4OqLJEyrZYdihO70klHRXSaoWv65M2YCA8UrvCOw\neH7WKms82wKBgQDGAI8+P4i62LlSLgSbmx9vSgiJp2vjTYdepaLssQoIazMKyyw0\ng/Y1jz6QxyVPZv8sqKRMGvU02Ac3w6ovZsLpo4yEiMtz7WWJKA5fpMQ3xbEH+yDD\njRLAxxUzwYhysJVsT825vW9FOfUl9ZJyCgB+DPwvMFNzaC/ktCPmsSSIAQKBgCMM\n7TNk27gM4zJmJUcwTeTmUF7PygjMnLcIIP9iEXbAR6lWfqXDwXWebIKC3BN4HH+z\nMIyunw/IfYoGUtnpFlG4wUj03aKXjI2TRqfuH2ui8mZQCdf+LIs0GTQvfDEe5n9l\nTaeth0NRZQvmjn/0B4wwRQoWk5ysvNq9pPQbPLS/AoGBAOkiQqekMLPx3moAyZpz\nWxXC/0PqTEgsVtsazh/bHaDswTDT9afG002sFLHpvQnoNyGQ3wDvxbMguG+rBIAk\n7TRc2ir4EKrT59aePrb1uAZVTdA+E6h6TZpysM0QBQhTv4VUQu4lAlno3xLRNxHv\nWfT6gkDiUkmuehAhXX+CtX2W\n-----END PRIVATE KEY-----\n",
+  "client_email": "googledriveeduplanner@arcane-sentinel-199003.iam.gserviceaccount.com",
+  "client_id": "102073447514030083020",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/googledriveeduplanner%40arcane-sentinel-199003.iam.gserviceaccount.com"
+}
