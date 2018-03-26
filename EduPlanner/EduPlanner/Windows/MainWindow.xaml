@@ -90,10 +90,10 @@
         </materialDesign:Card>
 
         <!-- Plus Button -->
-        <materialDesign:PopupBox Name="btnAddClass"
+        <!--<materialDesign:PopupBox Name="btnAddClass"
                 Margin="25"
                 Grid.Row="1" Grid.ColumnSpan="2"
-                Style="{DynamicResource }"
+                
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Right">
 
@@ -102,9 +102,9 @@
                 <Button Content="Add Homework"/>
             </StackPanel>
 
-        </materialDesign:PopupBox>
+        </materialDesign:PopupBox>-->
 
-        <!--<Button Name="btnAddClass"
+        <Button Name="btnAddClass"
                 Margin="25"
                 Grid.Row="1" Grid.ColumnSpan="2"
                 Style="{DynamicResource MaterialDesignFloatingActionButton}"
@@ -112,6 +112,6 @@
                 HorizontalAlignment="Right"
                 Click="BtnAddClass_Click">
             <materialDesign:PackIcon Kind="Plus"/>
-        </Button>-->
+        </Button>
     </Grid>
 </Window>
