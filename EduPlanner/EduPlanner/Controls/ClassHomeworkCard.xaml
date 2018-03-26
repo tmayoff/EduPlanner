@@ -19,5 +19,10 @@
             </Expander.Header>
             <StackPanel Name="classHomework"/>
         </Expander>
+
+        <Border Background="{DynamicResource MaterialDesignDivider}"
+                Height="1"
+                HorizontalAlignment="Stretch"
+                SnapsToDevicePixels="True" />
     </StackPanel>
 </UserControl>

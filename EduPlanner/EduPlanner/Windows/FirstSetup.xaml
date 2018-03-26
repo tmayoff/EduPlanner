@@ -29,5 +29,9 @@
                 </Grid>
             </DockPanel>
         </md:ColorZone>
+
+        <Button Name="btnContinue" Content="Continue"
+                Grid.Row="1"
+                IsEnabled="False"/>
     </Grid>
 </Window>

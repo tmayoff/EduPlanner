@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using EduPlanner.Windows;
 
 namespace EduPlanner {
     /// <summary>
@@ -75,15 +76,17 @@ namespace EduPlanner {
             for (int i = 0; i < DataManager.schedule.classes.Count; i++) {
                 ClassHomeworkCard classCard = new ClassHomeworkCard(DataManager.schedule.classes[i]);
                 spHomeWork.Children.Add(classCard);
+
                 StackPanel classWorkPanel = classCard.FindName("classHomework") as StackPanel;
+                classCard.homeworks.OrderBy(x => x.dueDate);
 
                 //Loop through homeworks
                 for (int j = 0; j < classCard._class.homeworks.Count; j++) {
-                    if (!classCard._class.homeworks[j].completed) {
-                        HomeworkCard card = new HomeworkCard(classCard._class, classCard._class.homeworks[j]);
-                        classCard.homeworks.Add(classCard._class.homeworks[j]);
-                        classWorkPanel.Children.Add(card);
-                    }
+                    //if (!classCard._class.homeworks[j].completed) {
+                    HomeworkCard card = new HomeworkCard(classCard._class, classCard._class.homeworks[j]);
+                    classCard.homeworks.Add(classCard._class.homeworks[j]);
+                    classWorkPanel.Children.Add(card);
+                    //}
                 }
             }
         }
@@ -123,6 +126,11 @@ namespace EduPlanner {
                 } else
                     dayCardCard.Background = Brushes.White;
             }
+        }
+
+        private void BtnViewAll_Click(object sender, RoutedEventArgs e) {
+            ViewAllAssignments view = new ViewAllAssignments();
+            view.ShowDialog();
         }
 
         private void BtnRefreshList_Click(object sender, RoutedEventArgs e) {

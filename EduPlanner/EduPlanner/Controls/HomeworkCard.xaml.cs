@@ -34,6 +34,8 @@ namespace EduPlanner {
 
             this.homework = homework;
             this._class = _class;
+
+            txtDueDate.Text = "Due: " + homework.dueDate.ToString("dd MMM");
         }
 
         private void EditHomework_Click(object sender, RoutedEventArgs e) {

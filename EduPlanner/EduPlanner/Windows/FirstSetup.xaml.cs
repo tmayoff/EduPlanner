@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Google.Apis.Auth.OAuth2;
 using Google.Apis.Drive.v3;
-using Google.Apis.Util.Store;
 
 namespace EduPlanner {
     /// <summary>
@@ -22,15 +21,14 @@ namespace EduPlanner {
     /// </summary>
     public partial class FirstSetup : Window {
 
-        public string[] Scopes = { DriveService.Scope.DriveReadonly };
+        public string[] Scopes = { DriveService.Scope.Drive, DriveService.Scope.DriveFile };
 
         public FirstSetup() {
             InitializeComponent();
+        }
 
-            var clientID = "c46967aae28af18fcd7e24d263060515351bd109";
-            var clientSecret = "xxx";
+        private void BtnContinue_Click() {
 
-            var credential = GoogleWebAuthorizationBroker.AuthorizeAsync(new ClientSecrets { ClientId = clientID, ClientSecret = clientSecret }, Scopes, Environment.UserName, CancellationToken.None, new FileDataStore("EduPlanner.GoogleDrive.Auth.Store")).Result;
         }
     }
 }

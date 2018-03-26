@@ -5,15 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using System.IO;
+using System.Collections;
+using Google.Apis.Drive.v3;
 
 namespace EduPlanner {
     public static class DataManager {
 
+        public const string APPLICATIONNAME = "EduPlanner";
         public const int DAYCOUNT = 7;
 
         public static Schedule schedule;
 
         public static MainWindow mainWindow;
+
+        public static DriveService service;
     }
 
     public class Data {

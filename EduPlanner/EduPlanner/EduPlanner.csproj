@@ -99,85 +99,89 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AddClassWindow.xaml.cs">
+    <Compile Include="Windows\AddClassWindow.xaml.cs">
       <DependentUpon>AddClassWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AddHomeworkWindow.xaml.cs">
+    <Compile Include="Windows\AddHomeworkWindow.xaml.cs">
       <DependentUpon>AddHomeworkWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Class.cs" />
-    <Compile Include="ClassHomeworkCard.xaml.cs">
+    <Compile Include="Controls\ClassHomeworkCard.xaml.cs">
       <DependentUpon>ClassHomeworkCard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ClassList.xaml.cs">
+    <Compile Include="Windows\ClassList.xaml.cs">
       <DependentUpon>ClassList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ClassTime.xaml.cs">
+    <Compile Include="Controls\ClassTime.xaml.cs">
       <DependentUpon>ClassTime.xaml</DependentUpon>
     </Compile>
     <Compile Include="Day.cs" />
-    <Compile Include="DayCard.xaml.cs">
+    <Compile Include="Controls\DayCard.xaml.cs">
       <DependentUpon>DayCard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EditClassWindow.xaml.cs">
+    <Compile Include="DriveList.cs" />
+    <Compile Include="Windows\EditClassWindow.xaml.cs">
       <DependentUpon>EditClassWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EditHomeworkWindow.xaml.cs">
+    <Compile Include="Windows\EditHomeworkWindow.xaml.cs">
       <DependentUpon>EditHomeworkWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FirstSetup.xaml.cs">
+    <Compile Include="Windows\FirstSetup.xaml.cs">
       <DependentUpon>FirstSetup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Homework.cs" />
-    <Compile Include="HomeworkCard.xaml.cs">
+    <Compile Include="Controls\HomeworkCard.xaml.cs">
       <DependentUpon>HomeworkCard.xaml</DependentUpon>
     </Compile>
     <Compile Include="Schedule.cs" />
-    <Page Include="AddClassWindow.xaml">
+    <Compile Include="Windows\ViewAllAssignments.xaml.cs">
+      <DependentUpon>ViewAllAssignments.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Windows\AddClassWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AddHomeworkWindow.xaml">
+    <Page Include="Windows\AddHomeworkWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ClassCard.xaml">
+    <Page Include="Controls\ClassCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ClassHomeworkCard.xaml">
+    <Page Include="Controls\ClassHomeworkCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ClassList.xaml">
+    <Page Include="Windows\ClassList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ClassTime.xaml">
+    <Page Include="Controls\ClassTime.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DayCard.xaml">
+    <Page Include="Controls\DayCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="EditClassWindow.xaml">
+    <Page Include="Windows\EditClassWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="EditHomeworkWindow.xaml">
+    <Page Include="Windows\EditHomeworkWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FirstSetup.xaml">
+    <Page Include="Windows\FirstSetup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="HomeworkCard.xaml">
+    <Page Include="Controls\HomeworkCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -185,14 +189,18 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ClassCard.xaml.cs">
+    <Compile Include="Controls\ClassCard.xaml.cs">
       <DependentUpon>ClassCard.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataManager.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\ViewAllAssignments.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -212,7 +220,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="EduPlanner-e676eb274c81.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

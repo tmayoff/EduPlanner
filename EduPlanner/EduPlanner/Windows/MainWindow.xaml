@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EduPlanner"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesignConverters="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -13,8 +14,9 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1200"
+        Title="EduPlanner" Height="800" Width="1200"
         Closed="Window_Closed">
+
 
     <Grid>
         <Grid.RowDefinitions>
@@ -33,8 +35,17 @@
                                   Padding="5">
             <DockPanel>
                 <Grid DockPanel.Dock="Top">
+
+                    <!-- Current/Upcoming Class -->
                     <TextBlock Name="txtCurrentClass" 
                                HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                    <!-- Title -->
+                    <TextBlock Text="EduPlanner" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                               FontSize="32"/>
+
+                    <!-- 3 Dots Popup -->
                     <materialDesign:PopupBox HorizontalAlignment="Right">
                         <StackPanel>
                             <Button Content="Class List"
@@ -50,37 +61,50 @@
         <!-- Agenda View-->
         <ScrollViewer Grid.Row="1" Margin="0 0 20 0"
                       VerticalScrollBarVisibility="Auto">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
 
-                <StackPanel Name="AgendaView" 
+            <StackPanel Name="AgendaView" 
                             Grid.Column="1"
                             Margin="20 20 0 10"/>
-            </Grid>
         </ScrollViewer>
 
+        <!-- Homework View -->
         <materialDesign:Card Grid.Row="1" Grid.Column="1">
             <Expander ExpandDirection="Right">
 
-                <StackPanel>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Homework"
+                                   Margin="15"
+                                   FontSize="24"/>
+                            <Button Content="View All"
+                                Margin="5"
+                                Click="BtnViewAll_Click"/>
+                        </StackPanel>
 
-                    <TextBlock Text="Homework"
-                     Margin="15"
-                     FontSize="24"/>
-
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <StackPanel Name="spHomeWork"/>
-                    </ScrollViewer>
 
-                </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
             </Expander>
         </materialDesign:Card>
 
         <!-- Plus Button -->
-        <Button Name="btnAddClass"
+        <materialDesign:PopupBox Name="btnAddClass"
+                Margin="25"
+                Grid.Row="1" Grid.ColumnSpan="2"
+                Style="{DynamicResource }"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right">
+
+            <StackPanel>
+                <Button Content="Add Class"/>
+                <Button Content="Add Homework"/>
+            </StackPanel>
+
+        </materialDesign:PopupBox>
+
+        <!--<Button Name="btnAddClass"
                 Margin="25"
                 Grid.Row="1" Grid.ColumnSpan="2"
                 Style="{DynamicResource MaterialDesignFloatingActionButton}"
@@ -88,6 +112,6 @@
                 HorizontalAlignment="Right"
                 Click="BtnAddClass_Click">
             <materialDesign:PackIcon Kind="Plus"/>
-        </Button>
+        </Button>-->
     </Grid>
 </Window>

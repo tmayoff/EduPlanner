@@ -52,6 +52,8 @@ namespace EduPlanner {
             homework.assignmentName = txtAssignmentName.Text;
             homework.dueDate = time;
             homework.description = txtDescription.Text;
+            homework.completed = cbCompleted.IsChecked == true;
+            Close();
         }
 
         private void BtnDeleteHomework_Click(object sender, RoutedEventArgs e) {
