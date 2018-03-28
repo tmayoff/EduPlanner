@@ -76,23 +76,47 @@
 
         <ScrollViewer Grid.Row="1" Margin="0 0 20 0"
                       VerticalScrollBarVisibility="Auto">
-            <Grid>
+
+            <Grid Grid.Column="1">
+
                 <!-- Agenda View-->
-                <StackPanel Name="AgendaView"
-                        Grid.Column="1"
-                        Margin="20 20 0 10"
-                        Visibility="Visible"/>
+                <Grid Name="AgendaView"
+                      Visibility="Visible">
+                    <StackPanel Name="Agenda" Margin="20 20 0 10"/>
+                </Grid>
 
                 <!-- Homework View -->
-                <StackPanel Name="HomeworkView"
-                            Grid.Column="1"
-                            Margin="20 20 0 10"
-                            Visibility="Collapsed"/>
+                <Grid Name="HomeworkView"
+                      Visibility="Collapsed">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="5">
+                        <TextBlock Text="All Assignments"
+                                   FontSize="24" FontWeight="Bold"/>
+
+
+                        <StackPanel Name="Homework"
+                                
+                                Margin="20 20 0 10"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Margin="5">
+
+                        <TextBlock Text="Upcoming Assignments"
+                                   FontSize="24" FontWeight="Bold"/>
+
+                        <StackPanel Name="Upcoming"
+                                Grid.Column="1"/>
+                    </StackPanel>
+                </Grid>
             </Grid>
         </ScrollViewer>
 
         <!--Upcoming Homework View -->
-        <materialDesign:Card Grid.Row="1" Grid.Column="1">
+        <!--<materialDesign:Card Grid.Row="1" Grid.Column="1">
             <Expander ExpandDirection="Right">
 
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -108,7 +132,7 @@
                     </StackPanel>
                 </ScrollViewer>
             </Expander>
-        </materialDesign:Card>
+        </materialDesign:Card>-->
 
         <!-- Plus Button -->
         <!--<materialDesign:PopupBox Name="btnAddClass"
@@ -125,14 +149,14 @@
 
         </materialDesign:PopupBox>-->
 
-        <Button Name="btnAddClass"
-                    Margin="25"
-                    Grid.Row="1" Grid.ColumnSpan="2"
-                    Style="{DynamicResource MaterialDesignFloatingActionButton}"
-                    VerticalAlignment="Bottom"
-                    HorizontalAlignment="Right"
-                    Click="BtnAddClass_Click">
+        <Button Name="btnAdd"
+                            Margin="25"
+                            Grid.Row="1" Grid.ColumnSpan="2"
+                            Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                            VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                            Click="BtnAdd_Click">
             <materialDesign:PackIcon Kind="Plus"/>
         </Button>
+
     </Grid>
 </Window>

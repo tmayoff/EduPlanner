@@ -33,15 +33,13 @@ namespace EduPlanner {
 
         public void Save() {
             WriteToBinaryFile(DataManager.SCHEDULEDATAFILEPATH, DataManager.schedule, false);
-            //WriteToJsonFile(DataManager.SCHEDULEDATAFILEPATH, DataManager.schedule, false);
         }
 
         public void Load() {
             if (DataManager.schedule == null)
                 DataManager.schedule = new Schedule();
 
-            if (System.IO.File.Exists(DataManager.SCHEDULEDATAFILEPATH))
-                //DataManager.schedule = ReadFromJsonFile<Schedule>(DataManager.SCHEDULEDATAFILEPATH);
+            if (File.Exists(DataManager.SCHEDULEDATAFILEPATH))
                 DataManager.schedule = ReadFromBinaryFile<Schedule>(DataManager.SCHEDULEDATAFILEPATH);
         }
 

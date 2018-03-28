@@ -21,11 +21,20 @@ namespace EduPlanner {
         Class _class;
         Day day;
 
+        public AddHomeworkWindow() {
+            InitializeComponent();
+
+            cmbClasses.ItemsSource = DataManager.schedule.classes;
+        }
+
         public AddHomeworkWindow(Class _class, Day day) {
             InitializeComponent();
 
             this._class = _class;
             this.day = day;
+
+            cmbClasses.ItemsSource = DataManager.schedule.classes;
+            cmbClasses.SelectedItem = _class;
 
             dpDueDate.SelectedDate = _class.classTimes[day.day][1];
             tpDueTime.SelectedTime = _class.classTimes[day.day][1];
@@ -41,7 +50,8 @@ namespace EduPlanner {
 
         private void Handler() {
             if (tpDueTime.SelectedTime != null && dpDueDate.SelectedDate != null && txtAssignmentName.Text != "") {
-                btnAddHomeWork.IsEnabled = true;
+                if (cmbClasses.SelectedIndex > -1)
+                    btnAddHomeWork.IsEnabled = true;
             }
         }
 
@@ -55,6 +65,12 @@ namespace EduPlanner {
             _class.hasHomework = true;
 
             Close();
+        }
+
+        private void CmbClasses_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            _class = cmbClasses.SelectedItem as Class;
+
+            Handler();
         }
     }
 }
