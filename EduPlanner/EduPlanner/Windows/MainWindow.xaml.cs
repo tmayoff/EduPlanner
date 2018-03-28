@@ -70,29 +70,49 @@ namespace EduPlanner {
         }
 
         public void UpdateHomeworkView() {
-            spHomeWork.Children.Clear();
+            HomeworkView.Children.Clear();
 
-            //Loop through classes
             for (int i = 0; i < DataManager.schedule.classes.Count; i++) {
                 ClassHomeworkCard classCard = new ClassHomeworkCard(DataManager.schedule.classes[i]);
-                spHomeWork.Children.Add(classCard);
+                HomeworkView.Children.Add(classCard);
 
-                StackPanel classWorkPanel = classCard.FindName("classHomework") as StackPanel;
-                classCard.homeworks.OrderBy(x => x.dueDate);
-
-                //Loop through homeworks
-                for (int j = 0; j < classCard._class.homeworks.Count; j++) {
-                    //if (!classCard._class.homeworks[j].completed) {
-                    HomeworkCard card = new HomeworkCard(classCard._class, classCard._class.homeworks[j]);
-                    classCard.homeworks.Add(classCard._class.homeworks[j]);
-                    classWorkPanel.Children.Add(card);
-                    //}
+                if (classCard._class.homeworks.Count > 0) {
+                    for (int j = 0; j < classCard._class.homeworks.Count; j++) {
+                        StackPanel panel = classCard.FindName("classHomework") as StackPanel;
+                        HomeworkCard homework = new HomeworkCard(classCard._class, classCard._class.homeworks[j]);
+                        panel.Children.Add(homework);
+                    }
                 }
             }
         }
 
         #region Button Handlers
 
+        /// <summary>
+        /// Change to Agenda View
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void BtnViewAgenda_Click(object sender, RoutedEventArgs e) {
+            AgendaView.Visibility = Visibility.Visible;
+            HomeworkView.Visibility = Visibility.Collapsed;
+        }
+
+        /// <summary>
+        /// Change to Assignments View
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void BtnViewAssignments_Click(object sender, RoutedEventArgs e) {
+            AgendaView.Visibility = Visibility.Collapsed;
+            HomeworkView.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Refresh the view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void Refresh(object sender, EventArgs e) {
             DateTime currentDateTime = DateTime.Now;
 
@@ -100,7 +120,7 @@ namespace EduPlanner {
 
                 DayCard dayCard = AgendaView.Children[i] as DayCard;
                 Day day = dayCard.day;
-                Card dayCardCard = dayCard.FindName("Card") as Card;
+                Grid dayCardCard = dayCard.FindName("Card") as Grid;
 
                 if (day.day == DateTime.Today.DayOfWeek) {
                     dayCardCard.Background = Brushes.LightBlue;

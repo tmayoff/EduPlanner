@@ -41,9 +41,25 @@
                                HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
                     <!-- Title -->
-                    <TextBlock Text="EduPlanner" 
+                    <!--<TextBlock Text="EduPlanner" 
                                HorizontalAlignment="Center" VerticalAlignment="Center"
-                               FontSize="32"/>
+                               FontSize="32"/>-->
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Margin="10" Height="50" Click="BtnViewAgenda_Click">
+                            <StackPanel>
+                                <materialDesign:PackIcon Kind="ViewAgenda" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Agenda"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Margin="10" Height="50" Click="BtnViewAssignments_Click">
+                            <StackPanel>
+                                <materialDesign:PackIcon Kind="Book" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Assignments"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
 
                     <!-- 3 Dots Popup -->
                     <materialDesign:PopupBox HorizontalAlignment="Right">
@@ -58,31 +74,36 @@
             </DockPanel>
         </materialDesign:ColorZone>
 
-        <!-- Agenda View-->
         <ScrollViewer Grid.Row="1" Margin="0 0 20 0"
                       VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <!-- Agenda View-->
+                <StackPanel Name="AgendaView"
+                        Grid.Column="1"
+                        Margin="20 20 0 10"
+                        Visibility="Visible"/>
 
-            <StackPanel Name="AgendaView" 
+                <!-- Homework View -->
+                <StackPanel Name="HomeworkView"
                             Grid.Column="1"
-                            Margin="20 20 0 10"/>
+                            Margin="20 20 0 10"
+                            Visibility="Collapsed"/>
+            </Grid>
         </ScrollViewer>
 
-        <!-- Homework View -->
+        <!--Upcoming Homework View -->
         <materialDesign:Card Grid.Row="1" Grid.Column="1">
             <Expander ExpandDirection="Right">
 
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Homework"
+                            <TextBlock Text="Upcoming Assignments"
                                    Margin="15"
                                    FontSize="24"/>
-                            <Button Content="View All"
-                                Margin="5"
-                                Click="BtnViewAll_Click"/>
                         </StackPanel>
 
-                        <StackPanel Name="spHomeWork"/>
+                        <StackPanel Name="upcomingHomework"/>
 
                     </StackPanel>
                 </ScrollViewer>
@@ -105,12 +126,12 @@
         </materialDesign:PopupBox>-->
 
         <Button Name="btnAddClass"
-                Margin="25"
-                Grid.Row="1" Grid.ColumnSpan="2"
-                Style="{DynamicResource MaterialDesignFloatingActionButton}"
-                VerticalAlignment="Bottom"
-                HorizontalAlignment="Right"
-                Click="BtnAddClass_Click">
+                    Margin="25"
+                    Grid.Row="1" Grid.ColumnSpan="2"
+                    Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Right"
+                    Click="BtnAddClass_Click">
             <materialDesign:PackIcon Kind="Plus"/>
         </Button>
     </Grid>
