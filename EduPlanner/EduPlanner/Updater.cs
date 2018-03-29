@@ -44,7 +44,7 @@ namespace EduPlanner {
                                         downloadUrl = reader.Value;
                                         break;
                                     case "release":
-                                        if (reader.Value == "no") {
+                                        if (reader.Value == "no" && !startup) {
                                             throw new Exception("An update was found, but it has not yet been released.");
                                         }
                                         break;
