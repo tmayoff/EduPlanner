@@ -37,7 +37,7 @@ namespace EduPlanner {
         public MainWindow() {
 
             InitializeComponent();
-            UpdateChecker.CheckForUpdate();
+            UpdateChecker.CheckForUpdate(true);
 
             upcomingTime = DateTime.Now + new TimeSpan(7, 0, 0, 0);
 
@@ -187,17 +187,18 @@ namespace EduPlanner {
             classList.Show();
         }
 
-<<<<<<< HEAD
         private void BtnCheckForUpdates_Click(object sender, RoutedEventArgs e)
         {
             UpdateChecker.CheckForUpdate();
         }
 
-        private void BtnAddClass_Click(object sender, RoutedEventArgs e) {
+        private void BtnAddClass_Click(object sender, RoutedEventArgs e)
+        {
             AddClassWindow addClass = new AddClassWindow();
             addClass.Closed += new EventHandler(WindowAddEditClass_Closed);
             addClass.ShowDialog();
-=======
+        }
+
         private void BtnAdd_Click(object sender, RoutedEventArgs e) {
             if (viewingAgenda) {
                 AddClassWindow addClass = new AddClassWindow();
@@ -208,7 +209,6 @@ namespace EduPlanner {
                 addHomework.Closed += new EventHandler(WindowAddEditHomework_Closed);
                 addHomework.ShowDialog();
             }
->>>>>>> dd420eccdf63478093dfc30c9713e178472ece43
         }
 
         private void BtnSave(object sender, RoutedEventArgs e) {
