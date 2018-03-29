@@ -14,9 +14,9 @@ namespace EduPlanner {
     /// </summary>
     public partial class MainWindow : Window {
 
-        Schedule schedule;
-        Data data;
-        DateTime upcomingTime;
+        private readonly Schedule _schedule;
+        private readonly Data _data;
+        private readonly DateTime _upcomingTime;
 
         Day today;
         Class currentClass;
@@ -24,9 +24,9 @@ namespace EduPlanner {
         DispatcherTimer timer = new DispatcherTimer();
         NotifyIcon notify;
 
-        int timerIntervalMin = 5;
+        private const int TIMERINTERVALMIN = 5;
 
-        bool viewingAgenda = true;
+        private bool _viewingAgenda = true;
 
         public MainWindow() {
 
@@ -42,36 +42,36 @@ namespace EduPlanner {
 
             notify.Click += Notify_Click;
 
-            upcomingTime = DateTime.Now + new TimeSpan(7, 0, 0, 0);
+            _upcomingTime = DateTime.Now + new TimeSpan(7, 0, 0, 0);
 
             //Load / Create a schedule
-            data = new Data();
-            data.Load();
+            _data = new Data();
+            _data.Load();
 
-            schedule = DataManager.schedule;
+            _schedule = DataManager.schedule;
             DataManager.mainWindow = this;
             UpdateAgendaView();
             UpdateHomeworkView();
 
             //Timer
             timer.Tick += new EventHandler(RefreshEvent);
-            timer.Interval = new TimeSpan(0, timerIntervalMin, 0);
+            timer.Interval = new TimeSpan(0, TIMERINTERVALMIN, 0);
 
         }
 
         public void UpdateAgendaView() {
             Agenda.Children.Clear();
 
-            for (int i = 0; i < schedule.days.Count; i++) {
-                if (schedule.days[i].hasClass) {
-                    schedule.days[i].Order();
+            for (int i = 0; i < _schedule.days.Count; i++) {
+                if (_schedule.days[i].hasClass) {
+                    _schedule.days[i].Order();
 
-                    DayCard dayCard = new DayCard(schedule.days[i]);
+                    DayCard dayCard = new DayCard(_schedule.days[i]);
                     StackPanel dayCardPanel = dayCard.FindName("ClassesView") as StackPanel;
                     Agenda.Children.Add(dayCard);
 
-                    for (int j = 0; j < schedule.days[i].classes.Count; j++) {
-                        ClassCard card = new ClassCard(schedule.days[i].classes[j], schedule.days[i]);
+                    for (int j = 0; j < _schedule.days[i].classes.Count; j++) {
+                        ClassCard card = new ClassCard(_schedule.days[i].classes[j], _schedule.days[i]);
                         dayCardPanel.Children.Add(card);
                     }
                 }
@@ -105,7 +105,7 @@ namespace EduPlanner {
                         homeworkCard = new HomeworkCard(currentCard._class, homework, false);
                         currentCardPanel.Children.Add(homeworkCard);
 
-                        if (homework.dueDate <= upcomingTime) {
+                        if (homework.dueDate <= _upcomingTime) {
                             homeworkCard = new HomeworkCard(currentCard._class, homework, true);
                             Upcoming.Children.Add(homeworkCard);
                         }
@@ -121,7 +121,7 @@ namespace EduPlanner {
         /// <param name="e"></param>
         public void Refresh() {
             DateTime currentDateTime = DateTime.Now;
-            today = schedule.days[(int)currentDateTime.DayOfWeek];
+            today = _schedule.days[(int)currentDateTime.DayOfWeek];
 
             currentClass = null;
 
@@ -205,7 +205,7 @@ namespace EduPlanner {
         public void BtnViewAgenda_Click(object sender, RoutedEventArgs e) {
             AgendaView.Visibility = Visibility.Visible;
             HomeworkView.Visibility = Visibility.Collapsed;
-            viewingAgenda = true;
+            _viewingAgenda = true;
         }
 
         /// <summary>
@@ -216,7 +216,7 @@ namespace EduPlanner {
         public void BtnViewAssignments_Click(object sender, RoutedEventArgs e) {
             AgendaView.Visibility = Visibility.Collapsed;
             HomeworkView.Visibility = Visibility.Visible;
-            viewingAgenda = false;
+            _viewingAgenda = false;
         }
 
         private void BtnViewAll_Click(object sender, RoutedEventArgs e) {
@@ -244,7 +244,7 @@ namespace EduPlanner {
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e) {
-            if (viewingAgenda) {
+            if (_viewingAgenda) {
                 AddClassWindow addClass = new AddClassWindow();
                 addClass.Closed += new EventHandler(WindowAddEditClass_Closed);
                 addClass.ShowDialog();
@@ -256,11 +256,11 @@ namespace EduPlanner {
         }
 
         private void BtnSave(object sender, RoutedEventArgs e) {
-            data.Save();
+            _data.Save();
         }
 
         private void BtnLoad(object sender, RoutedEventArgs e) {
-            data.Load();
+            _data.Load();
             UpdateAgendaView();
         }
 

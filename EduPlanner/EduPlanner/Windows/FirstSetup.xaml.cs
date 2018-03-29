@@ -1,6 +1,4 @@
-﻿using Dropbox.Api;
-using Dropbox.Api.Files;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -8,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
