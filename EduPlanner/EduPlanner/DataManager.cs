@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Data;
-using System.Data.SqlClient;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Threading;
 using System.IO;
-using System.Collections;
-using System.Xml.Serialization;
 using Newtonsoft.Json;
 
 namespace EduPlanner {
