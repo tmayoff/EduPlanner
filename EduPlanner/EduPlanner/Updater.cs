@@ -14,7 +14,7 @@ namespace EduPlanner {
 
             XmlTextReader reader = new XmlTextReader(xmlUrl);
             try {
-                // simply (and easily) skip the junk at the beginning  
+                // simply (and easily) skip the junk at the beginning
                 reader.MoveToContent();
 
                 // internal - as the XmlTextReader moves only  

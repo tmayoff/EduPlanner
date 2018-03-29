@@ -18,6 +18,9 @@ namespace EduPlanner {
         Data data;
         DateTime upcomingTime;
 
+        Day today;
+        Class currentClass;
+
         DispatcherTimer timer = new DispatcherTimer();
         NotifyIcon notify;
 
@@ -37,7 +40,7 @@ namespace EduPlanner {
                 Visible = true
             };
 
-            notify.DoubleClick += Notify_DoubleClick;
+            notify.Click += Notify_Click;
 
             upcomingTime = DateTime.Now + new TimeSpan(7, 0, 0, 0);
 
@@ -56,13 +59,7 @@ namespace EduPlanner {
             timer.Interval = new TimeSpan(0, timerIntervalMin, 0);
 
         }
-
-        private void Notify_DoubleClick(object sender, EventArgs e) {
-            Show();
-            WindowState = WindowState.Normal;
-            notify.Visible = false;
-        }
-
+        
         public void UpdateAgendaView() {
             Agenda.Children.Clear();
 
@@ -119,6 +116,17 @@ namespace EduPlanner {
         #region Button Handlers
 
         /// <summary>
+        /// System Tray icon
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Notify_Click(object sender, EventArgs e) {
+            Show();
+            WindowState = WindowState.Normal;
+            notify.Visible = false;
+        }
+
+        /// <summary>
         /// Change to Agenda View
         /// </summary>
         /// <param name="sender"></param>
@@ -147,29 +155,42 @@ namespace EduPlanner {
         /// <param name="e"></param>
         public void Refresh(object sender, EventArgs e) {
             DateTime currentDateTime = DateTime.Now;
+            today = schedule.days[currentDateTime.Day];
+
+            DayCard dayCard;
+            Day day;
+            Grid dayCardCard;
+
+            StackPanel classesPanel;
+            ClassCard classCard;
+            Class _class;
+            Card classCardCard;
+            DateTime start;
+            DateTime end;
 
             for (int i = 0; i < Agenda.Children.Count; i++) {
 
-                DayCard dayCard = Agenda.Children[i] as DayCard;
-                Day day = dayCard.day;
-                Grid dayCardCard = dayCard.FindName("Card") as Grid;
+                dayCard = Agenda.Children[i] as DayCard;
+                day = dayCard.day;
+                dayCardCard = dayCard.FindName("Card") as Grid;
 
                 if (day.day == DateTime.Today.DayOfWeek) {
                     dayCardCard.Background = Brushes.LightBlue;
 
-                    StackPanel classesPanel = dayCard.FindName("ClassesView") as StackPanel;
+                    classesPanel = dayCard.FindName("ClassesView") as StackPanel;
 
                     for (int j = 0; j < classesPanel.Children.Count; j++) {
 
-                        ClassCard classCard = classesPanel.Children[j] as ClassCard;
-                        Class _class = classCard._class;
-                        Card classCardCard = classCard.FindName("Card") as Card;
-                        DateTime start = _class.classTimes[day.day][0].Value;
-                        DateTime end = _class.classTimes[day.day][1].Value;
+                        classCard = classesPanel.Children[j] as ClassCard;
+                        _class = classCard._class;
+                        classCardCard = classCard.FindName("Card") as Card;
+                        start = _class.classTimes[day.day][0].Value;
+                        end = _class.classTimes[day.day][1].Value;
 
                         if (currentDateTime.TimeOfDay >= start.TimeOfDay && currentDateTime.TimeOfDay <= end.TimeOfDay) {
                             classCardCard.Background = Brushes.LightGreen;
                             txtCurrentClass.Text = "Current Class: " + _class.className;
+                            currentClass = _class;
                         } else {
                             classCardCard.Background = Brushes.White;
                             txtCurrentClass.Text = "";
@@ -178,6 +199,7 @@ namespace EduPlanner {
                 } else
                     dayCardCard.Background = Brushes.White;
             }
+
         }
 
         private void BtnViewAll_Click(object sender, RoutedEventArgs e) {
