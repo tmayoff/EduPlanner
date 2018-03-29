@@ -25,10 +25,11 @@ namespace EduPlanner {
             }
         }
 
+
         Class _class;
         Homework homework;
 
-        public HomeworkCard(Class _class, Homework homework) {
+        public HomeworkCard(Class _class, Homework homework, bool upcoming) {
             InitializeComponent();
             DataContext = this;
 
@@ -36,6 +37,8 @@ namespace EduPlanner {
             this._class = _class;
 
             txtDueDate.Text = "Due: " + homework.dueDate.ToString("dd MMM");
+            if (upcoming)
+                txtClass.Text = _class.className;
         }
 
         private void EditHomework_Click(object sender, RoutedEventArgs e) {

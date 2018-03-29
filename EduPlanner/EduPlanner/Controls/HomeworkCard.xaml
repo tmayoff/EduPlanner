@@ -10,7 +10,22 @@
     <Grid Margin="2">
         <md:Card Padding="5" md:ShadowAssist.ShadowDepth="Depth1">
             <StackPanel>
-                <TextBlock Name="txtDueDate" Text="Due Date" Margin="0 0 0 5"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Name="txtClass"
+                               Grid.Column="0"
+                               Margin="0 0 15 5"/>
+
+                    <TextBlock Name="txtDueDate" Text="Due Date"
+                               Grid.Column="1"
+                               Margin="0 0 0 5"/>
+
+                </Grid>
+
                 <Button Content="{Binding Path=HomeworkTitle}" Click="EditHomework_Click"/>
             </StackPanel>
         </md:Card>

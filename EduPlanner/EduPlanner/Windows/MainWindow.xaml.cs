@@ -18,6 +18,7 @@ using System.Windows.Threading;
 using EduPlanner.Windows;
 
 namespace EduPlanner {
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -25,15 +26,20 @@ namespace EduPlanner {
 
         Schedule schedule;
         Data data;
+        DateTime upcomingTime;
 
         DispatcherTimer timer = new DispatcherTimer();
 
         int timerIntervalMin = 5;
 
+        bool viewingAgenda;
+
         public MainWindow() {
 
             InitializeComponent();
             UpdateChecker.CheckForUpdate();
+
+            upcomingTime = DateTime.Now + new TimeSpan(7, 0, 0, 0);
 
             data = new Data();
             data.Load();
@@ -51,7 +57,7 @@ namespace EduPlanner {
         }
 
         public void UpdateAgendaView() {
-            AgendaView.Children.Clear();
+            Agenda.Children.Clear();
 
             for (int i = 0; i < schedule.days.Count; i++) {
                 if (schedule.days[i].hasClass) {
@@ -59,7 +65,7 @@ namespace EduPlanner {
 
                     DayCard dayCard = new DayCard(schedule.days[i]);
                     StackPanel dayCardPanel = dayCard.FindName("ClassesView") as StackPanel;
-                    AgendaView.Children.Add(dayCard);
+                    Agenda.Children.Add(dayCard);
 
                     for (int j = 0; j < schedule.days[i].classes.Count; j++) {
                         ClassCard card = new ClassCard(schedule.days[i].classes[j], schedule.days[i]);
@@ -72,37 +78,74 @@ namespace EduPlanner {
         }
 
         public void UpdateHomeworkView() {
-            spHomeWork.Children.Clear();
+            Homework.Children.Clear();
+            Upcoming.Children.Clear();
 
-            //Loop through classes
+            ClassHomeworkCard currentCard;
+            StackPanel currentCardPanel;
+
+            Homework homework;
+            HomeworkCard homeworkCard;
+
+            //Main view
             for (int i = 0; i < DataManager.schedule.classes.Count; i++) {
-                ClassHomeworkCard classCard = new ClassHomeworkCard(DataManager.schedule.classes[i]);
-                spHomeWork.Children.Add(classCard);
+                currentCard = new ClassHomeworkCard(DataManager.schedule.classes[i]);
+                Homework.Children.Add(currentCard);
 
-                StackPanel classWorkPanel = classCard.FindName("classHomework") as StackPanel;
-                classCard.homeworks.OrderBy(x => x.dueDate);
+                if (currentCard._class.homeworks.Count > 0) {
+                    for (int j = 0; j < currentCard._class.homeworks.Count; j++) {
+                        homework = currentCard._class.homeworks[j];
 
-                //Loop through homeworks
-                for (int j = 0; j < classCard._class.homeworks.Count; j++) {
-                    //if (!classCard._class.homeworks[j].completed) {
-                    HomeworkCard card = new HomeworkCard(classCard._class, classCard._class.homeworks[j]);
-                    classCard.homeworks.Add(classCard._class.homeworks[j]);
-                    classWorkPanel.Children.Add(card);
-                    //}
+                        currentCardPanel = currentCard.FindName("classHomework") as StackPanel;
+                        homeworkCard = new HomeworkCard(currentCard._class, homework, false);
+                        currentCardPanel.Children.Add(homeworkCard);
+
+                        if (homework.dueDate <= upcomingTime) {
+                            homeworkCard = new HomeworkCard(currentCard._class, homework, true);
+                            Upcoming.Children.Add(homeworkCard);
+                        }
+                    }
                 }
             }
         }
 
         #region Button Handlers
 
+        /// <summary>
+        /// Change to Agenda View
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void BtnViewAgenda_Click(object sender, RoutedEventArgs e) {
+            AgendaView.Visibility = Visibility.Visible;
+            HomeworkView.Visibility = Visibility.Collapsed;
+            viewingAgenda = true;
+        }
+
+        /// <summary>
+        /// Change to Assignments View
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void BtnViewAssignments_Click(object sender, RoutedEventArgs e) {
+            AgendaView.Visibility = Visibility.Collapsed;
+            HomeworkView.Visibility = Visibility.Visible;
+            viewingAgenda = false;
+        }
+
+        /// <summary>
+        /// Refresh the view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void Refresh(object sender, EventArgs e) {
             DateTime currentDateTime = DateTime.Now;
 
-            for (int i = 0; i < AgendaView.Children.Count; i++) {
+            for (int i = 0; i < Agenda.Children.Count; i++) {
 
-                DayCard dayCard = AgendaView.Children[i] as DayCard;
+                DayCard dayCard = Agenda.Children[i] as DayCard;
                 Day day = dayCard.day;
-                Card dayCardCard = dayCard.FindName("Card") as Card;
+                Grid dayCardCard = dayCard.FindName("Card") as Grid;
 
                 if (day.day == DateTime.Today.DayOfWeek) {
                     dayCardCard.Background = Brushes.LightBlue;
@@ -144,6 +187,7 @@ namespace EduPlanner {
             classList.Show();
         }
 
+<<<<<<< HEAD
         private void BtnCheckForUpdates_Click(object sender, RoutedEventArgs e)
         {
             UpdateChecker.CheckForUpdate();
@@ -153,6 +197,18 @@ namespace EduPlanner {
             AddClassWindow addClass = new AddClassWindow();
             addClass.Closed += new EventHandler(WindowAddEditClass_Closed);
             addClass.ShowDialog();
+=======
+        private void BtnAdd_Click(object sender, RoutedEventArgs e) {
+            if (viewingAgenda) {
+                AddClassWindow addClass = new AddClassWindow();
+                addClass.Closed += new EventHandler(WindowAddEditClass_Closed);
+                addClass.ShowDialog();
+            } else {
+                AddHomeworkWindow addHomework = new AddHomeworkWindow();
+                addHomework.Closed += new EventHandler(WindowAddEditHomework_Closed);
+                addHomework.ShowDialog();
+            }
+>>>>>>> dd420eccdf63478093dfc30c9713e178472ece43
         }
 
         private void BtnSave(object sender, RoutedEventArgs e) {

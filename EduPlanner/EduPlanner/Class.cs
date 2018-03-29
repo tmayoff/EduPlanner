@@ -38,5 +38,9 @@ namespace EduPlanner {
 
             }
         }
+
+        public override string ToString() {
+            return className;
+        }
     }
 }

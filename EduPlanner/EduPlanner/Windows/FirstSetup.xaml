@@ -30,8 +30,19 @@
             </DockPanel>
         </md:ColorZone>
 
-        <Button Name="btnContinue" Content="Continue"
-                Grid.Row="1"
-                IsEnabled="False"/>
+
+
+        <Grid Grid.Row="1">
+
+            <TextBlock Name="txtUserName" Text="Name:"
+                       Margin="20"
+                       FontSize="20"
+                       VerticalAlignment="Top"/>
+
+            <Button Name="btnContinue" Content="Continue"
+                VerticalAlignment="Bottom"
+                IsEnabled="True"
+                Click="BtnContinue_Click"/>
+        </Grid>
     </Grid>
 </Window>
