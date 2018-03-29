@@ -26,7 +26,7 @@ namespace EduPlanner {
 
         int timerIntervalMin = 5;
 
-        bool viewingAgenda;
+        bool viewingAgenda = true;
 
         public MainWindow() {
 
@@ -78,6 +78,7 @@ namespace EduPlanner {
                 }
             }
 
+            Refresh(this, EventArgs.Empty);
             UpdateHomeworkView();
         }
 
@@ -91,12 +92,13 @@ namespace EduPlanner {
             Homework homework;
             HomeworkCard homeworkCard;
 
-            //Main view
             for (int i = 0; i < DataManager.schedule.classes.Count; i++) {
-                currentCard = new ClassHomeworkCard(DataManager.schedule.classes[i]);
-                Homework.Children.Add(currentCard);
 
-                if (currentCard._class.homeworks.Count > 0) {
+
+                if (DataManager.schedule.classes[i].homeworks.Count > 0) {
+                    currentCard = new ClassHomeworkCard(DataManager.schedule.classes[i]);
+                    Homework.Children.Add(currentCard);
+
                     for (int j = 0; j < currentCard._class.homeworks.Count; j++) {
                         homework = currentCard._class.homeworks[j];
 
@@ -258,16 +260,16 @@ namespace EduPlanner {
 
         #region Window Event Handlers
         private void Window_StateChanged(object sender, EventArgs e) {
-            if (sender is Window) {
-                Window win = sender as Window;
-                if (win.WindowState == WindowState.Minimized) {
-                    Hide();
-                    notify.Visible = true;
-                } else {
-                    Show();
-                    notify.Visible = false;
-                }
-            }
+            //if (sender is Window) {
+            //    Window win = sender as Window;
+            //    if (win.WindowState == WindowState.Minimized) {
+            //        Hide();
+            //        notify.Visible = true;
+            //    } else {
+            //        Show();
+            //        notify.Visible = false;
+            //    }
+            //}
         }
 
         public void WindowAddEditClass_Closed(object sender, EventArgs e) {
