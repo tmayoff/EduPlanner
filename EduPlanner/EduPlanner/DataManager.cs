@@ -6,13 +6,15 @@ using Newtonsoft.Json;
 namespace EduPlanner {
     public static class DataManager {
 
-        public static string SCHEDULEDATAFILEPATH = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/SaveFile";
+        public static string SAVEFILEPATH = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public const string APPLICATIONNAME = "EduPlanner";
         public const int DAYCOUNT = 7;
 
         public static Schedule schedule;
 
         public static MainWindow mainWindow;
+
+        public static Settings settings;
 
     }
 
@@ -24,15 +26,21 @@ namespace EduPlanner {
         public Data() { }
 
         public void Save() {
-            WriteToBinaryFile(DataManager.SCHEDULEDATAFILEPATH, DataManager.schedule, false);
+            WriteToBinaryFile(DataManager.SAVEFILEPATH + "AppData", DataManager.schedule, false);
+            WriteToBinaryFile(DataManager.SAVEFILEPATH + "Settings", DataManager.settings, false);
         }
 
         public void Load() {
             if (DataManager.schedule == null)
                 DataManager.schedule = new Schedule();
+            if (DataManager.settings == null)
+                DataManager.settings = new Settings();
 
-            if (File.Exists(DataManager.SCHEDULEDATAFILEPATH))
-                DataManager.schedule = ReadFromBinaryFile<Schedule>(DataManager.SCHEDULEDATAFILEPATH);
+            if (File.Exists(DataManager.SAVEFILEPATH))
+                DataManager.settings = ReadFromBinaryFile<Settings>(DataManager.SAVEFILEPATH + "AppData");
+
+            if (File.Exists(DataManager.SAVEFILEPATH))
+                DataManager.schedule = ReadFromBinaryFile<Schedule>(DataManager.SAVEFILEPATH + "Settings");
         }
 
         /// <summary>

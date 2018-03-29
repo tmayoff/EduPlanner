@@ -59,7 +59,7 @@ namespace EduPlanner {
             timer.Interval = new TimeSpan(0, timerIntervalMin, 0);
 
         }
-        
+
         public void UpdateAgendaView() {
             Agenda.Children.Clear();
 
@@ -155,7 +155,7 @@ namespace EduPlanner {
         /// <param name="e"></param>
         public void Refresh(object sender, EventArgs e) {
             DateTime currentDateTime = DateTime.Now;
-            today = schedule.days[currentDateTime.Day];
+            today = schedule.days[(int)currentDateTime.DayOfWeek];
 
             DayCard dayCard;
             Day day;
