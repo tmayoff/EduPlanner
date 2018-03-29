@@ -39,6 +39,9 @@ namespace EduPlanner {
         public MainWindow() {
 
             InitializeComponent();
+<<<<<<< HEAD
+            Updater.CheckForUpdate(true);
+=======
 
             UpdateChecker.CheckForUpdate();
 
@@ -50,6 +53,7 @@ namespace EduPlanner {
             };
 
             notify.DoubleClick += Notify_DoubleClick;
+>>>>>>> 8220a5654b7aa9f4c3088a57c7325b1f7d55ca06
 
             upcomingTime = DateTime.Now + new TimeSpan(7, 0, 0, 0);
 
@@ -206,8 +210,14 @@ namespace EduPlanner {
             classList.Show();
         }
 
+<<<<<<< HEAD
+        private void BtnCheckForUpdates_Click(object sender, RoutedEventArgs e)
+        {
+            Updater.CheckForUpdate();
+=======
         private void BtnCheckForUpdates_Click(object sender, RoutedEventArgs e) {
             UpdateChecker.CheckForUpdate();
+>>>>>>> 8220a5654b7aa9f4c3088a57c7325b1f7d55ca06
         }
 
         private void BtnAddClass_Click(object sender, RoutedEventArgs e) {
