@@ -7,7 +7,6 @@ namespace EduPlanner {
     /// </summary>
     public partial class ClassHomeworkCard : UserControl {
 
-
         public string ClassName { get; set; }
 
         public string HomeworkCount {
@@ -18,6 +17,8 @@ namespace EduPlanner {
             }
         }
 
+        public bool Opened { get; set; }
+
         public Class _class;
 
         public ClassHomeworkCard(Class _class) {
@@ -27,6 +28,11 @@ namespace EduPlanner {
             this._class = _class;
 
             ClassName = _class.className;
+        }
+
+        private void Expander_Expanded(object sender, System.Windows.RoutedEventArgs e) {
+            Expander ex = sender as Expander;
+            Opened = ex.IsExpanded;
         }
     }
 }

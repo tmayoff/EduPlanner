@@ -54,8 +54,7 @@ namespace EduPlanner {
             UpdateHomeworkView();
 
             //Timer
-            Refresh(this, EventArgs.Empty);
-            timer.Tick += new EventHandler(Refresh);
+            timer.Tick += new EventHandler(RefreshEvent);
             timer.Interval = new TimeSpan(0, timerIntervalMin, 0);
 
         }
@@ -78,7 +77,7 @@ namespace EduPlanner {
                 }
             }
 
-            Refresh(this, EventArgs.Empty);
+            Refresh();
             UpdateHomeworkView();
         }
 
@@ -112,6 +111,76 @@ namespace EduPlanner {
                         }
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Refresh the view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void Refresh() {
+            DateTime currentDateTime = DateTime.Now;
+            today = schedule.days[(int)currentDateTime.DayOfWeek];
+
+            currentClass = null;
+
+            DayCard dayCard;
+            Day day;
+            Grid dayCardCard;
+
+            StackPanel classesPanel;
+            ClassCard classCard;
+            Class _class;
+            Card classCardCard;
+            DateTime start;
+            DateTime end;
+
+            //Go through each day in the agenda view
+            for (int i = 0; i < Agenda.Children.Count; i++) {
+
+                dayCard = Agenda.Children[i] as DayCard;
+                day = dayCard.day;
+                dayCardCard = dayCard.FindName("Card") as Grid;
+
+                //If the day we're looking at is today
+                if (day.day == DateTime.Today.DayOfWeek) {
+
+                    dayCardCard.Background = Brushes.LightBlue;
+                    classesPanel = dayCard.FindName("ClassesView") as StackPanel;
+
+                    //Loop through all the classes in that day
+                    for (int j = 0; j < classesPanel.Children.Count; j++) {
+
+                        classCard = classesPanel.Children[j] as ClassCard;
+                        _class = classCard._class;
+                        classCardCard = classCard.FindName("Card") as Card;
+                        start = _class.classTimes[day.day][0].Value;
+                        end = _class.classTimes[day.day][1].Value;
+
+                        //If the current class is we're looking at is right now
+                        if (currentDateTime.TimeOfDay >= start.TimeOfDay && currentDateTime.TimeOfDay <= end.TimeOfDay) {
+                            classCardCard.Background = Brushes.LightGreen;
+                            txtCurrentClass.Text = "Current Class: " + _class.className;
+                            currentClass = _class;
+                        } else {
+                            classCardCard.Background = Brushes.White;
+
+                            //Get next class
+                            if (j < classesPanel.Children.Count - 1) {
+                                classCard = classesPanel.Children[j + 1] as ClassCard;
+                                _class = classCard._class;
+
+                                currentClass = _class;
+                                txtCurrentClass.Text = "Upcoming: " + currentClass.className;
+                            } else {
+                                currentClass = null;
+                                txtCurrentClass.Text = "";
+                            }
+                        }
+                    }
+                } else
+                    dayCardCard.Background = Brushes.White;
             }
         }
 
@@ -150,74 +219,13 @@ namespace EduPlanner {
             viewingAgenda = false;
         }
 
-        /// <summary>
-        /// Refresh the view
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void Refresh(object sender, EventArgs e) {
-            DateTime currentDateTime = DateTime.Now;
-            today = schedule.days[(int)currentDateTime.DayOfWeek];
-
-            DayCard dayCard;
-            Day day;
-            Grid dayCardCard;
-
-            StackPanel classesPanel;
-            ClassCard classCard;
-            Class _class;
-            Card classCardCard;
-            DateTime start;
-            DateTime end;
-
-            for (int i = 0; i < Agenda.Children.Count; i++) {
-
-                dayCard = Agenda.Children[i] as DayCard;
-                day = dayCard.day;
-                dayCardCard = dayCard.FindName("Card") as Grid;
-
-                if (day.day == DateTime.Today.DayOfWeek) {
-                    dayCardCard.Background = Brushes.LightBlue;
-
-                    classesPanel = dayCard.FindName("ClassesView") as StackPanel;
-
-                    for (int j = 0; j < classesPanel.Children.Count; j++) {
-
-                        classCard = classesPanel.Children[j] as ClassCard;
-                        _class = classCard._class;
-                        classCardCard = classCard.FindName("Card") as Card;
-                        start = _class.classTimes[day.day][0].Value;
-                        end = _class.classTimes[day.day][1].Value;
-
-                        if (currentDateTime.TimeOfDay >= start.TimeOfDay && currentDateTime.TimeOfDay <= end.TimeOfDay) {
-                            classCardCard.Background = Brushes.LightGreen;
-                            txtCurrentClass.Text = "Current Class: " + _class.className;
-                            currentClass = _class;
-                        } else {
-                            classCardCard.Background = Brushes.White;
-
-                            //Get next class
-                            if (j < classesPanel.Children.Count - 1) {
-                                classCard = classesPanel.Children[j + 1] as ClassCard;
-                                _class = classCard._class;
-
-                                txtCurrentClass.Text = "Upcoming: " + _class.className;
-                                currentClass = _class;
-                            }
-                        }
-                    }
-                } else
-                    dayCardCard.Background = Brushes.White;
-            }
-        }
-
         private void BtnViewAll_Click(object sender, RoutedEventArgs e) {
             ViewAllAssignments view = new ViewAllAssignments();
             view.ShowDialog();
         }
 
         private void BtnRefreshList_Click(object sender, RoutedEventArgs e) {
-            Refresh(sender, EventArgs.Empty);
+            Refresh();
         }
 
         private void BtnClassList_Click(object sender, RoutedEventArgs e) {
@@ -259,17 +267,22 @@ namespace EduPlanner {
         #endregion
 
         #region Window Event Handlers
+
+        private void RefreshEvent(object sender, EventArgs e) {
+            Refresh();
+        }
+
         private void Window_StateChanged(object sender, EventArgs e) {
-            //if (sender is Window) {
-            //    Window win = sender as Window;
-            //    if (win.WindowState == WindowState.Minimized) {
-            //        Hide();
-            //        notify.Visible = true;
-            //    } else {
-            //        Show();
-            //        notify.Visible = false;
-            //    }
-            //}
+            if (sender is Window) {
+                Window win = sender as Window;
+                if (win.WindowState == WindowState.Minimized) {
+                    Hide();
+                    notify.Visible = true;
+                } else {
+                    Show();
+                    notify.Visible = false;
+                }
+            }
         }
 
         public void WindowAddEditClass_Closed(object sender, EventArgs e) {
@@ -281,6 +294,7 @@ namespace EduPlanner {
         }
 
         private void Window_Closed(object sender, EventArgs e) {
+            notify.Visible = false;
             BtnSave(sender, new RoutedEventArgs());
         }
 
