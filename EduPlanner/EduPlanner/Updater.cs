@@ -4,11 +4,11 @@ using System.Windows;
 
 namespace EduPlanner
 {
-    public static class UpdateChecker
+    public static class Updater
     {
         static string xmlUrl = "https://raw.githubusercontent.com/tyxman/EduPlanner/master/EduPlanner/update.xml";
         static string downloadUrl = "https://github.com/tyxman/EduPlanner/releases/";
-        static string mbHeader = DataManager.APPLICATIONNAME + " Update Checker";
+        static string mbHeader = DataManager.APPLICATIONNAME + " Updater";
         static string msgError = "An unknown error occured while checking for updates.";
 
         public static void CheckForUpdate(bool startup = false)
@@ -74,21 +74,28 @@ namespace EduPlanner
 
                 if (curVersion.CompareTo(newVersion) < 0)
                 {
-                    string msgText = String.Format("New version detected. Would you like to download it now?\n\nCurrent version: {0}\nNew version: {1}", curVersion, newVersion);
+                    string msgText = String.Format("New version detected. Would you like to download it now?\n\n" +
+                                                   "Current version: {0}\n" +
+                                                   "New version: {1}", curVersion, newVersion);
+
                     MessageBoxResult result = MessageBox.Show(msgText, mbHeader, MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (result == MessageBoxResult.Yes)
                     {
                         System.Diagnostics.Process.Start(downloadUrl);
                     }
                 }
-                else if (curVersion == newVersion && !startup)
+                else if (!startup)
                 {
-                    MessageBox.Show("You are running the latest version of EduPlanner!", mbHeader, MessageBoxButton.OK, MessageBoxImage.Information);
+                    if (curVersion == newVersion)
+                    {
+                        MessageBox.Show("You are running the latest version of EduPlanner!", mbHeader, MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        throw new Exception(msgError);
+                    }
                 }
-                else
-                {
-                    throw new Exception(msgError);
-                }
+
             }
             catch (Exception ex)
             {

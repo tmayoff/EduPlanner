@@ -37,7 +37,7 @@ namespace EduPlanner {
         public MainWindow() {
 
             InitializeComponent();
-            UpdateChecker.CheckForUpdate(true);
+            Updater.CheckForUpdate(true);
 
             upcomingTime = DateTime.Now + new TimeSpan(7, 0, 0, 0);
 
@@ -189,7 +189,7 @@ namespace EduPlanner {
 
         private void BtnCheckForUpdates_Click(object sender, RoutedEventArgs e)
         {
-            UpdateChecker.CheckForUpdate();
+            Updater.CheckForUpdate();
         }
 
         private void BtnAddClass_Click(object sender, RoutedEventArgs e)
