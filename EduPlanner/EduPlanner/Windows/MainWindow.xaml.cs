@@ -48,6 +48,8 @@ namespace EduPlanner {
                 Visible = true
             };
 
+            notify.DoubleClick += Notify_DoubleClick;
+
             upcomingTime = DateTime.Now + new TimeSpan(7, 0, 0, 0);
 
             //Load / Create a schedule
@@ -64,6 +66,12 @@ namespace EduPlanner {
             timer.Tick += new EventHandler(Refresh);
             timer.Interval = new TimeSpan(0, timerIntervalMin, 0);
 
+        }
+
+        private void Notify_DoubleClick(object sender, EventArgs e) {
+            Show();
+            WindowState = WindowState.Normal;
+            notify.Visible = false;
         }
 
         public void UpdateAgendaView() {
@@ -232,7 +240,16 @@ namespace EduPlanner {
 
         #region Window Event Handlers
         private void Window_StateChanged(object sender, EventArgs e) {
-            
+            if (sender is Window) {
+                Window win = sender as Window;
+                if (win.WindowState == WindowState.Minimized) {
+                    Hide();
+                    notify.Visible = true;
+                } else {
+                    Show();
+                    notify.Visible = false;
+                }
+            }
         }
 
         public void WindowAddEditClass_Closed(object sender, EventArgs e) {
