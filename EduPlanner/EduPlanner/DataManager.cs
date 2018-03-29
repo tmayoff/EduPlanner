@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace EduPlanner {
     public static class DataManager {
 
-        public static string SAVEFILEPATH = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        public static string SAVEFILEPATH = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\EduPlanner\";
         public const string APPLICATIONNAME = "EduPlanner";
         public const int DAYCOUNT = 7;
 
@@ -35,6 +35,9 @@ namespace EduPlanner {
                 DataManager.schedule = new Schedule();
             if (DataManager.settings == null)
                 DataManager.settings = new Settings();
+
+            if (!Directory.Exists(DataManager.SAVEFILEPATH))
+                Directory.CreateDirectory(DataManager.SAVEFILEPATH);
 
             if (File.Exists(DataManager.SAVEFILEPATH))
                 DataManager.settings = ReadFromBinaryFile<Settings>(DataManager.SAVEFILEPATH + "AppData");

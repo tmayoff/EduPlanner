@@ -16,7 +16,7 @@ namespace EduPlanner {
             this._class = _class;
             this.day = day;
 
-            txtClassName.Text = "Class: " + _class.className;
+            txtClassName.Text = _class.className;
 
             startTime.Text = "Start Time: " + _class.classTimes[day.day][0].Value.ToString("hh:mm:tt");
             endTime.Text = "End Time: " + _class.classTimes[day.day][1].Value.ToString("hh:mm:tt");

@@ -193,13 +193,20 @@ namespace EduPlanner {
                             currentClass = _class;
                         } else {
                             classCardCard.Background = Brushes.White;
-                            txtCurrentClass.Text = "";
+
+                            //Get next class
+                            if (j < classesPanel.Children.Count - 1) {
+                                classCard = classesPanel.Children[j + 1] as ClassCard;
+                                _class = classCard._class;
+
+                                txtCurrentClass.Text = "Upcoming: " + _class.className;
+                                currentClass = _class;
+                            }
                         }
                     }
                 } else
                     dayCardCard.Background = Brushes.White;
             }
-
         }
 
         private void BtnViewAll_Click(object sender, RoutedEventArgs e) {
