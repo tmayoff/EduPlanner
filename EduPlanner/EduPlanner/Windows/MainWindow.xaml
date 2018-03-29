@@ -52,6 +52,8 @@
                                     Click="BtnClassList_Click"/>
                             <Button Content="Refresh List"
                                     Click="BtnRefreshList_Click"/>
+                            <Button Content="Check for Updates"
+                                    Click="BtnCheckForUpdates_Click"/>
                         </StackPanel>
                     </materialDesign:PopupBox>
                 </Grid>

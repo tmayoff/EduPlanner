@@ -33,6 +33,7 @@ namespace EduPlanner {
         public MainWindow() {
 
             InitializeComponent();
+            UpdateChecker.CheckForUpdate();
 
             data = new Data();
             data.Load();
@@ -46,6 +47,7 @@ namespace EduPlanner {
             Refresh(this, EventArgs.Empty);
             timer.Tick += new EventHandler(Refresh);
             timer.Interval = new TimeSpan(0, timerIntervalMin, 0);
+
         }
 
         public void UpdateAgendaView() {
@@ -142,6 +144,11 @@ namespace EduPlanner {
             classList.Show();
         }
 
+        private void BtnCheckForUpdates_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateChecker.CheckForUpdate();
+        }
+
         private void BtnAddClass_Click(object sender, RoutedEventArgs e) {
             AddClassWindow addClass = new AddClassWindow();
             addClass.Closed += new EventHandler(WindowAddEditClass_Closed);
@@ -174,5 +181,6 @@ namespace EduPlanner {
         }
 
         #endregion
+
     }
 }
