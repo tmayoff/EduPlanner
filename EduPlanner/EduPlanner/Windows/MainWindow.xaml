@@ -15,7 +15,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
         Title="EduPlanner" Height="800" Width="1200"
-        Closed="Window_Closed">
+        Closed="Window_Closed" StateChanged="Window_StateChanged">
 
 
     <Grid>

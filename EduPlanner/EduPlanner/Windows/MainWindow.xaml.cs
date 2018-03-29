@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -29,18 +30,27 @@ namespace EduPlanner {
         DateTime upcomingTime;
 
         DispatcherTimer timer = new DispatcherTimer();
+        NotifyIcon notify;
 
         int timerIntervalMin = 5;
 
         bool viewingAgenda;
 
         public MainWindow() {
+            UpdateChecker.CheckForUpdate();
 
             InitializeComponent();
-            UpdateChecker.CheckForUpdate();
+
+            //Initialize things
+            notify = new NotifyIcon {
+                Icon = new System.Drawing.Icon(@"../../icon.ico"),
+                Text = "EduPlanner",
+                Visible = true
+            };
 
             upcomingTime = DateTime.Now + new TimeSpan(7, 0, 0, 0);
 
+            //Load / Create a schedule
             data = new Data();
             data.Load();
 
@@ -187,9 +197,7 @@ namespace EduPlanner {
             classList.Show();
         }
 
-<<<<<<< HEAD
-        private void BtnCheckForUpdates_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnCheckForUpdates_Click(object sender, RoutedEventArgs e) {
             UpdateChecker.CheckForUpdate();
         }
 
@@ -197,7 +205,8 @@ namespace EduPlanner {
             AddClassWindow addClass = new AddClassWindow();
             addClass.Closed += new EventHandler(WindowAddEditClass_Closed);
             addClass.ShowDialog();
-=======
+        }
+
         private void BtnAdd_Click(object sender, RoutedEventArgs e) {
             if (viewingAgenda) {
                 AddClassWindow addClass = new AddClassWindow();
@@ -208,7 +217,6 @@ namespace EduPlanner {
                 addHomework.Closed += new EventHandler(WindowAddEditHomework_Closed);
                 addHomework.ShowDialog();
             }
->>>>>>> dd420eccdf63478093dfc30c9713e178472ece43
         }
 
         private void BtnSave(object sender, RoutedEventArgs e) {
@@ -223,6 +231,9 @@ namespace EduPlanner {
         #endregion
 
         #region Window Event Handlers
+        private void Window_StateChanged(object sender, EventArgs e) {
+            
+        }
 
         public void WindowAddEditClass_Closed(object sender, EventArgs e) {
             UpdateAgendaView();
@@ -237,6 +248,5 @@ namespace EduPlanner {
         }
 
         #endregion
-
     }
 }
