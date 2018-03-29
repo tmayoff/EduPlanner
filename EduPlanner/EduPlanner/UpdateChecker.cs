@@ -3,34 +3,27 @@ using System.Xml;
 using System.Windows;
 
 namespace EduPlanner {
-    public class UpdateChecker {
-        static string xmlUrl = "https://www.josephdp.com/eduplanner/update.xml";
-        static string mbHeader = "Update Checker";
+    public static class UpdateChecker {
+        static string xmlUrl = "https://raw.githubusercontent.com/tyxman/EduPlanner/master/EduPlanner/update.xml";
+        static string downloadUrl = "https://github.com/tyxman/EduPlanner/releases/";
+        static string mbHeader = DataManager.APPLICATIONNAME + " Update Checker";
         static string msgError = "An unknown error occured while checking for updates.";
 
-        public static void CheckForUpdate() {
-            // in newVersion variable we will store the  
-            // version info from xml file  
+        public static void CheckForUpdate(bool startup = false) {
             string newVersion = string.Empty;
-            // and in this variable we will put the url we  
-            // would like to open so that the user can  
-            // download the new version  
-            // it can be a homepage or a direct  
-            // link to zip/exe file  
-            string downloadUrl = "https://www.josephdp.com/eduplanner/latest.exe";
 
-            // provide the XmlTextReader with the URL of  
-            // our xml document  
             XmlTextReader reader = new XmlTextReader(xmlUrl);
             try {
                 // simply (and easily) skip the junk at the beginning  
                 reader.MoveToContent();
+
                 // internal - as the XmlTextReader moves only  
                 // forward, we save current xml element name  
                 // in elementName variable. When we parse a  
                 // text node, we refer to elementName to check  
                 // what was the node name  
                 string elementName = string.Empty;
+
                 // we check if the xml starts with a proper  
                 // "ourfancyapp" element node  
                 if (reader.NodeType == XmlNodeType.Element && reader.Name == "EduPlanner") {
@@ -45,10 +38,6 @@ namespace EduPlanner {
                                 // we check what the name of the node was  
                                 switch (elementName) {
                                     case "version":
-                                        // thats why we keep the version info  
-                                        // in xxx.xxx.xxx.xxx format  
-                                        // the Version class does the  
-                                        // parsing for us  
                                         newVersion = reader.Value;
                                         break;
                                     case "url":
@@ -67,35 +56,24 @@ namespace EduPlanner {
                     throw new Exception(msgError);
                 }
 
-                CompareVersions();
+                string curVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(2);
+
+                if (curVersion.CompareTo(newVersion) < 0) {
+                    string msgText = String.Format("New version detected. Would you like to download it now?\n\nCurrent version: {0}\nNew version: {1}", curVersion, newVersion);
+                    MessageBoxResult result = MessageBox.Show(msgText, mbHeader, MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Yes) {
+                        System.Diagnostics.Process.Start(downloadUrl);
+                    }
+                } else if (curVersion == newVersion && !startup) {
+                    MessageBox.Show("You are running the latest version of EduPlanner!", mbHeader, MessageBoxButton.OK, MessageBoxImage.Information);
+                } else {
+                    throw new Exception(msgError);
+                }
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message, mbHeader, MessageBoxButton.OK, MessageBoxImage.Error);
             } finally {
                 if (reader != null) {
                     reader.Close();
-                }
-            }
-
-            void CompareVersions() {
-                // get the running version  
-                string curVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(2);
-                // compare the versions  
-                if (curVersion.CompareTo(newVersion) < 0) {
-                    // ask the user if he would like  
-                    // to download the new version  
-
-                    string msgText = String.Format("New version detected. Would you like to download it now?\n\nCurrent version: {0}\nNew version: {1}", curVersion, newVersion);
-                    MessageBoxResult result = MessageBox.Show(msgText, mbHeader, MessageBoxButton.YesNo, MessageBoxImage.Question);
-                    if (result == MessageBoxResult.Yes) {
-                        // navigate the default web  
-                        // browser to our app  
-                        // homepage (the url  
-                        // comes from the xml content)
-
-                        System.Diagnostics.Process.Start(downloadUrl);
-                    }
-                } else {
-                    //MessageBox.Show("You are running the latest version of EduPlanner!", mbHeader, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
         }

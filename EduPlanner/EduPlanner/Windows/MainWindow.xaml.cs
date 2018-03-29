@@ -37,9 +37,10 @@ namespace EduPlanner {
         bool viewingAgenda;
 
         public MainWindow() {
-            UpdateChecker.CheckForUpdate();
 
             InitializeComponent();
+
+            UpdateChecker.CheckForUpdate();
 
             //Initialize things
             notify = new NotifyIcon {
