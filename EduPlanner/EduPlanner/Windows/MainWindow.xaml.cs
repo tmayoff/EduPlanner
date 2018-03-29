@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -29,18 +30,33 @@ namespace EduPlanner {
         DateTime upcomingTime;
 
         DispatcherTimer timer = new DispatcherTimer();
+        NotifyIcon notify;
 
         int timerIntervalMin = 5;
 
         bool viewingAgenda;
 
         public MainWindow() {
+            UpdateChecker.CheckForUpdate();
 
             InitializeComponent();
+<<<<<<< HEAD
             Updater.CheckForUpdate(true);
+=======
+
+            //Initialize things
+            notify = new NotifyIcon {
+                Icon = new System.Drawing.Icon(@"../../icon.ico"),
+                Text = "EduPlanner",
+                Visible = true
+            };
+
+            notify.DoubleClick += Notify_DoubleClick;
+>>>>>>> 8220a5654b7aa9f4c3088a57c7325b1f7d55ca06
 
             upcomingTime = DateTime.Now + new TimeSpan(7, 0, 0, 0);
 
+            //Load / Create a schedule
             data = new Data();
             data.Load();
 
@@ -54,6 +70,12 @@ namespace EduPlanner {
             timer.Tick += new EventHandler(Refresh);
             timer.Interval = new TimeSpan(0, timerIntervalMin, 0);
 
+        }
+
+        private void Notify_DoubleClick(object sender, EventArgs e) {
+            Show();
+            WindowState = WindowState.Normal;
+            notify.Visible = false;
         }
 
         public void UpdateAgendaView() {
@@ -187,13 +209,17 @@ namespace EduPlanner {
             classList.Show();
         }
 
+<<<<<<< HEAD
         private void BtnCheckForUpdates_Click(object sender, RoutedEventArgs e)
         {
             Updater.CheckForUpdate();
+=======
+        private void BtnCheckForUpdates_Click(object sender, RoutedEventArgs e) {
+            UpdateChecker.CheckForUpdate();
+>>>>>>> 8220a5654b7aa9f4c3088a57c7325b1f7d55ca06
         }
 
-        private void BtnAddClass_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnAddClass_Click(object sender, RoutedEventArgs e) {
             AddClassWindow addClass = new AddClassWindow();
             addClass.Closed += new EventHandler(WindowAddEditClass_Closed);
             addClass.ShowDialog();
@@ -223,6 +249,18 @@ namespace EduPlanner {
         #endregion
 
         #region Window Event Handlers
+        private void Window_StateChanged(object sender, EventArgs e) {
+            if (sender is Window) {
+                Window win = sender as Window;
+                if (win.WindowState == WindowState.Minimized) {
+                    Hide();
+                    notify.Visible = true;
+                } else {
+                    Show();
+                    notify.Visible = false;
+                }
+            }
+        }
 
         public void WindowAddEditClass_Closed(object sender, EventArgs e) {
             UpdateAgendaView();
@@ -237,6 +275,5 @@ namespace EduPlanner {
         }
 
         #endregion
-
     }
 }
