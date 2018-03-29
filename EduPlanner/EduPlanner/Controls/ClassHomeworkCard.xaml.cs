@@ -7,17 +7,17 @@ namespace EduPlanner {
     /// </summary>
     public partial class ClassHomeworkCard : UserControl {
 
-        public List<Homework> homeworks;
-
-
         public string ClassName { get; set; }
+
         public string HomeworkCount {
             get {
-                if (homeworks.Count == 0)
+                if (_class.homeworks.Count == 0)
                     return "";
-                return homeworks.Count.ToString();
+                return _class.homeworks.Count.ToString();
             }
         }
+
+        public bool Opened { get; set; }
 
         public Class _class;
 
@@ -25,12 +25,14 @@ namespace EduPlanner {
             InitializeComponent();
             DataContext = this;
 
-            homeworks = new List<Homework>();
-
             this._class = _class;
 
-
             ClassName = _class.className;
+        }
+
+        private void Expander_Expanded(object sender, System.Windows.RoutedEventArgs e) {
+            Expander ex = sender as Expander;
+            Opened = ex.IsExpanded;
         }
     }
 }
