@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:EduPlanner"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="AddHomeworkWindow" Height="600" Width="500">
+        Title="New Homework Assignment" Height="600" Width="500">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>

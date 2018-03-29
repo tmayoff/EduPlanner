@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:EduPlanner"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="AddClass" Height="500" Width="400">
+        Title="New Class" Height="500" Width="400">
 
     <Grid>
         <Grid.RowDefinitions>
