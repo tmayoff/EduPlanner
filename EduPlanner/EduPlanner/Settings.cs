@@ -5,11 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace EduPlanner {
+
     [Serializable]
-    public class Settings
-    {
-        public static bool checkForUpdatesOnStartup = true;
-        public static bool minimizeToTray = true;
-        public static bool receiveBetaUpdates = false;
+    public class Settings {
+
+        public bool checkForUpdatesOnStartup;
+        public bool minimizeToTray;
+        public bool receiveBetaUpdates;
+
+        public Settings() {
+
+        }
     }
 }

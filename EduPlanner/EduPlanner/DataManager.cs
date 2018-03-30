@@ -14,46 +14,45 @@ namespace EduPlanner {
 
         public static Schedule schedule;
 
-        public static MainWindow mainWindow;
-
         public static Settings settings;
 
+        public static MainWindow mainWindow;
     }
 
     public class Data {
 
         public int saveTime = 1000;
 
-        private string appdataPath = DataManager.Savefilepath + @"\Appdata.bin";
-        private string settingsPath = DataManager.Savefilepath + @"\Settings.bin";
+        private readonly string _appdataPath = DataManager.Savefilepath + @"\Appdata.bin";
+        private readonly string _settingsPath = DataManager.Savefilepath + @"\Settings.xml";
 
-        public Data() { }
+        public Data() {
+            if (DataManager.schedule == null)
+                DataManager.schedule = new Schedule();
+            if (DataManager.settings == null)
+                DataManager.settings = new Settings();
+        }
 
         public void Save() {
             if (!Directory.Exists(DataManager.Savefilepath))
                 Directory.CreateDirectory(DataManager.Savefilepath);
 
-            WriteToBinaryFile(appdataPath, DataManager.schedule, false);
-            WriteToBinaryFile(settingsPath, DataManager.settings, false);
+            WriteToBinaryFile(_appdataPath, DataManager.schedule);
+            WriteToXmlFile(_settingsPath, DataManager.settings);
 
-            //WriteToJsonFile(appdataPath, DataManager.schedule, false);
-            //WriteToJsonFile(settingsPath, DataManager.settings, false);
+            //WriteToJsonFile(_appdataPath, DataManager.schedule, false);
+            //WriteToJsonFile(_settingsPath, DataManager.settings, false);
 
-            //WriteToXmlFile(appdataPath, DataManager.schedule, false);
-            //WriteToXmlFile(settingsPath, DataManager.settings, false);
+            //WriteToXmlFile(_appdataPath, DataManager.schedule, false);
+            //WriteToXmlFile(_settingsPath, DataManager.settings, false);
         }
 
         public void Load() {
-            if (DataManager.schedule == null)
-                DataManager.schedule = new Schedule();
-            if (DataManager.settings == null)
-                DataManager.settings = new Settings();
+            if (File.Exists(_settingsPath))
+                DataManager.settings = ReadFromXmlFile<Settings>(_settingsPath);
 
-            if (File.Exists(appdataPath))
-                DataManager.settings = ReadFromBinaryFile<Settings>(settingsPath);
-
-            if (File.Exists(settingsPath))
-                DataManager.schedule = ReadFromBinaryFile<Schedule>(appdataPath);
+            if (File.Exists(_appdataPath))
+                DataManager.schedule = ReadFromBinaryFile<Schedule>(_appdataPath);
         }
 
         #region Writer / Readers
