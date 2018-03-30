@@ -22,7 +22,7 @@ namespace EduPlanner {
         Class currentClass;
 
         DispatcherTimer timer = new DispatcherTimer();
-        NotifyIcon notify;
+        //NotifyIcon notify;
 
         private const int TIMERINTERVALMIN = 5;
 
@@ -34,13 +34,13 @@ namespace EduPlanner {
             Updater.CheckForUpdate(Settings.checkForUpdatesOnStartup);
 
             //Initialize things
-            notify = new NotifyIcon {
-                Icon = new System.Drawing.Icon(@"../../icon.ico"),
-                Text = "EduPlanner",
-                Visible = true
-            };
+            //notify = new NotifyIcon {
+            //    Icon = new System.Drawing.Icon(@"../../icon.ico"),
+            //    Text = "EduPlanner",
+            //    Visible = true
+            //};
 
-            notify.Click += Notify_Click;
+            //notify.Click += Notify_Click;
 
             _upcomingTime = DateTime.Now + new TimeSpan(7, 0, 0, 0);
 
@@ -191,11 +191,11 @@ namespace EduPlanner {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Notify_Click(object sender, EventArgs e) {
-            Show();
-            WindowState = WindowState.Normal;
-            notify.Visible = false;
-        }
+        //private void Notify_Click(object sender, EventArgs e) {
+        //    Show();
+        //    WindowState = WindowState.Normal;
+        //    notify.Visible = false;
+        //}
 
         /// <summary>
         /// Change to Agenda View
@@ -284,18 +284,18 @@ namespace EduPlanner {
             Refresh();
         }
 
-        private void Window_StateChanged(object sender, EventArgs e) {
-            if (sender is Window) {
-                Window win = sender as Window;
-                if (win.WindowState == WindowState.Minimized) {
-                    Hide();
-                    notify.Visible = true;
-                } else {
-                    Show();
-                    notify.Visible = false;
-                }
-            }
-        }
+        //private void Window_StateChanged(object sender, EventArgs e) {
+        //    if (sender is Window) {
+        //        Window win = sender as Window;
+        //        if (win.WindowState == WindowState.Minimized) {
+        //            Hide();
+        //            notify.Visible = true;
+        //        } else {
+        //            Show();
+        //            notify.Visible = false;
+        //        }
+        //    }
+        //}
 
         public void WindowAddEditClass_Closed(object sender, EventArgs e) {
             UpdateAgendaView();
@@ -306,7 +306,7 @@ namespace EduPlanner {
         }
 
         private void Window_Closed(object sender, EventArgs e) {
-            notify.Visible = false;
+            //notify.Visible = false;
             BtnSave(sender, new RoutedEventArgs());
         }
 

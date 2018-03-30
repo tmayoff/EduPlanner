@@ -2,5 +2,5 @@
 <EduPlanner>  
   <version>0.75</version>
   <url>https://github.com/tyxman/EduPlanner/releases/download/0.75/EduPlanner.zip</url>
-  <release>yes</release>  
+  <beta>true</beta>  
 </EduPlanner>

@@ -8,7 +8,7 @@ namespace EduPlanner {
 
     public static class DataManager {
 
-        public static string SAVEFILEPATH = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\EduPlanner";
+        public static string Savefilepath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\EduPlanner";
         public const string APPLICATIONNAME = "EduPlanner";
         public const int DAYCOUNT = 7;
 
@@ -21,18 +21,17 @@ namespace EduPlanner {
     }
 
     public class Data {
-        DispatcherTimer timer = new DispatcherTimer();
 
         public int saveTime = 1000;
 
-        private string appdataPath = DataManager.SAVEFILEPATH + @"\Appdata.bin";
-        private string settingsPath = DataManager.SAVEFILEPATH + @"\Settings.bin";
+        private string appdataPath = DataManager.Savefilepath + @"\Appdata.bin";
+        private string settingsPath = DataManager.Savefilepath + @"\Settings.bin";
 
         public Data() { }
 
         public void Save() {
-            if (!Directory.Exists(DataManager.SAVEFILEPATH))
-                Directory.CreateDirectory(DataManager.SAVEFILEPATH);
+            if (!Directory.Exists(DataManager.Savefilepath))
+                Directory.CreateDirectory(DataManager.Savefilepath);
 
             WriteToBinaryFile(appdataPath, DataManager.schedule, false);
             WriteToBinaryFile(settingsPath, DataManager.settings, false);
@@ -56,6 +55,8 @@ namespace EduPlanner {
             if (File.Exists(settingsPath))
                 DataManager.schedule = ReadFromBinaryFile<Schedule>(appdataPath);
         }
+
+        #region Writer / Readers
 
         /// <summary>
         /// Writes the given object instance to a Json file.
@@ -167,5 +168,7 @@ namespace EduPlanner {
                     reader.Close();
             }
         }
+
+        #endregion
     }
 }
