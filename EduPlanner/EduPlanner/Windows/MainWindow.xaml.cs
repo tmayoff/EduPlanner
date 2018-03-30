@@ -1,7 +1,6 @@
 ﻿using MaterialDesignThemes.Wpf;
 using System;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -17,12 +16,10 @@ namespace EduPlanner {
         private readonly Schedule _schedule;
         private readonly Data _data;
         private readonly DateTime _upcomingTime;
-
-        Day today;
+        
         Class currentClass;
 
         DispatcherTimer timer = new DispatcherTimer();
-        //NotifyIcon notify;
 
         private const int TIMERINTERVALMIN = 5;
 
@@ -32,24 +29,16 @@ namespace EduPlanner {
 
             InitializeComponent();
 
-            //Load / Create a schedule
+            //Load settings and data
             _data = new Data();
             _data.Load();
 
             //Initialize things
 
-            //notify = new NotifyIcon {
-            //    Icon = new System.Drawing.Icon(@"../../icon.ico"),
-            //    Text = "EduPlanner",
-            //    Visible = true
-            //};
-
-            //notify.Click += Notify_Click;
-
             _upcomingTime = DateTime.Now + new TimeSpan(7, 0, 0, 0);
 
             Updater.CheckForUpdate(DataManager.settings.checkForUpdatesOnStartup);
-
+            
             _schedule = DataManager.schedule;
             DataManager.mainWindow = this;
             UpdateAgendaView();
@@ -60,6 +49,9 @@ namespace EduPlanner {
             timer.Interval = new TimeSpan(0, TIMERINTERVALMIN, 0);
         }
 
+        /// <summary>
+        /// Updates the class schedule view
+        /// </summary>
         public void UpdateAgendaView() {
             Agenda.Children.Clear();
 
@@ -86,6 +78,9 @@ namespace EduPlanner {
             UpdateHomeworkView();
         }
 
+        /// <summary>
+        /// Updates the homework views
+        /// </summary>
         public void UpdateHomeworkView() {
             Homework.Children.Clear();
             Upcoming.Children.Clear();
@@ -129,7 +124,6 @@ namespace EduPlanner {
         /// <param name="e"></param>
         public void Refresh() {
             DateTime currentDateTime = DateTime.Now;
-            today = _schedule.days[(int)currentDateTime.DayOfWeek];
 
             currentClass = null;
 
@@ -195,17 +189,6 @@ namespace EduPlanner {
         #region Button Handlers
 
         /// <summary>
-        /// System Tray icon
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void Notify_Click(object sender, EventArgs e) {
-        //    Show();
-        //    WindowState = WindowState.Normal;
-        //    notify.Visible = false;
-        //}
-
-        /// <summary>
         /// Change to Agenda View
         /// </summary>
         /// <param name="sender"></param>
@@ -255,31 +238,16 @@ namespace EduPlanner {
             settings.Show();
         }
 
-        private void BtnAddClass_Click(object sender, RoutedEventArgs e) {
-            AddClassWindow addClass = new AddClassWindow();
-            addClass.Closed += new EventHandler(WindowAddEditClass_Closed);
-            addClass.ShowDialog();
-        }
-
         private void BtnAdd_Click(object sender, RoutedEventArgs e) {
             if (_viewingAgenda) {
                 AddClassWindow addClass = new AddClassWindow();
-                addClass.Closed += new EventHandler(WindowAddEditClass_Closed);
+                addClass.Closed += WindowAddEditClass_Closed;
                 addClass.ShowDialog();
             } else {
                 AddHomeworkWindow addHomework = new AddHomeworkWindow();
-                addHomework.Closed += new EventHandler(WindowAddEditHomework_Closed);
+                addHomework.Closed += WindowAddEditHomework_Closed;
                 addHomework.ShowDialog();
             }
-        }
-
-        private void BtnSave(object sender, RoutedEventArgs e) {
-            _data.Save();
-        }
-
-        private void BtnLoad(object sender, RoutedEventArgs e) {
-            _data.Load();
-            UpdateAgendaView();
         }
 
         #endregion
@@ -290,19 +258,6 @@ namespace EduPlanner {
             Refresh();
         }
 
-        //private void Window_StateChanged(object sender, EventArgs e) {
-        //    if (sender is Window) {
-        //        Window win = sender as Window;
-        //        if (win.WindowState == WindowState.Minimized) {
-        //            Hide();
-        //            notify.Visible = true;
-        //        } else {
-        //            Show();
-        //            notify.Visible = false;
-        //        }
-        //    }
-        //}
-
         public void WindowAddEditClass_Closed(object sender, EventArgs e) {
             UpdateAgendaView();
         }
@@ -312,8 +267,7 @@ namespace EduPlanner {
         }
 
         private void Window_Closed(object sender, EventArgs e) {
-            //notify.Visible = false;
-            BtnSave(sender, new RoutedEventArgs());
+            _data.Save();
         }
 
         #endregion

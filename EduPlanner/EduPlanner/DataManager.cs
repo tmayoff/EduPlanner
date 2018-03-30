@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Threading;
 using System.IO;
 using Newtonsoft.Json;
 using System.Xml.Serialization;
@@ -108,7 +107,7 @@ namespace EduPlanner {
         /// <param name="objectToWrite">The object instance to write to the XML file.</param>
         /// <param name="append">If false the file will be overwritten if it already exists. If true the contents will be appended to the file.</param>
         public static void WriteToBinaryFile<T>(string filePath, T objectToWrite, bool append = false) {
-            using (Stream stream = System.IO.File.Open(filePath, append ? FileMode.Append : FileMode.Create)) {
+            using (Stream stream = File.Open(filePath, append ? FileMode.Append : FileMode.Create)) {
                 var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                 binaryFormatter.Serialize(stream, objectToWrite);
             }
@@ -121,7 +120,7 @@ namespace EduPlanner {
         /// <param name="filePath">The file path to read the object instance from.</param>
         /// <returns>Returns a new instance of the object read from the binary file.</returns>
         public static T ReadFromBinaryFile<T>(string filePath) {
-            using (Stream stream = System.IO.File.Open(filePath, FileMode.Open)) {
+            using (Stream stream = File.Open(filePath, FileMode.Open)) {
                 var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                 return (T)binaryFormatter.Deserialize(stream);
             }
