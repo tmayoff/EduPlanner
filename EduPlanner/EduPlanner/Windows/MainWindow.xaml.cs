@@ -31,7 +31,7 @@ namespace EduPlanner {
         public MainWindow() {
 
             InitializeComponent();
-            Updater.CheckForUpdate(true);
+            Updater.CheckForUpdate(Settings.checkForUpdatesOnStartup);
 
             //Initialize things
             notify = new NotifyIcon {

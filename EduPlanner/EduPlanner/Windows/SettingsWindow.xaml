@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EduPlanner.Windows"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
         Title="Settings" Height="450" Width="350">
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -13,8 +14,10 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <TextBlock VerticalAlignment="Center" FontSize="16">Check for Updates on Startup</TextBlock>
-        <ToggleButton IsChecked="true" VerticalAlignment="Center" HorizontalAlignment="Right" Name="tgCheckForUpdatesOnStartup" Checked="tgCheckForUpdatesOnStartup_Checked" Unchecked="tgCheckForUpdatesOnStartup_Unchecked"></ToggleButton>
+        <ToggleButton VerticalAlignment="Center" HorizontalAlignment="Right" Name="tgCheckForUpdatesOnStartup" Checked="tgCheckForUpdatesOnStartup_Checked" Unchecked="tgCheckForUpdatesOnStartup_Unchecked"></ToggleButton>
         <TextBlock VerticalAlignment="Center" Grid.Row="1" FontSize="16">Minimize to Tray</TextBlock>
-        <ToggleButton IsChecked="true" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="1" Name="tgMinimizeToTray" Unchecked="tgMinimizeToTray_Unchecked" Checked="tgMinimizeToTray_Checked"></ToggleButton>
+        <ToggleButton VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="1" Name="tgMinimizeToTray" Unchecked="tgMinimizeToTray_Unchecked" Checked="tgMinimizeToTray_Checked"></ToggleButton>
+        <TextBlock VerticalAlignment="Center" Grid.Row="2" FontSize="16">Receive Beta Updates</TextBlock>
+        <ToggleButton VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="2" Name="tgReceiveBetaUpdates" Unchecked="tgReceiveBetaUpdates_Unchecked" Checked="tgReceiveBetaUpdates_Checked"></ToggleButton>
     </Grid>
 </Window>

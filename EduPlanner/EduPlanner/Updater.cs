@@ -6,14 +6,16 @@ namespace EduPlanner
 {
     public static class Updater
     {
-        static string xmlUrl = "https://raw.githubusercontent.com/tyxman/EduPlanner/master/EduPlanner/update.xml";
-        static string downloadUrl = "https://github.com/tyxman/EduPlanner/releases/";
-        static string mbHeader = DataManager.APPLICATIONNAME + " Updater";
-        static string msgError = "An unknown error occured while checking for updates.";
-
         public static void CheckForUpdate(bool startup = false)
         {
             string newVersion = string.Empty;
+            bool betaUpdate = false;
+            string mbText = string.Empty;
+            //string xmlUrl = "D:\\Desktop\\update.xml";
+            string xmlUrl = "https://raw.githubusercontent.com/tyxman/EduPlanner/master/EduPlanner/update.xml";
+            string downloadUrl = "https://github.com/tyxman/EduPlanner/releases/";
+            string mbHeader = DataManager.APPLICATIONNAME + " Updater";
+            string msgError = "An unknown error occured while checking for updates.";
 
             XmlTextReader reader = new XmlTextReader(xmlUrl);
             try
@@ -54,10 +56,10 @@ namespace EduPlanner
                                     case "url":
                                         downloadUrl = reader.Value;
                                         break;
-                                    case "release":
-                                        if (reader.Value == "no" && !startup)
+                                    case "beta":
+                                        if (reader.Value == "true")
                                         {
-                                            throw new Exception("An update was found, but it has not yet been released.");
+                                            betaUpdate = true;
                                         }
                                         break;
                                 }
@@ -74,14 +76,31 @@ namespace EduPlanner
 
                 if (curVersion.CompareTo(newVersion) < 0)
                 {
-                    string msgText = String.Format("New version detected. Would you like to download it now?\n\n" +
-                                                   "Current version: {0}\n" +
-                                                   "New version: {1}", curVersion, newVersion);
-
-                    MessageBoxResult result = MessageBox.Show(msgText, mbHeader, MessageBoxButton.YesNo, MessageBoxImage.Question);
-                    if (result == MessageBoxResult.Yes)
+                    if (betaUpdate == true && Settings.receiveBetaUpdates == true)
                     {
-                        System.Diagnostics.Process.Start(downloadUrl);
+                        mbText = String.Format("New version detected. Would you like to download it now?\n\n" +
+                                              "Current version: {0}\n" +
+                                              "New beta version: {1}b", curVersion, newVersion);
+                        MessageBoxResult result = MessageBox.Show(mbText, mbHeader, MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            System.Diagnostics.Process.Start(downloadUrl);
+                        }
+                    }
+                    if (betaUpdate == false)
+                    {
+                        mbText = String.Format("New version detected. Would you like to download it now?\n\n" +
+                                                  "Current version: {0}\n" +
+                                                  "New version: {1}", curVersion, newVersion);
+                        MessageBoxResult result = MessageBox.Show(mbText, mbHeader, MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            System.Diagnostics.Process.Start(downloadUrl);
+                        }
+                    }
+                    if (betaUpdate == true && Settings.receiveBetaUpdates == false && !startup)
+                    {
+                        MessageBox.Show("You are running the latest version of EduPlanner!", mbHeader, MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
                 else if (!startup)

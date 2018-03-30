@@ -22,6 +22,23 @@ namespace EduPlanner.Windows
         public SettingsWindow()
         {
             InitializeComponent();
+            LoadSettings();
+        }
+
+        private void LoadSettings()
+        {
+            if (Settings.checkForUpdatesOnStartup == true)
+            {
+                tgCheckForUpdatesOnStartup.IsChecked = true;
+            }
+            if (Settings.minimizeToTray == true)
+            {
+                tgMinimizeToTray.IsChecked = true;
+            }
+            if (Settings.receiveBetaUpdates == true)
+            {
+                tgReceiveBetaUpdates.IsChecked = true;
+            }
         }
 
         private void tgCheckForUpdatesOnStartup_Checked(object sender, RoutedEventArgs e)
@@ -42,6 +59,16 @@ namespace EduPlanner.Windows
         private void tgMinimizeToTray_Unchecked(object sender, RoutedEventArgs e)
         {
             Settings.minimizeToTray = false;
+        }
+
+        private void tgReceiveBetaUpdates_Checked(object sender, RoutedEventArgs e)
+        {
+            Settings.receiveBetaUpdates = true;
+        }
+
+        private void tgReceiveBetaUpdates_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Settings.receiveBetaUpdates = false;
         }
     }
 }

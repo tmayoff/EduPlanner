@@ -10,5 +10,6 @@ namespace EduPlanner {
     {
         public static bool checkForUpdatesOnStartup = true;
         public static bool minimizeToTray = true;
+        public static bool receiveBetaUpdates = false;
     }
 }
