@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace EduPlanner {
     [Serializable]
-    public class Settings {
+    public class Settings
+    {
+        public static bool checkForUpdatesOnStartup = true;
+        public static bool minimizeToTray = true;
     }
 }

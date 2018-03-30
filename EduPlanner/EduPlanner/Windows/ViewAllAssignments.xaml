@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:EduPlanner.Windows"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="All Assignments" Height="600" Width="500">
+        Title="Assignments" Height="600" Width="500">
     <Grid>
 
     </Grid>

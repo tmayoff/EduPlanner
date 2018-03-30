@@ -62,6 +62,10 @@
                                     Click="BtnClassList_Click"/>
                             <Button Content="Refresh List"
                                     Click="BtnRefreshList_Click"/>-->
+                            <Button Content="About"
+                                    Click="BtnAbout_Click"/>
+                            <Button Content="Settings"
+                                    Click="BtnSettings_Click"/>
                             <Button Content="Check for Updates"
                                     Click="BtnCheckForUpdates_Click"/>
                         </StackPanel>

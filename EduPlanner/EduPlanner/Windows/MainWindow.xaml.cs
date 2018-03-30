@@ -237,6 +237,18 @@ namespace EduPlanner {
             Updater.CheckForUpdate();
         }
 
+        private void BtnAbout_Click(object sender, RoutedEventArgs e)
+        {
+            //About about = new About();
+            //about.Show();
+        }
+
+        private void BtnSettings_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow settings = new SettingsWindow();
+            settings.Show();
+        }
+
         private void BtnAddClass_Click(object sender, RoutedEventArgs e) {
             AddClassWindow addClass = new AddClassWindow();
             addClass.Closed += new EventHandler(WindowAddEditClass_Closed);
