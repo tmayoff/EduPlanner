@@ -16,7 +16,7 @@ namespace EduPlanner {
         private readonly Schedule _schedule;
         private readonly Data _data;
         private readonly DateTime _upcomingTime;
-        
+
         Class currentClass;
 
         DispatcherTimer timer = new DispatcherTimer();
@@ -38,15 +38,16 @@ namespace EduPlanner {
             _upcomingTime = DateTime.Now + new TimeSpan(7, 0, 0, 0);
 
             Updater.CheckForUpdate(DataManager.settings.checkForUpdatesOnStartup);
-            
+
             _schedule = DataManager.schedule;
             DataManager.mainWindow = this;
             UpdateAgendaView();
             UpdateHomeworkView();
 
             //Timer
-            timer.Tick += RefreshEvent;
+            timer.Tick += new EventHandler(RefreshEvent);
             timer.Interval = new TimeSpan(0, TIMERINTERVALMIN, 0);
+
         }
 
         /// <summary>
@@ -55,22 +56,18 @@ namespace EduPlanner {
         public void UpdateAgendaView() {
             Agenda.Children.Clear();
 
-            foreach (Day day in _schedule.days) {
-                if (!day.hasClass)
-                    continue;
-                day.Order();
+            for (int i = 0; i < _schedule.days.Count; i++) {
+                if (_schedule.days[i].hasClass) {
+                    _schedule.days[i].Order();
 
-                DayCard dayCard = new DayCard(day);
-                Agenda.Children.Add(dayCard);
+                    DayCard dayCard = new DayCard(_schedule.days[i]);
+                    StackPanel dayCardPanel = dayCard.FindName("ClassesView") as StackPanel;
+                    Agenda.Children.Add(dayCard);
 
-                StackPanel dayCardPanel = dayCard.FindName("ClassesView") as StackPanel;
-
-                if (dayCardPanel == null)
-                    continue;
-
-                foreach (Class _class in day.classes) {
-                    ClassCard card = new ClassCard(_class, day);
-                    dayCardPanel.Children.Add(card);
+                    for (int j = 0; j < _schedule.days[i].classes.Count; j++) {
+                        ClassCard card = new ClassCard(_schedule.days[i].classes[j], _schedule.days[i]);
+                        dayCardPanel.Children.Add(card);
+                    }
                 }
             }
 
@@ -88,31 +85,28 @@ namespace EduPlanner {
             ClassHomeworkCard currentCard;
             StackPanel currentCardPanel;
 
+            Homework homework;
             HomeworkCard homeworkCard;
 
-            foreach (Class _class in _schedule.classes) {
-                if (_class.homeworks.Count == 0)
-                    continue;
+            for (int i = 0; i < DataManager.schedule.classes.Count; i++) {
 
-                currentCard = new ClassHomeworkCard(_class);
-                Homework.Children.Add(currentCard);
 
-                foreach (Homework homework in _class.homeworks) {
+                if (DataManager.schedule.classes[i].homeworks.Count > 0) {
+                    currentCard = new ClassHomeworkCard(DataManager.schedule.classes[i]);
+                    Homework.Children.Add(currentCard);
 
-                    currentCardPanel = currentCard.FindName("classHomework") as StackPanel;
+                    for (int j = 0; j < currentCard._class.homeworks.Count; j++) {
+                        homework = currentCard._class.homeworks[j];
 
-                    homeworkCard = new HomeworkCard(currentCard._class, homework, false);
+                        currentCardPanel = currentCard.FindName("classHomework") as StackPanel;
+                        homeworkCard = new HomeworkCard(currentCard._class, homework, false);
+                        currentCardPanel.Children.Add(homeworkCard);
 
-                    if (currentCardPanel == null)
-                        continue;
-
-                    currentCardPanel.Children.Add(homeworkCard);
-
-                    if (homework.dueDate > _upcomingTime)
-                        continue;
-
-                    homeworkCard = new HomeworkCard(currentCard._class, homework, true);
-                    Upcoming.Children.Add(homeworkCard);
+                        if (homework.dueDate <= _upcomingTime) {
+                            homeworkCard = new HomeworkCard(currentCard._class, homework, true);
+                            Upcoming.Children.Add(homeworkCard);
+                        }
+                    }
                 }
             }
         }
