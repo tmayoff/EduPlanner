@@ -12,63 +12,37 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace EduPlanner.Windows
-{
+namespace EduPlanner.Windows {
     /// <summary>
     /// Interaction logic for SettingsWindow.xaml
     /// </summary>
-    public partial class SettingsWindow : Window
-    {
-        public SettingsWindow()
-        {
+    public partial class SettingsWindow : Window {
+
+        public bool CheckForUpdatesOnStartUp {
+            get { return DataManager.settings.checkForUpdatesOnStartup; }
+            set { DataManager.settings.checkForUpdatesOnStartup = value; }
+        }
+        public bool MinimizeToTray {
+            get { return DataManager.settings.minimizeToTray; }
+            set { DataManager.settings.minimizeToTray = value; }
+        }
+
+        public bool UseBetaVersion {
+            get { return DataManager.settings.receiveBetaUpdates; }
+            set { DataManager.settings.receiveBetaUpdates = value; }
+        }
+
+        public SettingsWindow() {
             InitializeComponent();
+
+            DataContext = this;
             LoadSettings();
         }
 
-        private void LoadSettings()
-        {
-            if (Settings.checkForUpdatesOnStartup == true)
-            {
-                tgCheckForUpdatesOnStartup.IsChecked = true;
-            }
-            if (Settings.minimizeToTray == true)
-            {
-                tgMinimizeToTray.IsChecked = true;
-            }
-            if (Settings.receiveBetaUpdates == true)
-            {
-                tgReceiveBetaUpdates.IsChecked = true;
-            }
-        }
-
-        private void tgCheckForUpdatesOnStartup_Checked(object sender, RoutedEventArgs e)
-        {
-            Settings.checkForUpdatesOnStartup = true;
-        }
-
-        private void tgCheckForUpdatesOnStartup_Unchecked(object sender, RoutedEventArgs e)
-        {
-            Settings.checkForUpdatesOnStartup = false;
-        }
-
-        private void tgMinimizeToTray_Checked(object sender, RoutedEventArgs e)
-        {
-            Settings.minimizeToTray = true;
-        }
-
-        private void tgMinimizeToTray_Unchecked(object sender, RoutedEventArgs e)
-        {
-            Settings.minimizeToTray = false;
-        }
-
-        private void tgReceiveBetaUpdates_Checked(object sender, RoutedEventArgs e)
-        {
-            Settings.receiveBetaUpdates = true;
-        }
-
-        private void tgReceiveBetaUpdates_Unchecked(object sender, RoutedEventArgs e)
-        {
-            Settings.receiveBetaUpdates = false;
+        private void LoadSettings() {
+            UseBetaVersion = DataManager.settings.receiveBetaUpdates;
+            CheckForUpdatesOnStartUp = DataManager.settings.checkForUpdatesOnStartup;
+            MinimizeToTray = DataManager.settings.minimizeToTray;
         }
     }
 }
