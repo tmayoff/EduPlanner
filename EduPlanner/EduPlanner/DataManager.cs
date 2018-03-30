@@ -23,7 +23,7 @@ namespace EduPlanner {
         public int saveTime = 1000;
 
         private readonly string _appdataPath = DataManager.Savefilepath + @"\Appdata.bin";
-        private readonly string _settingsPath = DataManager.Savefilepath + @"\Settings.xml";
+        private readonly string _settingsPath = DataManager.Savefilepath + @"\Settings.bin";
 
         public Data() {
             if (DataManager.schedule == null)
@@ -37,7 +37,7 @@ namespace EduPlanner {
                 Directory.CreateDirectory(DataManager.Savefilepath);
 
             WriteToBinaryFile(_appdataPath, DataManager.schedule);
-            WriteToXmlFile(_settingsPath, DataManager.settings);
+            WriteToBinaryFile(_settingsPath, DataManager.settings);
 
             //WriteToJsonFile(_appdataPath, DataManager.schedule, false);
             //WriteToJsonFile(_settingsPath, DataManager.settings, false);
@@ -48,7 +48,7 @@ namespace EduPlanner {
 
         public void Load() {
             if (File.Exists(_settingsPath))
-                DataManager.settings = ReadFromXmlFile<Settings>(_settingsPath);
+                DataManager.settings = ReadFromBinaryFile<Settings>(_settingsPath);
 
             if (File.Exists(_appdataPath))
                 DataManager.schedule = ReadFromBinaryFile<Schedule>(_appdataPath);
