@@ -45,7 +45,7 @@ namespace EduPlanner {
             UpdateHomeworkView();
 
             //Timer
-            timer.Tick += new EventHandler(RefreshEvent);
+            timer.Tick += RefreshEvent;
             timer.Interval = new TimeSpan(0, TIMERINTERVALMIN, 0);
 
         }
