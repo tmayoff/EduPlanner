@@ -1,13 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Xml.Linq;
 using Newtonsoft.Json;
 using System.Xml.Serialization;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Download;
+using Google.Apis.Drive.v3;
+using Google.Apis.Drive.v3.Data;
+using Google.Apis.Services;
+using Google.Apis.Util.Store;
+using File = Google.Apis.Drive.v3.Data.File;
 
 namespace EduPlanner {
 
     public static class DataManager {
 
-        public static string Savefilepath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\EduPlanner";
+        public static string Savefilepath = @".\EduPlanner";
         public const string APPLICATIONNAME = "EduPlanner";
         public const int DAYCOUNT = 7;
 
@@ -16,6 +27,137 @@ namespace EduPlanner {
         public static Settings settings;
 
         public static MainWindow mainWindow;
+        public static DriveService service;
+
+        #region Google Drive
+
+        public static Dictionary<string, string> ConfigValues = XDocument.Load(@"..\..\AppSettingConfig.config").Root.Elements().Where(e => e.Name == "add").ToDictionary(
+            e => e.Attributes().FirstOrDefault(a => a.Name == "key").Value.ToString(),
+            e => e.Attributes().FirstOrDefault(a => a.Name == "value").Value.ToString());
+
+        private static readonly string Id = ConfigValues["clientID"];
+        private static readonly string Secret = ConfigValues["clientSecret"];
+        private static readonly string mimeType = "application/bin";
+
+        private static readonly string[] Scopes = {
+            DriveService.Scope.DriveAppdata
+        };
+
+        public static bool GoogleAuthenticate() {
+            try {
+                UserCredential credential =
+                    GoogleWebAuthorizationBroker.AuthorizeAsync(
+                        new ClientSecrets {
+                            ClientId = Id,
+                            ClientSecret = Secret
+                        },
+                        Scopes,
+                        Environment.UserName,
+                        CancellationToken.None,
+                        new FileDataStore(@"EduPlanner\GoogleDrive\Auth\Store")).Result;
+
+                DataManager.service = new DriveService(new BaseClientService.Initializer {
+                    HttpClientInitializer = credential,
+                    ApplicationName = "EduPlanner"
+                });
+
+            } catch (Exception ex) {
+                return false;
+            }
+
+            return true;
+        }
+
+        public static void UploadFiles(string path) {
+            File fileMetadata = new File() {
+                Name = "Appdata.bin",
+                Parents = new List<string>() { "appDataFolder" }
+            };
+
+            FilesResource.CreateMediaUpload request;
+
+            using (FileStream stream = new FileStream(path, FileMode.Open)) {
+                request = service.Files.Create(fileMetadata, stream, mimeType);
+                request.Fields = "id";
+                request.Upload();
+            }
+        }
+
+        public static void UpdateFiles(string path) {
+            string fileName = Path.GetFileName(path);
+            string fileId = GetFileId(fileName);
+
+            File file = service.Files.Get(fileId).Execute();
+
+            byte[] bytes = System.IO.File.ReadAllBytes(path);
+            MemoryStream stream = new MemoryStream(bytes);
+
+            FilesResource.UpdateMediaUpload request =
+                service.Files.Update(file, fileId, stream, mimeType);
+            request.Upload();
+        }
+
+        public static bool DownloadFiles(string fileName) {
+            if (!FileExists(fileName))
+                return false;
+
+            string fileId = GetFileId(fileName);
+
+            FilesResource.GetRequest request = DataManager.service.Files.Get(fileId);
+            MemoryStream stream = new MemoryStream();
+
+            bool succeded = false;
+
+            request.MediaDownloader.ProgressChanged += progress => {
+                switch (progress.Status) {
+                    case DownloadStatus.Downloading:
+                        break;
+                    case DownloadStatus.Completed:
+                        succeded = true;
+                        break;
+                    case DownloadStatus.Failed:
+                        succeded = false;
+                        break;
+                }
+            };
+
+            if (!succeded)
+                return false;
+
+            request.Download(stream);
+            FileStream file = new FileStream("./Downloaded", FileMode.Create);
+            stream.WriteTo(file);
+            file.Close();
+            stream.Close();
+            return true;
+        }
+
+        public static bool FileExists(string fileName) {
+            FilesResource.ListRequest request = DataManager.service.Files.List();
+            request.Spaces = "appDataFolder";
+            request.Fields = "nextPageToken, files(id, name)";
+            request.PageSize = 10;
+            FileList result = request.Execute();
+            return result.Files.Any(file => file.Name == fileName);
+        }
+
+        private static string GetFileId(string fileName) {
+            //Get file id
+            FilesResource.ListRequest request = DataManager.service.Files.List();
+            request.Spaces = "appDataFolder";
+            request.Fields = "nextPageToken, files(id, name)";
+            request.PageSize = 10;
+            FileList result = request.Execute();
+            foreach (File file in result.Files) {
+                if (file.Name == fileName) {
+                    return file.Id;
+                }
+            }
+
+            return null;
+        }
+
+        #endregion
     }
 
     public class Data {
@@ -33,28 +175,43 @@ namespace EduPlanner {
         }
 
         public void Save() {
+            string appdataName = Path.GetFileName(_appdataPath);
+            string settingsName = Path.GetFileName(_settingsPath);
+
             if (!Directory.Exists(DataManager.Savefilepath))
                 Directory.CreateDirectory(DataManager.Savefilepath);
 
             WriteToBinaryFile(_appdataPath, DataManager.schedule);
             WriteToBinaryFile(_settingsPath, DataManager.settings);
 
-            //WriteToJsonFile(_appdataPath, DataManager.schedule, false);
-            //WriteToJsonFile(_settingsPath, DataManager.settings, false);
+            if (!DataManager.settings.driveIntergration) return;
 
-            //WriteToXmlFile(_appdataPath, DataManager.schedule, false);
-            //WriteToXmlFile(_settingsPath, DataManager.settings, false);
+            if (DataManager.FileExists(appdataName))
+                DataManager.UpdateFiles(_appdataPath);
+            else
+                DataManager.UploadFiles(_appdataPath);
+
+            if (DataManager.FileExists(settingsName))
+                DataManager.UpdateFiles(_settingsPath);
+            else
+                DataManager.UploadFiles(_settingsPath);
         }
 
         public void Load() {
-            if (File.Exists(_settingsPath))
+            if (DataManager.FileExists(Path.GetFileName(_appdataPath)))
+                DataManager.DownloadFiles(Path.GetFileName(_appdataPath));
+
+            if (DataManager.FileExists(Path.GetFileName(_settingsPath)))
+                DataManager.DownloadFiles(Path.GetFileName(_settingsPath));
+
+            if (System.IO.File.Exists(_settingsPath))
                 DataManager.settings = ReadFromBinaryFile<Settings>(_settingsPath);
 
-            if (File.Exists(_appdataPath))
+            if (System.IO.File.Exists(_appdataPath))
                 DataManager.schedule = ReadFromBinaryFile<Schedule>(_appdataPath);
         }
 
-        #region Writer / Readers
+        #region Writers / Readers
 
         /// <summary>
         /// Writes the given object instance to a Json file.
@@ -107,7 +264,7 @@ namespace EduPlanner {
         /// <param name="objectToWrite">The object instance to write to the XML file.</param>
         /// <param name="append">If false the file will be overwritten if it already exists. If true the contents will be appended to the file.</param>
         public static void WriteToBinaryFile<T>(string filePath, T objectToWrite, bool append = false) {
-            using (Stream stream = File.Open(filePath, append ? FileMode.Append : FileMode.Create)) {
+            using (Stream stream = System.IO.File.Open(filePath, append ? FileMode.Append : FileMode.Create)) {
                 var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                 binaryFormatter.Serialize(stream, objectToWrite);
             }
@@ -120,7 +277,7 @@ namespace EduPlanner {
         /// <param name="filePath">The file path to read the object instance from.</param>
         /// <returns>Returns a new instance of the object read from the binary file.</returns>
         public static T ReadFromBinaryFile<T>(string filePath) {
-            using (Stream stream = File.Open(filePath, FileMode.Open)) {
+            using (Stream stream = System.IO.File.Open(filePath, FileMode.Open)) {
                 var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                 return (T)binaryFormatter.Deserialize(stream);
             }

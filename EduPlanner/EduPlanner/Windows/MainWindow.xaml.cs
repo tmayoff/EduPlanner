@@ -24,14 +24,17 @@ namespace EduPlanner {
         private const int TIMERINTERVALMIN = 5;
 
         private bool _viewingAgenda = true;
+        private bool _driveSuccess;
 
         public MainWindow() {
+            _driveSuccess = DataManager.GoogleAuthenticate();
 
             InitializeComponent();
 
             //Load settings and data
             _data = new Data();
             _data.Load();
+            DataManager.settings.driveIntergration = _driveSuccess;
 
             //Initialize things
 

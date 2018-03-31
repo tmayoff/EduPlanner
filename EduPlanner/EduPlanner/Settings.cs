@@ -12,5 +12,7 @@ namespace EduPlanner {
         public bool checkForUpdatesOnStartup;
         public bool minimizeToTray;
         public bool receiveBetaUpdates;
+
+        public bool driveIntergration;
     }
 }
