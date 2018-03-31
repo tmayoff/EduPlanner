@@ -18,7 +18,7 @@ namespace EduPlanner {
 
     public static class DataManager {
 
-        public static string Savefilepath = @".\EduPlanner";
+        public static string Savefilepath = @".\EduPlanner\";
         public const string APPLICATIONNAME = "EduPlanner";
         public const int DAYCOUNT = 7;
 
@@ -28,6 +28,8 @@ namespace EduPlanner {
 
         public static MainWindow mainWindow;
         public static DriveService service;
+
+        public static bool authenticated;
 
         #region Google Drive
 
@@ -42,6 +44,8 @@ namespace EduPlanner {
         private static readonly string[] Scopes = {
             DriveService.Scope.DriveAppdata
         };
+
+        private static bool downloadSucceeded;
 
         public static bool GoogleAuthenticate() {
             try {
@@ -70,7 +74,7 @@ namespace EduPlanner {
 
         public static void UploadFiles(string path) {
             File fileMetadata = new File() {
-                Name = "Appdata.bin",
+                Name = Path.GetFileName(path),
                 Parents = new List<string>() { "appDataFolder" }
             };
 
@@ -103,33 +107,21 @@ namespace EduPlanner {
 
             string fileId = GetFileId(fileName);
 
-            FilesResource.GetRequest request = DataManager.service.Files.Get(fileId);
+            FilesResource.GetRequest request = service.Files.Get(fileId);
             MemoryStream stream = new MemoryStream();
 
-            bool succeded = false;
-
-            request.MediaDownloader.ProgressChanged += progress => {
-                switch (progress.Status) {
-                    case DownloadStatus.Downloading:
-                        break;
-                    case DownloadStatus.Completed:
-                        succeded = true;
-                        break;
-                    case DownloadStatus.Failed:
-                        succeded = false;
-                        break;
-                }
-            };
-
-            if (!succeded)
-                return false;
+            request.MediaDownloader.ProgressChanged += DownloadSucceeded;
 
             request.Download(stream);
-            FileStream file = new FileStream("./Downloaded", FileMode.Create);
+            FileStream file = new FileStream(Savefilepath + fileName, FileMode.Create);
             stream.WriteTo(file);
             file.Close();
             stream.Close();
-            return true;
+            return downloadSucceeded;
+        }
+
+        public static void DownloadSucceeded(IDownloadProgress progress) {
+            downloadSucceeded = progress.Status == DownloadStatus.Completed;
         }
 
         public static bool FileExists(string fileName) {
@@ -164,51 +156,54 @@ namespace EduPlanner {
 
         public int saveTime = 1000;
 
-        private readonly string _appdataPath = DataManager.Savefilepath + @"\Appdata.bin";
-        private readonly string _settingsPath = DataManager.Savefilepath + @"\Settings.bin";
+        private const string APPDATA_NAME = "Appdata.bin";
+        private const string SETTINGS_NAME = "Settings.bin";
+        private static readonly string AppdataPath = DataManager.Savefilepath + APPDATA_NAME;
+        private static readonly string SettingsPath = DataManager.Savefilepath + SETTINGS_NAME;
 
         public Data() {
             if (DataManager.schedule == null)
                 DataManager.schedule = new Schedule();
             if (DataManager.settings == null)
                 DataManager.settings = new Settings();
+
+            Load();
         }
 
         public void Save() {
-            string appdataName = Path.GetFileName(_appdataPath);
-            string settingsName = Path.GetFileName(_settingsPath);
-
             if (!Directory.Exists(DataManager.Savefilepath))
                 Directory.CreateDirectory(DataManager.Savefilepath);
 
-            WriteToBinaryFile(_appdataPath, DataManager.schedule);
-            WriteToBinaryFile(_settingsPath, DataManager.settings);
+            WriteToBinaryFile(AppdataPath, DataManager.schedule);
+            WriteToBinaryFile(SettingsPath, DataManager.settings);
 
-            if (!DataManager.settings.driveIntergration) return;
+            if (DataManager.authenticated) {
+                if (DataManager.FileExists(APPDATA_NAME))
+                    DataManager.UpdateFiles(AppdataPath);
+                else
+                    DataManager.UploadFiles(AppdataPath);
 
-            if (DataManager.FileExists(appdataName))
-                DataManager.UpdateFiles(_appdataPath);
-            else
-                DataManager.UploadFiles(_appdataPath);
-
-            if (DataManager.FileExists(settingsName))
-                DataManager.UpdateFiles(_settingsPath);
-            else
-                DataManager.UploadFiles(_settingsPath);
+                if (DataManager.FileExists(SETTINGS_NAME))
+                    DataManager.UpdateFiles(SettingsPath);
+                else
+                    DataManager.UploadFiles(SettingsPath);
+            }
         }
 
         public void Load() {
-            if (DataManager.FileExists(Path.GetFileName(_appdataPath)))
-                DataManager.DownloadFiles(Path.GetFileName(_appdataPath));
+            if (DataManager.authenticated) {
+                if (DataManager.FileExists(APPDATA_NAME))
+                    DataManager.DownloadFiles(APPDATA_NAME);
 
-            if (DataManager.FileExists(Path.GetFileName(_settingsPath)))
-                DataManager.DownloadFiles(Path.GetFileName(_settingsPath));
+                if (DataManager.FileExists(SETTINGS_NAME))
+                    DataManager.DownloadFiles(SETTINGS_NAME);
+            }
 
-            if (System.IO.File.Exists(_settingsPath))
-                DataManager.settings = ReadFromBinaryFile<Settings>(_settingsPath);
+            if (System.IO.File.Exists(SettingsPath))
+                DataManager.settings = ReadFromBinaryFile<Settings>(SettingsPath);
 
-            if (System.IO.File.Exists(_appdataPath))
-                DataManager.schedule = ReadFromBinaryFile<Schedule>(_appdataPath);
+            if (System.IO.File.Exists(AppdataPath))
+                DataManager.schedule = ReadFromBinaryFile<Schedule>(AppdataPath);
         }
 
         #region Writers / Readers

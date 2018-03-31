@@ -27,14 +27,12 @@ namespace EduPlanner {
         private bool _driveSuccess;
 
         public MainWindow() {
-            _driveSuccess = DataManager.GoogleAuthenticate();
+            DataManager.authenticated = DataManager.GoogleAuthenticate();
 
             InitializeComponent();
 
             //Load settings and data
             _data = new Data();
-            _data.Load();
-            DataManager.settings.driveIntergration = _driveSuccess;
 
             //Initialize things
 
