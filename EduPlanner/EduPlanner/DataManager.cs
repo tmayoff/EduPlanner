@@ -22,14 +22,14 @@ namespace EduPlanner {
         public const string APPLICATIONNAME = "EduPlanner";
         public const int DAYCOUNT = 7;
 
-        public static Schedule schedule;
+        public static Schedule Schedule;
 
-        public static Settings settings;
+        public static Settings Settings;
 
-        public static MainWindow mainWindow;
-        public static DriveService service;
+        public static MainWindow MainWindow;
+        public static DriveService Service;
 
-        public static bool authenticated;
+        public static bool Authenticated;
 
         #region Google Drive
 
@@ -60,7 +60,7 @@ namespace EduPlanner {
                         CancellationToken.None,
                         new FileDataStore(@"EduPlanner\GoogleDrive\Auth\Store")).Result;
 
-                DataManager.service = new DriveService(new BaseClientService.Initializer {
+                DataManager.Service = new DriveService(new BaseClientService.Initializer {
                     HttpClientInitializer = credential,
                     ApplicationName = "EduPlanner"
                 });
@@ -81,7 +81,7 @@ namespace EduPlanner {
             FilesResource.CreateMediaUpload request;
 
             using (FileStream stream = new FileStream(path, FileMode.Open)) {
-                request = service.Files.Create(fileMetadata, stream, mimeType);
+                request = Service.Files.Create(fileMetadata, stream, mimeType);
                 request.Fields = "id";
                 request.Upload();
             }
@@ -91,13 +91,13 @@ namespace EduPlanner {
             string fileName = Path.GetFileName(path);
             string fileId = GetFileId(fileName);
 
-            File file = service.Files.Get(fileId).Execute();
+            File file = Service.Files.Get(fileId).Execute();
 
             byte[] bytes = System.IO.File.ReadAllBytes(path);
             MemoryStream stream = new MemoryStream(bytes);
 
             FilesResource.UpdateMediaUpload request =
-                service.Files.Update(file, fileId, stream, mimeType);
+                Service.Files.Update(file, fileId, stream, mimeType);
             request.Upload();
         }
 
@@ -107,7 +107,7 @@ namespace EduPlanner {
 
             string fileId = GetFileId(fileName);
 
-            FilesResource.GetRequest request = service.Files.Get(fileId);
+            FilesResource.GetRequest request = Service.Files.Get(fileId);
             MemoryStream stream = new MemoryStream();
 
             request.MediaDownloader.ProgressChanged += DownloadSucceeded;
@@ -125,7 +125,7 @@ namespace EduPlanner {
         }
 
         public static bool FileExists(string fileName) {
-            FilesResource.ListRequest request = DataManager.service.Files.List();
+            FilesResource.ListRequest request = DataManager.Service.Files.List();
             request.Spaces = "appDataFolder";
             request.Fields = "nextPageToken, files(id, name)";
             request.PageSize = 10;
@@ -135,7 +135,7 @@ namespace EduPlanner {
 
         private static string GetFileId(string fileName) {
             //Get file id
-            FilesResource.ListRequest request = DataManager.service.Files.List();
+            FilesResource.ListRequest request = DataManager.Service.Files.List();
             request.Spaces = "appDataFolder";
             request.Fields = "nextPageToken, files(id, name)";
             request.PageSize = 10;
@@ -162,10 +162,10 @@ namespace EduPlanner {
         private static readonly string SettingsPath = DataManager.Savefilepath + SETTINGS_NAME;
 
         public Data() {
-            if (DataManager.schedule == null)
-                DataManager.schedule = new Schedule();
-            if (DataManager.settings == null)
-                DataManager.settings = new Settings();
+            if (DataManager.Schedule == null)
+                DataManager.Schedule = new Schedule();
+            if (DataManager.Settings == null)
+                DataManager.Settings = new Settings();
 
             Load();
         }
@@ -174,10 +174,10 @@ namespace EduPlanner {
             if (!Directory.Exists(DataManager.Savefilepath))
                 Directory.CreateDirectory(DataManager.Savefilepath);
 
-            WriteToBinaryFile(AppdataPath, DataManager.schedule);
-            WriteToBinaryFile(SettingsPath, DataManager.settings);
+            WriteToBinaryFile(AppdataPath, DataManager.Schedule);
+            WriteToBinaryFile(SettingsPath, DataManager.Settings);
 
-            if (DataManager.authenticated) {
+            if (DataManager.Authenticated) {
                 if (DataManager.FileExists(APPDATA_NAME))
                     DataManager.UpdateFiles(AppdataPath);
                 else
@@ -191,7 +191,7 @@ namespace EduPlanner {
         }
 
         public void Load() {
-            if (DataManager.authenticated) {
+            if (DataManager.Authenticated) {
                 if (DataManager.FileExists(APPDATA_NAME))
                     DataManager.DownloadFiles(APPDATA_NAME);
 
@@ -200,10 +200,10 @@ namespace EduPlanner {
             }
 
             if (System.IO.File.Exists(SettingsPath))
-                DataManager.settings = ReadFromBinaryFile<Settings>(SettingsPath);
+                DataManager.Settings = ReadFromBinaryFile<Settings>(SettingsPath);
 
             if (System.IO.File.Exists(AppdataPath))
-                DataManager.schedule = ReadFromBinaryFile<Schedule>(AppdataPath);
+                DataManager.Schedule = ReadFromBinaryFile<Schedule>(AppdataPath);
         }
 
         #region Writers / Readers

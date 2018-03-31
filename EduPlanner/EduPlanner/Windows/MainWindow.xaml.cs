@@ -24,24 +24,23 @@ namespace EduPlanner {
         private const int TIMERINTERVALMIN = 5;
 
         private bool _viewingAgenda = true;
-        private bool _driveSuccess;
 
         public MainWindow() {
-            DataManager.authenticated = DataManager.GoogleAuthenticate();
+            DataManager.Authenticated = DataManager.GoogleAuthenticate();
 
             InitializeComponent();
 
-            //Load settings and data
+            //Load Settings and data
             _data = new Data();
 
             //Initialize things
 
             _upcomingTime = DateTime.Now + new TimeSpan(7, 0, 0, 0);
 
-            Updater.CheckForUpdate(DataManager.settings.checkForUpdatesOnStartup);
+            Updater.CheckForUpdate(DataManager.Settings.checkForUpdatesOnStartup);
 
-            _schedule = DataManager.schedule;
-            DataManager.mainWindow = this;
+            _schedule = DataManager.Schedule;
+            DataManager.MainWindow = this;
             UpdateAgendaView();
             UpdateHomeworkView();
 
@@ -52,7 +51,7 @@ namespace EduPlanner {
         }
 
         /// <summary>
-        /// Updates the class schedule view
+        /// Updates the class Schedule view
         /// </summary>
         public void UpdateAgendaView() {
             Agenda.Children.Clear();
@@ -89,11 +88,11 @@ namespace EduPlanner {
             Homework homework;
             HomeworkCard homeworkCard;
 
-            for (int i = 0; i < DataManager.schedule.classes.Count; i++) {
+            for (int i = 0; i < DataManager.Schedule.classes.Count; i++) {
 
 
-                if (DataManager.schedule.classes[i].homeworks.Count > 0) {
-                    currentCard = new ClassHomeworkCard(DataManager.schedule.classes[i]);
+                if (DataManager.Schedule.classes[i].homeworks.Count > 0) {
+                    currentCard = new ClassHomeworkCard(DataManager.Schedule.classes[i]);
                     Homework.Children.Add(currentCard);
 
                     for (int j = 0; j < currentCard._class.homeworks.Count; j++) {

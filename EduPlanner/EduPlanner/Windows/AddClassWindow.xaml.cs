@@ -53,15 +53,15 @@ namespace EduPlanner {
                             if (newClass == null) {
                                 //Creates a new one if not
                                 newClass = new Class(txtClassName.Text);
-                                DataManager.schedule.classes.Add(newClass);
+                                DataManager.Schedule.classes.Add(newClass);
                             }
 
                             //Changes the old one
                             newClass.classTimes[day][0] = startTime;
                             newClass.classTimes[day][1] = endTime;
 
-                            DataManager.schedule.days[(int)day].classes.Add(newClass);
-                            DataManager.schedule.days[(int)day].hasClass = true;
+                            DataManager.Schedule.days[(int)day].classes.Add(newClass);
+                            DataManager.Schedule.days[(int)day].hasClass = true;
                         }
                     }
                 }
@@ -77,10 +77,10 @@ namespace EduPlanner {
         #endregion
 
         private Class CheckClassExistence(string name) {
-            if (DataManager.schedule.classes != null) {
-                for (int i = 0; i < DataManager.schedule.classes.Count; i++) {
-                    if (DataManager.schedule.classes[i].className == name)
-                        return DataManager.schedule.classes[i];
+            if (DataManager.Schedule.classes != null) {
+                for (int i = 0; i < DataManager.Schedule.classes.Count; i++) {
+                    if (DataManager.Schedule.classes[i].className == name)
+                        return DataManager.Schedule.classes[i];
                 }
             }
 

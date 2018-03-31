@@ -14,7 +14,7 @@ namespace EduPlanner {
         public AddHomeworkWindow() {
             InitializeComponent();
 
-            cmbClasses.ItemsSource = DataManager.schedule.classes;
+            cmbClasses.ItemsSource = DataManager.Schedule.classes;
         }
 
         public AddHomeworkWindow(Class _class, Day day) {
@@ -23,7 +23,7 @@ namespace EduPlanner {
             this._class = _class;
             this.day = day;
 
-            cmbClasses.ItemsSource = DataManager.schedule.classes;
+            cmbClasses.ItemsSource = DataManager.Schedule.classes;
             cmbClasses.SelectedItem = _class;
 
             dpDueDate.SelectedDate = _class.classTimes[day.day][1];

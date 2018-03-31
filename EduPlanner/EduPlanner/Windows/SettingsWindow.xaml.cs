@@ -19,17 +19,17 @@ namespace EduPlanner.Windows {
     public partial class SettingsWindow : Window {
 
         public bool CheckForUpdatesOnStartUp {
-            get { return DataManager.settings.checkForUpdatesOnStartup; }
-            set { DataManager.settings.checkForUpdatesOnStartup = value; }
+            get { return DataManager.Settings.checkForUpdatesOnStartup; }
+            set { DataManager.Settings.checkForUpdatesOnStartup = value; }
         }
         public bool MinimizeToTray {
-            get { return DataManager.settings.minimizeToTray; }
-            set { DataManager.settings.minimizeToTray = value; }
+            get { return DataManager.Settings.minimizeToTray; }
+            set { DataManager.Settings.minimizeToTray = value; }
         }
 
         public bool UseBetaVersion {
-            get { return DataManager.settings.receiveBetaUpdates; }
-            set { DataManager.settings.receiveBetaUpdates = value; }
+            get { return DataManager.Settings.receiveBetaUpdates; }
+            set { DataManager.Settings.receiveBetaUpdates = value; }
         }
 
         public SettingsWindow() {
@@ -40,9 +40,9 @@ namespace EduPlanner.Windows {
         }
 
         private void LoadSettings() {
-            UseBetaVersion = DataManager.settings.receiveBetaUpdates;
-            CheckForUpdatesOnStartUp = DataManager.settings.checkForUpdatesOnStartup;
-            MinimizeToTray = DataManager.settings.minimizeToTray;
+            UseBetaVersion = DataManager.Settings.receiveBetaUpdates;
+            CheckForUpdatesOnStartUp = DataManager.Settings.checkForUpdatesOnStartup;
+            MinimizeToTray = DataManager.Settings.minimizeToTray;
         }
     }
 }

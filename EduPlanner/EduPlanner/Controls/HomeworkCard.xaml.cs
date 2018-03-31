@@ -27,7 +27,7 @@ namespace EduPlanner {
 
         private void EditHomework_Click(object sender, RoutedEventArgs e) {
             EditHomeworkWindow window = new EditHomeworkWindow(_class, _homework);
-            window.Closed += DataManager.mainWindow.WindowAddEditHomework_Closed;
+            window.Closed += DataManager.MainWindow.WindowAddEditHomework_Closed;
             window.ShowDialog();
         }
     }

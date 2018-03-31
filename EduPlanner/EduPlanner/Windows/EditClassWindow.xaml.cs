@@ -85,8 +85,8 @@ namespace EduPlanner {
 
         private void SaveClass_Click(object sender, RoutedEventArgs e) {
             //Reset
-            for (int i = 0; i < DataManager.schedule.days.Count; i++) {
-                DataManager.schedule.days[i].classes.Remove(_class);
+            for (int i = 0; i < DataManager.Schedule.days.Count; i++) {
+                DataManager.Schedule.days[i].classes.Remove(_class);
             }
 
             _class.ResetTimes();
@@ -117,8 +117,8 @@ namespace EduPlanner {
                             _class.classTimes[day][0] = startTime;
                             _class.classTimes[day][1] = endTime;
 
-                            DataManager.schedule.days[(int)day].classes.Add(_class);
-                            DataManager.schedule.days[(int)day].hasClass = true;
+                            DataManager.Schedule.days[(int)day].classes.Add(_class);
+                            DataManager.Schedule.days[(int)day].hasClass = true;
                         }
                     }
                 }

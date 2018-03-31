@@ -24,13 +24,13 @@ namespace EduPlanner {
 
         private void AddHomework_Click(object sender, RoutedEventArgs e) {
             AddHomeworkWindow window = new AddHomeworkWindow(_class, day);
-            window.Closed += DataManager.mainWindow.WindowAddEditHomework_Closed;
+            window.Closed += DataManager.MainWindow.WindowAddEditHomework_Closed;
             window.ShowDialog();
         }
 
         private void EditClass_Click(object sender, RoutedEventArgs e) {
             EditClassWindow editClass = new EditClassWindow(_class);
-            editClass.Closed += DataManager.mainWindow.WindowAddEditClass_Closed;
+            editClass.Closed += DataManager.MainWindow.WindowAddEditClass_Closed;
             editClass.ShowDialog();
         }
     }
