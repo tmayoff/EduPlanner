@@ -33,7 +33,7 @@ namespace EduPlanner {
 
         #region Google Drive
 
-        public static Dictionary<string, string> ConfigValues = XDocument.Load(@"..\..\AppSettingConfig.config").Root.Elements().Where(e => e.Name == "add").ToDictionary(
+        public static Dictionary<string, string> ConfigValues = XDocument.Load(@"AppSettingConfig.config").Root.Elements().Where(e => e.Name == "add").ToDictionary(
             e => e.Attributes().FirstOrDefault(a => a.Name == "key").Value.ToString(),
             e => e.Attributes().FirstOrDefault(a => a.Name == "value").Value.ToString());
 
@@ -65,7 +65,7 @@ namespace EduPlanner {
                     ApplicationName = "EduPlanner"
                 });
 
-            } catch (Exception ex) {
+            } catch {
                 return false;
             }
 
@@ -191,6 +191,9 @@ namespace EduPlanner {
         }
 
         public void Load() {
+            if (!Directory.Exists(DataManager.Savefilepath))
+                Directory.CreateDirectory(DataManager.Savefilepath);
+
             if (DataManager.Authenticated) {
                 if (DataManager.FileExists(APPDATA_NAME))
                     DataManager.DownloadFiles(APPDATA_NAME);
