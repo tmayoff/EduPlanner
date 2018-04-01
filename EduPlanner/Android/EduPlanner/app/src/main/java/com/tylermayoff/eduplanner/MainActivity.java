@@ -1,45 +1,49 @@
 package com.tylermayoff.eduplanner;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-
-        if (findViewById(R.id.mainFragView) != null) {
-
-            if (savedInstanceState != null)
-                return;
-
-            AgendaView agendaView = new AgendaView();
-            agendaView.setArguments(getIntent().getExtras());
-
-            getSupportFragmentManager().beginTransaction().add(R.id.mainFragView, agendaView).commit();
-        }
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
-    public void BtnAddClass_Click(View view) {
-        AddClass addClass = new AddClass();
+    public void BtnAddClass_Click(View view){
+        Intent addClass = new Intent(this, AddClass.class);
+        startActivity(addClass);
+    }
 
-        Bundle args = new Bundle();
-        args.putInt(addClass.ARG_POSITION, position);
-        addClass.setArguments(args);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.mainFragView, addClass);
-        fragmentTransaction.addToBackStack(null);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
-        fragmentTransaction.commit();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
