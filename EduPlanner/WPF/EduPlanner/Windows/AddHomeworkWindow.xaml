@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:EduPlanner"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="New Homework Assignment" Height="600" Width="500">
+        Title="New homeworkPanel Assignment" Height="600" Width="500">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -69,7 +69,7 @@
 
         </StackPanel>
 
-        <Button Name="btnAddHomeWork" Content="Add Homework"
+        <Button Name="btnAddHomeWork" Content="Add homeworkPanel"
                 Grid.Row="2" Margin="15"
                 Click="BtnAddHomeWork_Click" IsEnabled="False"/>
 

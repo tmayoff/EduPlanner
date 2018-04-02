@@ -40,7 +40,7 @@
                              HorizontalAlignment="Right">
 
                     <StackPanel>
-                        <Button Content="Add Homework"
+                        <Button Content="Add homeworkPanel"
                                 Click="AddHomework_Click"/>
                         <Button Content="Edit Class"
                             Click="EditClass_Click"/>

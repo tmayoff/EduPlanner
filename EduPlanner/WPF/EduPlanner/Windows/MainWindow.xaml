@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:EduPlanner"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -15,7 +14,6 @@
         mc:Ignorable="d"
         Title="EduPlanner" Height="800" Width="1200"
         Closed="Window_Closed">
-
 
     <Grid>
         <Grid.RowDefinitions>
@@ -76,16 +74,15 @@
         <ScrollViewer Grid.Row="1" Grid.Column="0" Margin="0 0 20 0"
                       VerticalScrollBarVisibility="Auto">
 
-            <Grid Grid.Column="1">
-
+            <Grid>
                 <!-- Agenda View-->
-                <Grid Name="AgendaView"
+                <Grid Name="agendaView"
                       Visibility="Visible">
-                    <StackPanel Name="Agenda" Margin="20 20 0 10"/>
+                    <StackPanel Name="panelAgenda" Margin="20 20 0 10"/>
                 </Grid>
 
                 <!-- Homework View -->
-                <Grid Name="HomeworkView"
+                <Grid Name="homeworkView"
                       Visibility="Collapsed">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"/>
@@ -97,23 +94,25 @@
                                    FontSize="24" FontWeight="Bold"/>
 
 
-                        <StackPanel Name="Homework"
+                        <StackPanel Name="homeworkPanel"
                                 
                                 Margin="20 20 0 10"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Margin="5">
 
-                        <TextBlock Text="Upcoming Assignments"
+                        <TextBlock Text="upcoming Assignments"
                                    FontSize="24" FontWeight="Bold"/>
 
-                        <StackPanel Name="Upcoming"
-                                Grid.Column="1"/>
+                        <StackPanel Name="upcoming"/>
+
                     </StackPanel>
                 </Grid>
             </Grid>
+
         </ScrollViewer>
-        <Button Name="BtnAdd"
+
+        <Button Name="btnAdd"
                             Margin="25"
                             Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                             Style="{DynamicResource MaterialDesignFloatingActionButton}"

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:EduPlanner"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Edit Homework Assignment" Height="500" Width="400">
+        Title="Edit homeworkPanel Assignment" Height="500" Width="400">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -72,11 +72,11 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Button Name="btnDeleteHomework" Content="Delete Homework"
+            <Button Name="btnDeleteHomework" Content="Delete homeworkPanel"
                     Grid.Column="0"
                     Click="BtnDeleteHomework_Click"/>
 
-            <Button Name="btnSaveHomework" Content="Save Homework"
+            <Button Name="btnSaveHomework" Content="Save homeworkPanel"
                     Grid.Column="1"
                     Margin="10"
                     IsEnabled="False"
