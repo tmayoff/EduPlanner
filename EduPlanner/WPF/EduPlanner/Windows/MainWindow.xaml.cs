@@ -184,8 +184,9 @@ namespace EduPlanner {
 
         #region Button Handlers
 
-        public void BtnExportData_Click(object sender, RoutedEventArgs e) {
-
+        public void BtnExportData_Click(object sender, RoutedEventArgs e)
+        {
+            Settings.Export();
         }
 
         /// <summary>
