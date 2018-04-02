@@ -37,7 +37,10 @@ namespace EduPlanner {
 
             _upcomingTime = DateTime.Now + new TimeSpan(7, 0, 0, 0);
 
-            Updater.CheckForUpdate(DataManager.Settings.checkForUpdatesOnStartup);
+            if (DataManager.Settings.checkForUpdatesOnStartup == true)
+            {
+                Updater.CheckForUpdate(true);
+            }
 
             _schedule = DataManager.Schedule;
             DataManager.MainWindow = this;
