@@ -39,6 +39,7 @@
                     <TextBlock Name="txtCurrentClass" 
                                HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
+                    <!-- Header Buttons -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button Margin="10" Height="50" Click="BtnViewAgenda_Click">
                             <StackPanel>
@@ -58,16 +59,14 @@
                     <!-- 3 Dots Popup -->
                     <materialDesign:PopupBox HorizontalAlignment="Right">
                         <StackPanel>
-                            <!--<Button Content="Class List"
-                                    Click="BtnClassList_Click"/>
-                            <Button Content="Refresh List"
-                                    Click="BtnRefreshList_Click"/>-->
                             <Button Content="About"
                                     Click="BtnAbout_Click"/>
                             <Button Content="Settings"
                                     Click="BtnSettings_Click"/>
                             <Button Content="Check for Updates"
                                     Click="BtnCheckForUpdates_Click"/>
+                            <Button Content="Export Data"
+                                    Click="BtnExportData_Click"/>
                         </StackPanel>
                     </materialDesign:PopupBox>
                 </Grid>

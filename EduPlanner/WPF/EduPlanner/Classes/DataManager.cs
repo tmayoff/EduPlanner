@@ -45,7 +45,7 @@ namespace EduPlanner {
             DriveService.Scope.DriveAppdata
         };
 
-        private static bool downloadSucceeded;
+        private static bool _downloadSucceeded;
 
         public static bool GoogleAuthenticate() {
             try {
@@ -60,7 +60,7 @@ namespace EduPlanner {
                         CancellationToken.None,
                         new FileDataStore(@"EduPlanner\GoogleDrive\Auth\Store")).Result;
 
-                DataManager.Service = new DriveService(new BaseClientService.Initializer {
+                Service = new DriveService(new BaseClientService.Initializer {
                     HttpClientInitializer = credential,
                     ApplicationName = "EduPlanner"
                 });
@@ -72,6 +72,10 @@ namespace EduPlanner {
             return true;
         }
 
+        /// <summary>
+        /// Uploads a file to google drive appdata folder
+        /// </summary>
+        /// <param name="path">The path to the file you want to upload</param>
         public static void UploadFiles(string path) {
             File fileMetadata = new File() {
                 Name = Path.GetFileName(path),
@@ -117,11 +121,11 @@ namespace EduPlanner {
             stream.WriteTo(file);
             file.Close();
             stream.Close();
-            return downloadSucceeded;
+            return _downloadSucceeded;
         }
 
         public static void DownloadSucceeded(IDownloadProgress progress) {
-            downloadSucceeded = progress.Status == DownloadStatus.Completed;
+            _downloadSucceeded = progress.Status == DownloadStatus.Completed;
         }
 
         public static bool FileExists(string fileName) {

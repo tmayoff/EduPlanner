@@ -47,7 +47,6 @@ namespace EduPlanner {
             //Timer
             timer.Tick += RefreshEvent;
             timer.Interval = new TimeSpan(0, TIMERINTERVALMIN, 0);
-
         }
 
         /// <summary>
@@ -181,6 +180,10 @@ namespace EduPlanner {
         }
 
         #region Button Handlers
+
+        public void BtnExportData_Click(object sender, RoutedEventArgs e) {
+
+        }
 
         /// <summary>
         /// Change to Agenda View
