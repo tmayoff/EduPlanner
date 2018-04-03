@@ -39,7 +39,7 @@
 
                     <!-- Header Buttons -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Margin="10" Height="50" Click="BtnTodayView_Click">
+                        <Button Margin="10" Height="50">
                             <StackPanel>
                                 <materialDesign:PackIcon Kind="ViewAgenda" HorizontalAlignment="Center"/>
                                 <TextBlock Text="Today"/>
@@ -65,16 +65,13 @@
                         <StackPanel>
                             <Button Content="About"
                                     Click="BtnAbout_Click"/>
-                            <Button Content="Import Data"
-                                    Click="BtnImportData_Click"/>
+                            <Button Content="Import Data"/>
                             <Button Content="Export Data"
                                     Click="BtnExportData_Click"/>
                             <Button Content="Settings"
                                     Click="BtnSettings_Click"/>
                             <Button Content="Check for Updates"
                                     Click="BtnCheckForUpdates_Click"/>
-                            <Button Content="Export Data"
-                                    Click="BtnExportData_Click"/>
                         </StackPanel>
                     </materialDesign:PopupBox>
                 </Grid>

@@ -34,8 +34,8 @@ namespace EduPlanner.Windows {
 
         public bool UseDemoContent
         {
-            get { return DataManager.settings.useDemoContent; }
-            set { DataManager.settings.useDemoContent = value; }
+            get { return DataManager.Settings.useDemoContent; }
+            set { DataManager.Settings.useDemoContent = value; }
         }
 
         public SettingsWindow() {
@@ -46,16 +46,13 @@ namespace EduPlanner.Windows {
         }
 
         private void LoadSettings() {
-<<<<<<< HEAD:EduPlanner/EduPlanner/Windows/SettingsWindow.xaml.cs
-            UseBetaVersion = DataManager.settings.receiveBetaUpdates;
-            CheckForUpdatesOnStartUp = DataManager.settings.checkForUpdatesOnStartup;
-            MinimizeToTray = DataManager.settings.minimizeToTray;
-            UseDemoContent = DataManager.settings.useDemoContent;
-=======
             UseBetaVersion = DataManager.Settings.receiveBetaUpdates;
             CheckForUpdatesOnStartUp = DataManager.Settings.checkForUpdatesOnStartup;
             MinimizeToTray = DataManager.Settings.minimizeToTray;
->>>>>>> 4311f7d6517501f8c293d4bae86a1474d761e220:EduPlanner/WPF/EduPlanner/Windows/SettingsWindow.xaml.cs
+            UseDemoContent = DataManager.Settings.useDemoContent;
+            UseBetaVersion = DataManager.Settings.receiveBetaUpdates;
+            CheckForUpdatesOnStartUp = DataManager.Settings.checkForUpdatesOnStartup;
+            MinimizeToTray = DataManager.Settings.minimizeToTray;
         }
     }
 }
