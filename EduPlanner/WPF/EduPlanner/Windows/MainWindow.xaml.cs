@@ -1,5 +1,7 @@
 ﻿using MaterialDesignThemes.Wpf;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -30,11 +32,10 @@ namespace EduPlanner {
 
             InitializeComponent();
 
-            //Load Settings and data
+            //Load All Data Settings and data
             _data = new Data();
 
             //Initialize things
-
             _upcomingTime = DateTime.Now + new TimeSpan(7, 0, 0, 0);
 
             if (DataManager.Settings.checkForUpdatesOnStartup)
@@ -48,6 +49,15 @@ namespace EduPlanner {
             //Timer
             _timer.Tick += RefreshEvent;
             _timer.Interval = new TimeSpan(0, TIMERINTERVALMIN, 0);
+        }
+
+        public void UpdateClassListView() {
+            classList.Children.Clear();
+
+            foreach (Class _class in DataManager.Schedule.classes) {
+                ClassCard classCard = new ClassCard(_class);
+                classList.Children.Add(classCard);
+            }
         }
 
         /// <summary>
@@ -124,7 +134,7 @@ namespace EduPlanner {
                     continue;
 
                 Day day = dayCard.day;
-                if (!(dayCard.FindName("Card") is Grid dayCardCard))
+                if (!(dayCard.FindName("card") is Grid dayCardCard))
                     continue;
 
                 //If the day we're looking at is today
@@ -142,7 +152,7 @@ namespace EduPlanner {
                             continue;
 
                         Class _class = classCard._class;
-                        if (!(classCard.FindName("Card") is Card classCardCard))
+                        if (!(classCard.FindName("card") is Card classCardCard))
                             continue;
 
                         DateTime start = _class.classTimes[day.day][0].Value;
@@ -174,10 +184,36 @@ namespace EduPlanner {
             }
         }
 
+        public void ChangeView(Grid newView) {
+            for (int i = 0; i < contentViews.Children.Count; i++) {
+                if (!(contentViews.Children[i] is Grid grid))
+                    continue;
+
+                grid.Visibility = grid.Name == newView.Name ? Visibility.Visible : Visibility.Collapsed;
+            }
+
+            UpdateAgendaView();
+            UpdateClassListView();
+            UpdateHomeworkView();
+        }
+
         #region Button Handlers
 
+        public void BtnImportData_Click(object sender, RoutedEventArgs e) {
+            Data.Import();
+
+            UpdateAgendaView();
+            UpdateClassListView();
+            UpdateHomeworkView();
+            Refresh();
+        }
+
         public void BtnExportData_Click(object sender, RoutedEventArgs e) {
-            Settings.Export();
+            Data.Export();
+        }
+
+        public void BtnClassList_Click(object sender, RoutedEventArgs e) {
+            ChangeView(classListView);
         }
 
         /// <summary>
@@ -186,8 +222,7 @@ namespace EduPlanner {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public void BtnViewAgenda_Click(object sender, RoutedEventArgs e) {
-            agendaView.Visibility = Visibility.Visible;
-            homeworkView.Visibility = Visibility.Collapsed;
+            ChangeView(agendaView);
             _viewingAgenda = true;
         }
 
@@ -197,11 +232,10 @@ namespace EduPlanner {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public void BtnViewAssignments_Click(object sender, RoutedEventArgs e) {
-            agendaView.Visibility = Visibility.Collapsed;
-            homeworkView.Visibility = Visibility.Visible;
+            ChangeView(homeworkView);
             _viewingAgenda = false;
         }
-        
+
         private void BtnCheckForUpdates_Click(object sender, RoutedEventArgs e) {
             Updater.CheckForUpdate();
         }

@@ -10,6 +10,14 @@ namespace EduPlanner {
         public Class _class;
         public Day day;
 
+        public ClassCard(Class _class) {
+            InitializeComponent();
+
+            this._class = _class;
+
+            txtClassName.Text = _class.className;
+        }
+
         public ClassCard(Class _class, Day day) {
             InitializeComponent();
 

@@ -27,6 +27,7 @@ namespace EduPlanner {
         }
 
         public void AddClass_Click(object sender, RoutedEventArgs e) {
+
             //Loop through class times
             for (int i = 0; i < spClassTimesViewer.Children.Count; i++) {
                 ClassTime time = spClassTimesViewer.Children[i] as ClassTime;

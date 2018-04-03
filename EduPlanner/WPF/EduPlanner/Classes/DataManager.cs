@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Windows;
 using System.Xml.Linq;
 using Newtonsoft.Json;
 using System.Xml.Serialization;
@@ -12,6 +13,7 @@ using Google.Apis.Drive.v3;
 using Google.Apis.Drive.v3.Data;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
+using Microsoft.Win32;
 using File = Google.Apis.Drive.v3.Data.File;
 
 namespace EduPlanner {
@@ -39,7 +41,7 @@ namespace EduPlanner {
 
         private static readonly string Id = ConfigValues["clientID"];
         private static readonly string Secret = ConfigValues["clientSecret"];
-        private static readonly string mimeType = "application/bin";
+        private static readonly string mimeType = "application/xml";
 
         private static readonly string[] Scopes = {
             DriveService.Scope.DriveAppdata
@@ -160,8 +162,8 @@ namespace EduPlanner {
 
         public int saveTime = 1000;
 
-        private const string APPDATA_NAME = "Appdata.bin";
-        private const string SETTINGS_NAME = "Settings.bin";
+        private const string APPDATA_NAME = "Appdata.xml";
+        private const string SETTINGS_NAME = "Settings.xml";
         private static readonly string AppdataPath = DataManager.Savefilepath + APPDATA_NAME;
         private static readonly string SettingsPath = DataManager.Savefilepath + SETTINGS_NAME;
 
@@ -171,46 +173,95 @@ namespace EduPlanner {
             if (DataManager.Settings == null)
                 DataManager.Settings = new Settings();
 
-            Load();
+            LoadAllData();
         }
 
         public void Save() {
-            if (!Directory.Exists(DataManager.Savefilepath))
-                Directory.CreateDirectory(DataManager.Savefilepath);
+            try {
 
-            WriteToBinaryFile(AppdataPath, DataManager.Schedule);
-            WriteToBinaryFile(SettingsPath, DataManager.Settings);
+                if (!Directory.Exists(DataManager.Savefilepath))
+                    Directory.CreateDirectory(DataManager.Savefilepath);
 
-            if (DataManager.Authenticated) {
-                if (DataManager.FileExists(APPDATA_NAME))
-                    DataManager.UpdateFiles(AppdataPath);
-                else
-                    DataManager.UploadFiles(AppdataPath);
+                WriteToBinaryFile(AppdataPath, DataManager.Schedule);
+                WriteToBinaryFile(SettingsPath, DataManager.Settings);
 
-                if (DataManager.FileExists(SETTINGS_NAME))
-                    DataManager.UpdateFiles(SettingsPath);
-                else
-                    DataManager.UploadFiles(SettingsPath);
+                if (DataManager.Authenticated) {
+                    if (DataManager.FileExists(APPDATA_NAME))
+                        DataManager.UpdateFiles(AppdataPath);
+                    else
+                        DataManager.UploadFiles(AppdataPath);
+
+                    if (DataManager.FileExists(SETTINGS_NAME))
+                        DataManager.UpdateFiles(SettingsPath);
+                    else
+                        DataManager.UploadFiles(SettingsPath);
+                }
+            } catch (Exception e) {
+                MessageBox.Show(e.Message);
             }
         }
 
-        public void Load() {
-            if (!Directory.Exists(DataManager.Savefilepath))
-                Directory.CreateDirectory(DataManager.Savefilepath);
+        public void LoadAllData() {
+            try {
+                if (!Directory.Exists(DataManager.Savefilepath))
+                    Directory.CreateDirectory(DataManager.Savefilepath);
 
-            if (DataManager.Authenticated) {
-                if (DataManager.FileExists(APPDATA_NAME))
-                    DataManager.DownloadFiles(APPDATA_NAME);
+                if (DataManager.Authenticated) {
+                    if (DataManager.FileExists(APPDATA_NAME))
+                        DataManager.DownloadFiles(APPDATA_NAME);
 
-                if (DataManager.FileExists(SETTINGS_NAME))
-                    DataManager.DownloadFiles(SETTINGS_NAME);
+                    if (DataManager.FileExists(SETTINGS_NAME))
+                        DataManager.DownloadFiles(SETTINGS_NAME);
+                }
+
+                if (System.IO.File.Exists(SettingsPath))
+                    DataManager.Settings = ReadFromXmlFile<Settings>(SettingsPath);
+
+                if (System.IO.File.Exists(AppdataPath))
+                    DataManager.Schedule = ReadFromXmlFile<Schedule>(AppdataPath);
+            } catch (Exception e) {
+                MessageBox.Show(e.Message);
             }
+        }
 
-            if (System.IO.File.Exists(SettingsPath))
-                DataManager.Settings = ReadFromBinaryFile<Settings>(SettingsPath);
+        public static void Export() {
+            SaveFileDialog saveFileDialog = new SaveFileDialog {
+                Filter = "Bin file (*.bin)|*.bin",
+                FileName = String.Format("{0} Export ({1})", DataManager.APPLICATIONNAME, DateTime.Today)
+            };
 
-            if (System.IO.File.Exists(AppdataPath))
-                DataManager.Schedule = ReadFromBinaryFile<Schedule>(AppdataPath);
+            if (saveFileDialog.ShowDialog() != true) return;
+
+            string exportedFile = saveFileDialog.FileName;
+            string currentFile = DataManager.Savefilepath + APPDATA_NAME;
+            System.IO.File.Copy(currentFile, exportedFile);
+        }
+
+        public static void Import() {
+            try {
+
+
+                OpenFileDialog openFile = new OpenFileDialog {
+                    Filter = "Bin file (*.bin)|*.bin",
+                    FileName = APPDATA_NAME
+                };
+
+                if (openFile.ShowDialog() == null) return;
+
+                string filePath = openFile.FileName;
+
+                if (DataManager.Authenticated) {
+                    if (DataManager.FileExists(APPDATA_NAME))
+                        DataManager.UpdateFiles(filePath);
+                    else
+                        DataManager.UploadFiles(filePath);
+                }
+
+                if (System.IO.File.Exists(AppdataPath))
+                    DataManager.Schedule = ReadFromXmlFile<Schedule>(filePath);
+            } catch (Exception e) {
+                MessageBox.Show(e.Message);
+            }
         }
 
         #region Writers / Readers
