@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>  
 <EduPlanner>  
-  <version>0.75</version>
-  <url>https://github.com/tyxman/EduPlanner/releases/download/0.75/EduPlanner.exe</url>
+  <version>0.8</version>
+  <url>https://github.com/tyxman/EduPlanner/releases/download/0.8/setup.exe</url>
   <beta>true</beta>  
 </EduPlanner>
