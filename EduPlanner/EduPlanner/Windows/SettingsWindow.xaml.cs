@@ -32,6 +32,12 @@ namespace EduPlanner.Windows {
             set { DataManager.settings.receiveBetaUpdates = value; }
         }
 
+        public bool UseDemoContent
+        {
+            get { return DataManager.settings.useDemoContent; }
+            set { DataManager.settings.useDemoContent = value; }
+        }
+
         public SettingsWindow() {
             InitializeComponent();
 
@@ -43,6 +49,7 @@ namespace EduPlanner.Windows {
             UseBetaVersion = DataManager.settings.receiveBetaUpdates;
             CheckForUpdatesOnStartUp = DataManager.settings.checkForUpdatesOnStartup;
             MinimizeToTray = DataManager.settings.minimizeToTray;
+            UseDemoContent = DataManager.settings.useDemoContent;
         }
     }
 }

@@ -9,9 +9,10 @@ namespace EduPlanner {
     [Serializable]
     public class Settings {
 
-        public bool checkForUpdatesOnStartup;
-        public bool minimizeToTray;
-        public bool receiveBetaUpdates;
+        public bool checkForUpdatesOnStartup = true;
+        public bool minimizeToTray = true;
+        public bool receiveBetaUpdates = false;
+        public bool useDemoContent = false;
 
         public Settings() {
 

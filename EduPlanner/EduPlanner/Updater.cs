@@ -28,7 +28,7 @@ namespace EduPlanner {
 
                 // we check if the xml starts with a proper  
                 // "ourfancyapp" element node  
-                if (reader.NodeType == XmlNodeType.Element && reader.Name == "EduPlanner") {
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == DataManager.APPLICATIONNAME) {
                     while (reader.Read()) {
                         // when we find an element node,  
                         // we remember its name  

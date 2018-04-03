@@ -40,6 +40,12 @@
                                HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Margin="10" Height="50" Click="BtnTodayView_Click">
+                            <StackPanel>
+                                <materialDesign:PackIcon Kind="ViewAgenda" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Today"/>
+                            </StackPanel>
+                        </Button>
                         <Button Margin="10" Height="50" Click="BtnViewAgenda_Click">
                             <StackPanel>
                                 <materialDesign:PackIcon Kind="ViewAgenda" HorizontalAlignment="Center"/>
@@ -64,6 +70,10 @@
                                     Click="BtnRefreshList_Click"/>-->
                             <Button Content="About"
                                     Click="BtnAbout_Click"/>
+                            <Button Content="Import Data"
+                                    Click="BtnImportData_Click"/>
+                            <Button Content="Export Data"
+                                    Click="BtnExportData_Click"/>
                             <Button Content="Settings"
                                     Click="BtnSettings_Click"/>
                             <Button Content="Check for Updates"
