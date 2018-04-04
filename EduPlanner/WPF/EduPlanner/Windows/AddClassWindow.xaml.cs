@@ -28,42 +28,30 @@ namespace EduPlanner {
 
         public void AddClass_Click(object sender, RoutedEventArgs e) {
 
-            //Loop through class times
-            for (int i = 0; i < spClassTimesViewer.Children.Count; i++) {
-                ClassTime time = spClassTimesViewer.Children[i] as ClassTime;
-
-                WrapPanel panel = time.FindName("wpDays") as WrapPanel;
+            //Class Times
+            foreach (ClassTime time in spClassTimesViewer.Children) {
+                WrapPanel daysPanel = time.FindName("wpDays") as WrapPanel;
                 Grid timeGrid = time.FindName("TimeGrid") as Grid;
 
-                //Loop through checkboxes (days)
-                for (int j = 0; j < panel.Children.Count; j++) {
+                //Days
+                foreach (CheckBox box in daysPanel.Children) {
+                    if (box.IsChecked == true) {
 
-                    //Check the current checkbox
-                    if (panel.Children[j] is CheckBox) {
-                        CheckBox check = panel.Children[j] as CheckBox;
-                        if (check.IsChecked == true) {
+                        Enum.TryParse(box.Name, out DayOfWeek day);
 
-                            //Get day as an enum
-                            Enum.TryParse(check.Name, out DayOfWeek day);
+                        DateTime? start = (timeGrid.Children[0] as TimePicker).SelectedTime;
+                        DateTime? end = (timeGrid.Children[0] as TimePicker).SelectedTime;
 
-                            DateTime? startTime = (timeGrid.Children[0] as TimePicker).SelectedTime;
-                            DateTime? endTime = (timeGrid.Children[1] as TimePicker).SelectedTime;
-
-                            //Check if this class already exists
-                            Class newClass = CheckClassExistence(txtClassName.Text);
-                            if (newClass == null) {
-                                //Creates a new one if not
-                                newClass = new Class(txtClassName.Text);
-                                DataManager.Schedule.classes.Add(newClass);
-                            }
-
-                            //Changes the old one
-                            newClass.classTimes[(int)day][0] = startTime;
-                            newClass.classTimes[(int)day][1] = endTime;
-
-                            DataManager.Schedule.days[(int)day].classes.Add(newClass);
-                            DataManager.Schedule.days[(int)day].hasClass = true;
+                        Class newClass = CheckClassExistence(txtClassName.Text);
+                        if (newClass == null) {
+                            newClass = new Class(txtClassName.Text);
+                            DataManager.Schedule.classes.Add(newClass);
                         }
+
+                        newClass.classTimes[(int)day][0] = start;
+                        newClass.classTimes[(int)day][1] = end;
+
+                        DataManager.Schedule.days[(int)day].classes.Add(newClass);
                     }
                 }
             }
@@ -77,7 +65,7 @@ namespace EduPlanner {
 
         #endregion
 
-        private Class CheckClassExistence(string name) {
+        private static Class CheckClassExistence(string name) {
             if (DataManager.Schedule.classes != null) {
                 for (int i = 0; i < DataManager.Schedule.classes.Count; i++) {
                     if (DataManager.Schedule.classes[i].className == name)

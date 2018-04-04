@@ -67,7 +67,7 @@ namespace EduPlanner {
             panelAgenda.Children.Clear();
 
             foreach (Day day in _schedule.days) {
-                if (!day.hasClass)
+                if (day.classes.Count == 0)
                     continue;
 
                 DayCard dayCard = new DayCard(day);

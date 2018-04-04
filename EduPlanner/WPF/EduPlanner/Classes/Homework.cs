@@ -14,6 +14,8 @@ namespace EduPlanner {
 
         public bool completed;
 
+        public Homework() { }
+
         public Homework(string name, string desc, DateTime time, Class _class) {
             assignmentName = name;
             description = desc;

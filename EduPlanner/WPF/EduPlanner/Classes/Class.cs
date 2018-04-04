@@ -8,8 +8,7 @@ namespace EduPlanner {
 
         public string className;
 
-        public List<DateTime?>[] classTimes;
-        //public Dictionary<DayOfWeek, List<DateTime?>> classTimes;
+        public DateTime?[][] classTimes;
 
         public List<Homework> Homeworks = new List<Homework>();
 
@@ -30,11 +29,10 @@ namespace EduPlanner {
         }
 
         public void ResetTimes() {
-            classTimes = new List<DateTime?>[DataManager.DAYCOUNT];
+            classTimes = new DateTime?[DataManager.DAYCOUNT][];
 
             for (int i = 0; i < classTimes.Length; i++) {
-                List<DateTime?> times = new List<DateTime?>() { null, null };
-                classTimes[i].AddRange(times);
+                classTimes[i] = new DateTime?[2];
             }
         }
 

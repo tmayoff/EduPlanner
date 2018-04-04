@@ -222,11 +222,13 @@ namespace EduPlanner {
             } catch (Exception e) {
                 MessageBox.Show(e.Message);
             }
+
+
         }
 
         public static void Export() {
             SaveFileDialog saveFileDialog = new SaveFileDialog {
-                Filter = "Bin file (*.bin)|*.bin",
+                Filter = "xml file (*.xml)|*.xml",
                 FileName = String.Format("{0} Export ({1})", DataManager.APPLICATIONNAME, DateTime.Today)
             };
 
@@ -240,9 +242,8 @@ namespace EduPlanner {
         public static void Import() {
             try {
 
-
                 OpenFileDialog openFile = new OpenFileDialog {
-                    Filter = "Bin file (*.bin)|*.bin",
+                    Filter = "xml file (*.xml)|*.xml",
                     FileName = APPDATA_NAME
                 };
 
