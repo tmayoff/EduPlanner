@@ -227,7 +227,7 @@ namespace EduPlanner {
         public static void Export() {
             SaveFileDialog saveFileDialog = new SaveFileDialog {
                 Filter = "Bin file (*.bin)|*.bin",
-                FileName = String.Format("{0} Export ({1})", DataManager.APPLICATIONNAME, DateTime.Today)
+                FileName = String.Format("{0} Export ({1})", DataManager.APPLICATIONNAME, DateTime.Now)
             };
 
             if (saveFileDialog.ShowDialog() != true) return;

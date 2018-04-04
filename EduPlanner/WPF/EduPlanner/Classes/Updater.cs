@@ -7,6 +7,7 @@ namespace EduPlanner {
         public static void CheckForUpdate(bool startup = false) {
             string newVersion = string.Empty;
             bool betaUpdate = false;
+            bool requiredUpdate = false;
             string mbText = string.Empty;
             //string xmlUrl = "D:\\Desktop\\update.xml";
             string xmlUrl = "https://raw.githubusercontent.com/tyxman/EduPlanner/master/EduPlanner/update.xml";
@@ -50,6 +51,12 @@ namespace EduPlanner {
                                             betaUpdate = true;
                                         }
                                         break;
+                                    case "required":
+                                        if (reader.Value == "true")
+                                        {
+                                            requiredUpdate = true;
+                                        }
+                                        break;
                                 }
                             }
                         }
@@ -61,6 +68,18 @@ namespace EduPlanner {
                 string curVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(2);
 
                 if (curVersion.CompareTo(newVersion) < 0) {
+                    if (requiredUpdate == true)
+                    {
+                        mbText = String.Format("New version detected. You must update to continue!\n\n" +
+                          "Current version: {0}\n" +
+                          "New version: {1}", curVersion, newVersion);
+                        MessageBoxResult result = MessageBox.Show(mbText, mbHeader, MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                        if (result == MessageBoxResult.OK)
+                        {
+                            System.Diagnostics.Process.Start(downloadUrl);
+                        }
+                        Application.Current.Shutdown();
+                    }
                     if (betaUpdate == true && DataManager.Settings.receiveBetaUpdates == true) {
                         mbText = String.Format("New version detected. Would you like to download it now?\n\n" +
                                               "Current version: {0}\n" +
@@ -70,7 +89,7 @@ namespace EduPlanner {
                             System.Diagnostics.Process.Start(downloadUrl);
                         }
                     }
-                    if (betaUpdate == false) {
+                    if (betaUpdate == false && requiredUpdate == false) {
                         mbText = String.Format("New version detected. Would you like to download it now?\n\n" +
                                                   "Current version: {0}\n" +
                                                   "New version: {1}", curVersion, newVersion);
