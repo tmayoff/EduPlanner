@@ -2,5 +2,6 @@
 <EduPlanner>  
   <version>0.8</version>
   <url>https://github.com/tyxman/EduPlanner/releases/download/0.8/setup.exe</url>
-  <beta>true</beta>  
+  <beta>true</beta>
+  <required>false</required>
 </EduPlanner>
