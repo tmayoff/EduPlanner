@@ -1,3 +1,3 @@
 # EduPlanner
 
-An open source class schedule planner I'm working on for fun
+An open source class schedule planner we're working on for fun.
