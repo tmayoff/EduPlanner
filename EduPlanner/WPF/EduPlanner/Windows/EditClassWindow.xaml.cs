@@ -118,7 +118,6 @@ namespace EduPlanner {
                             _class.classTimes[(int)day][1] = endTime;
 
                             DataManager.Schedule.days[(int)day].classes.Add(_class);
-                            DataManager.Schedule.days[(int)day].hasClass = true;
                         }
                     }
                 }
@@ -161,6 +160,11 @@ namespace EduPlanner {
                 btnSaveClass.IsEnabled = true;
             else
                 btnSaveClass.IsEnabled = false;
+        }
+
+        private void BtnDeleteClass_Click(object sender, RoutedEventArgs e) {
+            DataManager.Schedule.classes.Remove(_class);
+            Close();
         }
     }
 }

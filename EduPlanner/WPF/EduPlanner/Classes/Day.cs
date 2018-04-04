@@ -5,11 +5,10 @@ using System.Linq;
 namespace EduPlanner {
     [Serializable]
     public class Day {
-        public List<Class> classes;
 
         public DayOfWeek day;
 
-        public bool hasClass = false;
+        public List<Class> classes;
 
         public Day() { }
 

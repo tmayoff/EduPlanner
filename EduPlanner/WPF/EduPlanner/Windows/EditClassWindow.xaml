@@ -34,10 +34,23 @@
                 Margin="10" 
                 Click="AddTime_Click"/>
 
-            <Button Name="btnSaveClass" Content="Save Class"
-                    Margin="10"
-                    IsEnabled="False"
-                    Click="SaveClass_Click"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button Name="btnDeleteClass" Content="Delete Class"
+                        Grid.Column="0"
+                        Margin="10"
+                        Click="BtnDeleteClass_Click"/>
+
+                <Button Name="btnSaveClass" Content="Save Class"
+                        Grid.Column="1"
+                        Margin="10"
+                        IsEnabled="False"
+                        Click="SaveClass_Click"/>
+            </Grid>
 
         </StackPanel>
     </Grid>
