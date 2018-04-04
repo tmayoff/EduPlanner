@@ -58,8 +58,8 @@ namespace EduPlanner {
                             }
 
                             //Changes the old one
-                            newClass.classTimes[day][0] = startTime;
-                            newClass.classTimes[day][1] = endTime;
+                            newClass.classTimes[(int)day][0] = startTime;
+                            newClass.classTimes[(int)day][1] = endTime;
 
                             DataManager.Schedule.days[(int)day].classes.Add(newClass);
                             DataManager.Schedule.days[(int)day].hasClass = true;

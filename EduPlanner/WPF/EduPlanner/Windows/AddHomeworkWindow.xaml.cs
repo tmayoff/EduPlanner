@@ -26,8 +26,8 @@ namespace EduPlanner {
             cmbClasses.ItemsSource = DataManager.Schedule.classes;
             cmbClasses.SelectedItem = _class;
 
-            dpDueDate.SelectedDate = _class.classTimes[day.day][1];
-            tpDueTime.SelectedTime = _class.classTimes[day.day][1];
+            dpDueDate.SelectedDate = _class.classTimes[(int)day.day][1];
+            tpDueTime.SelectedTime = _class.classTimes[(int)day.day][1];
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e) {
@@ -51,7 +51,7 @@ namespace EduPlanner {
             DateTime time = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, timeTime.Hour, timeTime.Minute, timeTime.Second);
 
             Homework homework = new Homework(txtAssignmentName.Text, txtDescription.Text, time, _class);
-            _class.homeworks.Add(homework);
+            _class.Homeworks.Add(homework);
             _class.hasHomework = true;
 
             Close();

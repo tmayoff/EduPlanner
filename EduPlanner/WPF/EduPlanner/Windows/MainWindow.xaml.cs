@@ -96,13 +96,13 @@ namespace EduPlanner {
 
             foreach (Class _class in DataManager.Schedule.classes) {
 
-                if (_class.homeworks.Count == 0)
+                if (_class.Homeworks.Count == 0)
                     continue;
 
                 ClassHomeworkCard currentCard = new ClassHomeworkCard(_class);
                 homeworkPanel.Children.Add(currentCard);
 
-                foreach (Homework homework in _class.homeworks) {
+                foreach (Homework homework in _class.Homeworks) {
 
                     if (!(currentCard.FindName("classHomework") is StackPanel currentCardPanel))
                         continue;
@@ -155,8 +155,8 @@ namespace EduPlanner {
                         if (!(classCard.FindName("card") is Card classCardCard))
                             continue;
 
-                        DateTime start = _class.classTimes[day.day][0].Value;
-                        DateTime end = _class.classTimes[day.day][1].Value;
+                        DateTime start = _class.classTimes[(int)day.day][0].Value;
+                        DateTime end = _class.classTimes[(int)day.day][1].Value;
 
                         //If the current class is we're looking at is right now
                         if (currentDateTime.TimeOfDay >= start.TimeOfDay && currentDateTime.TimeOfDay <= end.TimeOfDay) {

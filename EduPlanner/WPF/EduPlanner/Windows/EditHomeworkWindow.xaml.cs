@@ -57,7 +57,7 @@ namespace EduPlanner {
         }
 
         private void BtnDeleteHomework_Click(object sender, RoutedEventArgs e) {
-            _class.homeworks.Remove(homework);
+            _class.Homeworks.Remove(homework);
             Close();
         }
 

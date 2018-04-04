@@ -11,9 +11,9 @@ namespace EduPlanner {
 
         public string HomeworkCount {
             get {
-                if (_class.homeworks.Count == 0)
+                if (_class.Homeworks.Count == 0)
                     return "";
-                return _class.homeworks.Count.ToString();
+                return _class.Homeworks.Count.ToString();
             }
         }
 

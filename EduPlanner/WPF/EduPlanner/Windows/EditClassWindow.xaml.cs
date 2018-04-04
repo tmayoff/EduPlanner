@@ -29,16 +29,16 @@ namespace EduPlanner {
             this._class = _class;
             txtClassName.Text = _class.className;
 
-            for (int i = 0; i < _class.classTimes.Count; i++) {
-                if (_class.classTimes[(DayOfWeek)i][0] != null && _class.classTimes[(DayOfWeek)i][1] != null) {
+            for (int i = 0; i < _class.classTimes.Length; i++) {
+                if (_class.classTimes[i][0] != null && _class.classTimes[i][1] != null) {
 
-                    ClassTime time = ClassTimeExist(_class.classTimes[(DayOfWeek)i][0]);
+                    ClassTime time = ClassTimeExist(_class.classTimes[i][0]);
 
                     if (time == null)
                         time = new ClassTime();
 
-                    time.tpStartTime.SelectedTime = _class.classTimes[(DayOfWeek)i][0];
-                    time.tpEndTime.SelectedTime = _class.classTimes[(DayOfWeek)i][1];
+                    time.tpStartTime.SelectedTime = _class.classTimes[i][0];
+                    time.tpEndTime.SelectedTime = _class.classTimes[i][1];
 
                     //Loop through class times
                     WrapPanel wrap = time.FindName("wpDays") as WrapPanel;
@@ -114,8 +114,8 @@ namespace EduPlanner {
 
                             _class.className = txtClassName.Text;
 
-                            _class.classTimes[day][0] = startTime;
-                            _class.classTimes[day][1] = endTime;
+                            _class.classTimes[(int)day][0] = startTime;
+                            _class.classTimes[(int)day][1] = endTime;
 
                             DataManager.Schedule.days[(int)day].classes.Add(_class);
                             DataManager.Schedule.days[(int)day].hasClass = true;

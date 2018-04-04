@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.IO;
 using Microsoft.Win32;
 
@@ -15,5 +12,7 @@ namespace EduPlanner {
         public bool minimizeToTray;
         public bool receiveBetaUpdates;
         public bool driveIntergration;
+
+        public bool useDemoContent;
     }
 }

@@ -182,8 +182,8 @@ namespace EduPlanner {
                 if (!Directory.Exists(DataManager.Savefilepath))
                     Directory.CreateDirectory(DataManager.Savefilepath);
 
-                WriteToBinaryFile(AppdataPath, DataManager.Schedule);
-                WriteToBinaryFile(SettingsPath, DataManager.Settings);
+                WriteToXmlFile(AppdataPath, DataManager.Schedule);
+                WriteToXmlFile(SettingsPath, DataManager.Settings);
 
                 if (DataManager.Authenticated) {
                     if (DataManager.FileExists(APPDATA_NAME))

@@ -11,13 +11,15 @@ namespace EduPlanner {
 
         public bool hasClass = false;
 
+        public Day() { }
+
         public Day(DayOfWeek day) {
             classes = new List<Class>();
             this.day = day;
         }
 
         public void Order() {
-            classes = classes.OrderBy(c => c.classTimes[day][0].Value).ToList();
+            classes = classes.OrderBy(c => c.classTimes[(int)day][0].Value).ToList();
         }
     }
 }

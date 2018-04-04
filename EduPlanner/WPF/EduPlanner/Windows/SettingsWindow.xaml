@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:EduPlanner.Windows"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="Settings" Height="450" Width="350">
+        Title="Settings" Height="250" Width="350">
     <Grid Margin="20">
         <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
@@ -44,5 +45,14 @@
         <ToggleButton Name="tgReceiveBetaUpdates"
                       VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="2"  
                       IsChecked="{Binding Path=UseBetaVersion}"/>
+        
+        <TextBlock Text="Use Demo Content"
+                   Grid.Row="3"
+                   VerticalAlignment="Center" 
+                   FontSize="16"/>
+
+        <ToggleButton Name="tgUseDemoContent"
+                      VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="3"  
+                      IsChecked="{Binding Path=UseDemoContent}"/>
     </Grid>
 </Window>

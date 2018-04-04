@@ -40,6 +40,12 @@
 
                     <!-- Header Buttons -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Margin="10" Height="50">
+                            <StackPanel>
+                                <materialDesign:PackIcon Kind="ViewAgenda" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Today"/>
+                            </StackPanel>
+                        </Button>
                         <Button Margin="10" Height="50" Click="BtnViewAgenda_Click">
                             <StackPanel>
                                 <materialDesign:PackIcon Kind="ViewAgenda" HorizontalAlignment="Center"/>
