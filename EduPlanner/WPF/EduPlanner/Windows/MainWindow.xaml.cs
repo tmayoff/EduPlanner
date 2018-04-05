@@ -66,7 +66,8 @@ namespace EduPlanner {
             panelAgenda.Children.Clear();
 
             foreach (Day day in _schedule.days) {
-                if (day.classes.Count == 0)
+                List<Class> classes = day.GetClasses();
+                if (classes.Count == 0)
                     continue;
 
                 DayCard dayCard = new DayCard(day);
@@ -75,7 +76,7 @@ namespace EduPlanner {
 
                 panelAgenda.Children.Add(dayCard);
 
-                foreach (Class _class in day.classes) {
+                foreach (Class _class in classes) {
                     ClassCard card = new ClassCard(_class, day);
 
                     dayCardPanel.Children.Add(card);

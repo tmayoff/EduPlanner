@@ -75,9 +75,6 @@ namespace EduPlanner {
         }
 
         private void BtnDeleteClass_Click(object sender, RoutedEventArgs e) {
-            foreach (Day day in DataManager.Schedule.days) {
-                day.classes.Remove(_class);
-            }
 
             DataManager.Schedule.classes.Remove(_class);
 

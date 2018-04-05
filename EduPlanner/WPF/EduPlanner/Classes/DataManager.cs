@@ -131,7 +131,7 @@ namespace EduPlanner {
         }
 
         public static bool FileExists(string fileName) {
-            FilesResource.ListRequest request = DataManager.Service.Files.List();
+            FilesResource.ListRequest request = Service.Files.List();
             request.Spaces = "appDataFolder";
             request.Fields = "nextPageToken, files(id, name)";
             request.PageSize = 10;
@@ -141,7 +141,7 @@ namespace EduPlanner {
 
         private static string GetFileId(string fileName) {
             //Get file id
-            FilesResource.ListRequest request = DataManager.Service.Files.List();
+            FilesResource.ListRequest request = Service.Files.List();
             request.Spaces = "appDataFolder";
             request.Fields = "nextPageToken, files(id, name)";
             request.PageSize = 10;
@@ -162,7 +162,7 @@ namespace EduPlanner {
 
         public int saveTime = 1000;
 
-        private const string APPDATA_NAME = "Appdata.xml";
+        private const string APPDATA_NAME = "Data.xml";
         private const string SETTINGS_NAME = "Settings.xml";
         private static readonly string AppdataPath = DataManager.Savefilepath + APPDATA_NAME;
         private static readonly string SettingsPath = DataManager.Savefilepath + SETTINGS_NAME;
@@ -186,17 +186,21 @@ namespace EduPlanner {
                 WriteToXmlFile(AppdataPath, DataManager.Schedule);
                 WriteToXmlFile(SettingsPath, DataManager.Settings);
 
-                if (DataManager.Authenticated) {
-                    if (DataManager.FileExists(APPDATA_NAME))
-                        DataManager.UpdateFiles(AppdataPath);
-                    else
-                        DataManager.UploadFiles(AppdataPath);
+                if (!DataManager.Authenticated)
+                    return;
 
-                    if (DataManager.FileExists(SETTINGS_NAME))
-                        DataManager.UpdateFiles(SettingsPath);
-                    else
-                        DataManager.UploadFiles(SettingsPath);
-                }
+                //Schedule
+                if (DataManager.FileExists(APPDATA_NAME))
+                    DataManager.UpdateFiles(AppdataPath);
+                else
+                    DataManager.UploadFiles(AppdataPath);
+
+                //Settings
+                if (DataManager.FileExists(SETTINGS_NAME))
+                    DataManager.UpdateFiles(SettingsPath);
+                else
+                    DataManager.UploadFiles(SettingsPath);
+
             } catch (Exception e) {
                 MessageBox.Show(e.Message);
             }
@@ -207,13 +211,13 @@ namespace EduPlanner {
                 if (!Directory.Exists(DataManager.Savefilepath))
                     Directory.CreateDirectory(DataManager.Savefilepath);
 
-                if (DataManager.Authenticated) {
-                    if (DataManager.FileExists(APPDATA_NAME))
-                        DataManager.DownloadFiles(APPDATA_NAME);
+                //if (DataManager.Authenticated) {
+                //    if (DataManager.FileExists(APPDATA_NAME))
+                //        DataManager.DownloadFiles(APPDATA_NAME);
 
-                    if (DataManager.FileExists(SETTINGS_NAME))
-                        DataManager.DownloadFiles(SETTINGS_NAME);
-                }
+                //    if (DataManager.FileExists(SETTINGS_NAME))
+                //        DataManager.DownloadFiles(SETTINGS_NAME);
+                //}
 
                 if (System.IO.File.Exists(SettingsPath))
                     DataManager.Settings = ReadFromXmlFile<Settings>(SettingsPath);
@@ -267,35 +271,6 @@ namespace EduPlanner {
         }
 
         #region Writers / Readers
-
-        /// <summary>
-        /// Writes the given object instance to a binary file.
-        /// <para>Object type (and all child types) must be decorated with the [Serializable] attribute.</para>
-        /// <para>To prevent a variable from being serialized, decorate it with the [NonSerialized] attribute; cannot be applied to properties.</para>
-        /// </summary>
-        /// <typeparam name="T">The type of object being written to the XML file.</typeparam>
-        /// <param name="filePath">The file path to write the object instance to.</param>
-        /// <param name="objectToWrite">The object instance to write to the XML file.</param>
-        /// <param name="append">If false the file will be overwritten if it already exists. If true the contents will be appended to the file.</param>
-        public static void WriteToBinaryFile<T>(string filePath, T objectToWrite, bool append = false) {
-            using (Stream stream = System.IO.File.Open(filePath, append ? FileMode.Append : FileMode.Create)) {
-                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                binaryFormatter.Serialize(stream, objectToWrite);
-            }
-        }
-
-        /// <summary>
-        /// Reads an object instance from a binary file.
-        /// </summary>
-        /// <typeparam name="T">The type of object to read from the XML.</typeparam>
-        /// <param name="filePath">The file path to read the object instance from.</param>
-        /// <returns>Returns a new instance of the object read from the binary file.</returns>
-        public static T ReadFromBinaryFile<T>(string filePath) {
-            using (Stream stream = System.IO.File.Open(filePath, FileMode.Open)) {
-                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                return (T)binaryFormatter.Deserialize(stream);
-            }
-        }
 
         /// <summary>
         /// Writes the given object instance to an XML file.

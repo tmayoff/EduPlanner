@@ -20,7 +20,7 @@ namespace EduPlanner {
 
         private void AddTime_Click(object sender, RoutedEventArgs e) {
             ClassTime time = new ClassTime();
-            time.ClassTimeChanged += new ClassTime.ClassTimeDelegate(Handler);
+            time.ClassTimeChanged += Handler;
             classTimes.Add(time);
             spClassTimesViewer.Children.Add(time);
             Handler();
@@ -50,8 +50,6 @@ namespace EduPlanner {
 
                         newClass.classTimes[(int)day][0] = start;
                         newClass.classTimes[(int)day][1] = end;
-
-                        DataManager.Schedule.days[(int)day].classes.Add(newClass);
                     }
                 }
             }
@@ -64,7 +62,7 @@ namespace EduPlanner {
         }
 
         #endregion
-        
+
         private void Handler() {
             bool dayChecked = false;
             bool timePicked = false;
