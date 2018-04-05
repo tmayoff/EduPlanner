@@ -177,6 +177,7 @@
       <DependentUpon>HomeworkCard.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Schedule.cs" />
+    <Compile Include="Windows\MainWindowHelper.cs" />
     <Compile Include="Windows\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>

@@ -15,6 +15,17 @@
         mc:Ignorable="d"
         Title="EduPlanner" Height="800" Width="1200"
         Closed="Window_Closed">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                <!-- throw in some extra colour for our floating action button -->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Green.Named.Primary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -67,7 +78,7 @@
             </DockPanel>
         </materialDesign:ColorZone>
 
-        <materialDesign:DrawerHost Name="host" Grid.Row="1" Grid.Column="0">
+        <!--<materialDesign:DrawerHost Name="host" Grid.Row="1" Grid.Column="0">
 
             <materialDesign:DrawerHost.LeftDrawerContent>
 
@@ -97,16 +108,31 @@
 
             </materialDesign:DrawerHost.LeftDrawerContent>
 
-        </materialDesign:DrawerHost>
+        </materialDesign:DrawerHost>-->
 
         <!-- Main Content -->
         <ScrollViewer Grid.Row="1" Grid.Column="1" Margin="0 0 20 0"
                       VerticalScrollBarVisibility="Auto">
 
             <Grid Name="contentViews">
+
+                <!-- Today View -->
+                <Grid Name="todayView"
+                      Visibility="Visible">
+                    <StackPanel Margin="10">
+                        <TextBlock Text="{Binding Path=UserName}"
+                                   FontSize="24" FontWeight="Bold"/>
+
+                        <!--<TextBlock Text="Hello, Tyler" 
+                                   FontSize="24" FontWeight="Bold"/>-->
+
+                        <StackPanel Name="panelToday"/>
+                    </StackPanel>
+                </Grid>
+
                 <!-- Agenda View-->
                 <Grid Name="agendaView"
-                      Visibility="Visible">
+                      Visibility="Collapsed">
                     <StackPanel Name="panelAgenda" Margin="20 20 0 10"/>
                 </Grid>
 
@@ -123,58 +149,110 @@
                                    FontSize="24" FontWeight="Bold"/>
 
 
-                        <StackPanel Name="homeworkPanel"
+                        <StackPanel Name="panelHomework"
                                 
                                 Margin="20 20 0 10"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Margin="5">
 
-                        <TextBlock Text="upcoming Assignments"
+                        <TextBlock Text="panelUpcoming Assignments"
                                    FontSize="24" FontWeight="Bold"/>
 
-                        <StackPanel Name="upcoming"/>
+                        <StackPanel Name="panelUpcoming"/>
 
                     </StackPanel>
                 </Grid>
 
+                <!-- Class List View -->
                 <Grid Name="classListView"
                       Visibility="Collapsed">
-                    <StackPanel Name="classList"/>
+                    <StackPanel Name="panelClassList"/>
                 </Grid>
             </Grid>
 
         </ScrollViewer>
 
         <!-- Sidebar -->
-        <!--<StackPanel Name="panelSidebar" 
+        <StackPanel Name="panelSidebar" 
                     Grid.Row="1" Grid.Column="0"
                     Margin="10 10 0 0">
 
-            <Button Background="Transparent" Height="75" BorderBrush="Transparent"
-                    Click="BtnClassList_Click">
-                <StackPanel>
+            <!--Today -->
+            <Button Background="Transparent" BorderBrush="Transparent" 
+                    Margin="10" Height="75" 
+                    Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                    Click="BtnTodayView_Click">
 
+                <StackPanel>
+                    <materialDesign:PackIcon Kind="ViewAgenda"
+                                             Height="32" Width="32"
+                                             HorizontalAlignment="Center"/>
+
+                    <TextBlock Text="Today"/>
+                </StackPanel>
+            </Button>
+
+            <!-- Agenda -->
+            <Button Background="Transparent" BorderBrush="Transparent"
+                    Margin="10" Height="75" 
+                    Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                    Click="BtnViewAgenda_Click">
+
+                <StackPanel>
+                    <materialDesign:PackIcon Kind="ViewAgenda" 
+                                             Height="32" Width="32"
+                                             HorizontalAlignment="Center"/>
+                    <TextBlock Text="Agenda"/>
+                </StackPanel>
+            </Button>
+
+            <!-- Assignments -->
+            <Button Background="Transparent" BorderBrush="Transparent"
+                    Margin="10" Height="75" 
+                    Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                    Click="BtnViewAssignments_Click">
+
+                <StackPanel>
+                    <materialDesign:PackIcon Kind="Book" 
+                                             Height="32" Width="32"
+                                             HorizontalAlignment="Center"/>
+                    <TextBlock Text="Assignments"/>
+                </StackPanel>
+            </Button>
+
+            <!-- Class list -->
+            <Button Background="Transparent" BorderBrush="Transparent"
+                    Margin="10" Height="75"
+                    Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                    Click="BtnClassList_Click">
+
+                <StackPanel>
                     <materialDesign:PackIcon Kind="LibraryBooks"
-                                             HorizontalAlignment="Center"
-                                             Foreground="{DynamicResource PrimaryHueDarkBrush}"/>
+                                             Height="32" Width="32"
+                                             HorizontalAlignment="Center"/>
 
                     <TextBlock Text="Class List" 
                                Foreground="{DynamicResource PrimaryHueDarkBrush}"
                                VerticalAlignment="Bottom"/>
-
                 </StackPanel>
             </Button>
 
-        </StackPanel>-->
+        </StackPanel>
 
-        <Button Name="btnAdd"
-                            Margin="25"
-                            Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                            Style="{DynamicResource MaterialDesignFloatingActionButton}"
-                            VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                            Click="BtnAdd_Click">
-            <materialDesign:PackIcon Kind="Plus"/>
-        </Button>
+        <materialDesign:PopupBox Margin="25"
+                                 Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                 Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
+                                 HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <StackPanel>
+                <Button ToolTip="Add Class" Click="BtnAddClass_Click">
+                    <materialDesign:PackIcon Kind="FileDocument"/>
+                </Button>
+
+                <Button ToolTip="Add Assignment" Click="BtnAddAssignment_Click">
+                    <materialDesign:PackIcon Kind="Book"/>
+                </Button>
+            </StackPanel>
+        </materialDesign:PopupBox>
     </Grid>
 </Window>
