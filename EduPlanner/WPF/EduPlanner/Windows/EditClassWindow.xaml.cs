@@ -1,17 +1,8 @@
 ﻿using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace EduPlanner {
     /// <summary>
@@ -19,9 +10,9 @@ namespace EduPlanner {
     /// </summary>
     public partial class EditClassWindow : Window {
 
-        List<ClassTime> classTimes = new List<ClassTime>();
+        private readonly List<ClassTime> _classTimes = new List<ClassTime>();
 
-        Class _class;
+        private readonly Class _class;
 
         public EditClassWindow(Class _class) {
             InitializeComponent();
@@ -53,8 +44,8 @@ namespace EduPlanner {
                         }
                     }
 
-                    time.ClassTimeChanged += new ClassTime.ClassTimeDelegate(Handler);
-                    classTimes.Add(time);
+                    time.ClassTimeChanged += Handler;
+                    _classTimes.Add(time);
                     if (!spClassTimesViewer.Children.Contains(time))
                         spClassTimesViewer.Children.Add(time);
                 }
@@ -62,9 +53,9 @@ namespace EduPlanner {
         }
 
         private ClassTime ClassTimeExist(DateTime? start) {
-            for (int i = 0; i < classTimes.Count; i++) {
-                if (classTimes[i].tpStartTime.SelectedTime == start)
-                    return classTimes[i];
+            for (int i = 0; i < _classTimes.Count; i++) {
+                if (_classTimes[i].tpStartTime.SelectedTime == start)
+                    return _classTimes[i];
             }
 
             return null;
@@ -76,55 +67,68 @@ namespace EduPlanner {
 
         private void AddTime_Click(object sender, RoutedEventArgs e) {
             ClassTime time = new ClassTime();
-            time.ClassTimeChanged += new ClassTime.ClassTimeDelegate(Handler);
-            classTimes.Add(time);
+            time.ClassTimeChanged += Handler;
+            _classTimes.Add(time);
             spClassTimesViewer.Children.Add(time);
 
             Handler();
         }
 
-        private void SaveClass_Click(object sender, RoutedEventArgs e) {
-            //Reset
-            for (int i = 0; i < DataManager.Schedule.days.Count; i++) {
-                DataManager.Schedule.days[i].classes.Remove(_class);
+        private void BtnDeleteClass_Click(object sender, RoutedEventArgs e) {
+            foreach (Day day in DataManager.Schedule.days) {
+                day.classes.Remove(_class);
             }
 
-            _class.ResetTimes();
-
-            //Loop through class times
-            for (int i = 0; i < spClassTimesViewer.Children.Count; i++) {
-                ClassTime time = spClassTimesViewer.Children[i] as ClassTime;
-
-                WrapPanel panel = time.FindName("wpDays") as WrapPanel;
-                Grid timeGrid = time.FindName("TimeGrid") as Grid;
-
-                //Loop through checkboxes (days)
-                for (int j = 0; j < panel.Children.Count; j++) {
-
-                    //Check the current checkbox
-                    if (panel.Children[j] is CheckBox) {
-                        CheckBox check = panel.Children[j] as CheckBox;
-                        if (check.IsChecked == true) {
-
-                            //Get day as an enum
-                            Enum.TryParse(check.Name, out DayOfWeek day);
-
-                            DateTime? startTime = (timeGrid.Children[0] as TimePicker).SelectedTime;
-                            DateTime? endTime = (timeGrid.Children[1] as TimePicker).SelectedTime;
-
-                            _class.className = txtClassName.Text;
-
-                            _class.classTimes[(int)day][0] = startTime;
-                            _class.classTimes[(int)day][1] = endTime;
-
-                            DataManager.Schedule.days[(int)day].classes.Add(_class);
-                        }
-                    }
-                }
-            }
+            DataManager.Schedule.classes.Remove(_class);
 
             Close();
         }
+
+        private void SaveClass_Click(object sender, RoutedEventArgs e) {
+
+
+
+            Close();
+        }
+
+        //private void SaveClass_Click(object sender, RoutedEventArgs e) {
+        //    foreach (Day day in DataManager.Schedule.days) {
+        //        day.classes.Remove(_class);
+        //    }
+
+        //    _class.ResetTimes();
+
+        //    //Loop through class times
+        //    for (int i = 0; i < spClassTimesViewer.Children.Count; i++) {
+        //        ClassTime time = spClassTimesViewer.Children[i] as ClassTime;
+
+        //        WrapPanel panel = time.FindName("wpDays") as WrapPanel;
+        //        Grid timeGrid = time.FindName("TimeGrid") as Grid;
+
+        //        //Loop through checkboxes (days)
+        //        for (int j = 0; j < panel.Children.Count; j++) {
+
+        //            //Check the current checkbox
+        //            if (panel.Children[j] is CheckBox) {
+        //                CheckBox check = panel.Children[j] as CheckBox;
+        //                if (check.IsChecked == true) {
+
+        //                    //Get day as an enum
+        //                    Enum.TryParse(check.Name, out DayOfWeek day);
+
+        //                    DateTime? startTime = (timeGrid.Children[0] as TimePicker).SelectedTime;
+        //                    DateTime? endTime = (timeGrid.Children[1] as TimePicker).SelectedTime;
+
+        //                    _class.className = txtClassName.Text;
+
+        //                    _class._classTimes[(int)day][0] = startTime;
+        //                    _class._classTimes[(int)day][1] = endTime;
+
+        //                    DataManager.Schedule.days[(int)day].classes.Add(_class);
+        //                }
+        //            }
+        //        }
+        //    }
 
         private void Handler() {
             bool dayChecked = false;
@@ -160,11 +164,6 @@ namespace EduPlanner {
                 btnSaveClass.IsEnabled = true;
             else
                 btnSaveClass.IsEnabled = false;
-        }
-
-        private void BtnDeleteClass_Click(object sender, RoutedEventArgs e) {
-            DataManager.Schedule.classes.Remove(_class);
-            Close();
         }
     }
 }

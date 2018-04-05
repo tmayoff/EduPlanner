@@ -40,9 +40,9 @@ namespace EduPlanner {
                         Enum.TryParse(box.Name, out DayOfWeek day);
 
                         DateTime? start = (timeGrid.Children[0] as TimePicker).SelectedTime;
-                        DateTime? end = (timeGrid.Children[0] as TimePicker).SelectedTime;
+                        DateTime? end = (timeGrid.Children[1] as TimePicker).SelectedTime;
 
-                        Class newClass = CheckClassExistence(txtClassName.Text);
+                        Class newClass = Schedule.CheckClassExistence(txtClassName.Text);
                         if (newClass == null) {
                             newClass = new Class(txtClassName.Text);
                             DataManager.Schedule.classes.Add(newClass);
@@ -64,18 +64,7 @@ namespace EduPlanner {
         }
 
         #endregion
-
-        private static Class CheckClassExistence(string name) {
-            if (DataManager.Schedule.classes != null) {
-                for (int i = 0; i < DataManager.Schedule.classes.Count; i++) {
-                    if (DataManager.Schedule.classes[i].className == name)
-                        return DataManager.Schedule.classes[i];
-                }
-            }
-
-            return null;
-        }
-
+        
         private void Handler() {
             bool dayChecked = false;
             bool timePicked = false;
