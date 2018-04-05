@@ -53,9 +53,9 @@ namespace EduPlanner {
         }
 
         private ClassTime ClassTimeExist(DateTime? start) {
-            for (int i = 0; i < _classTimes.Count; i++) {
-                if (_classTimes[i].tpStartTime.SelectedTime == start)
-                    return _classTimes[i];
+            foreach (ClassTime time in _classTimes) {
+                if (time.tpStartTime.SelectedTime == start)
+                    return time;
             }
 
             return null;
@@ -83,49 +83,28 @@ namespace EduPlanner {
 
         private void SaveClass_Click(object sender, RoutedEventArgs e) {
 
+            //Class Times
+            foreach (ClassTime time in spClassTimesViewer.Children) {
+                WrapPanel daysPanel = time.FindName("wpDays") as WrapPanel;
+                Grid timeGrid = time.FindName("TimeGrid") as Grid;
 
+                //Days
+                foreach (CheckBox box in daysPanel.Children) {
+                    if (box.IsChecked == true) {
+
+                        Enum.TryParse(box.Name, out DayOfWeek day);
+
+                        DateTime? start = (timeGrid.Children[0] as TimePicker).SelectedTime;
+                        DateTime? end = (timeGrid.Children[1] as TimePicker).SelectedTime;
+
+                        _class.classTimes[(int)day][0] = start;
+                        _class.classTimes[(int)day][1] = end;
+                    }
+                }
+            }
 
             Close();
         }
-
-        //private void SaveClass_Click(object sender, RoutedEventArgs e) {
-        //    foreach (Day day in DataManager.Schedule.days) {
-        //        day.classes.Remove(_class);
-        //    }
-
-        //    _class.ResetTimes();
-
-        //    //Loop through class times
-        //    for (int i = 0; i < spClassTimesViewer.Children.Count; i++) {
-        //        ClassTime time = spClassTimesViewer.Children[i] as ClassTime;
-
-        //        WrapPanel panel = time.FindName("wpDays") as WrapPanel;
-        //        Grid timeGrid = time.FindName("TimeGrid") as Grid;
-
-        //        //Loop through checkboxes (days)
-        //        for (int j = 0; j < panel.Children.Count; j++) {
-
-        //            //Check the current checkbox
-        //            if (panel.Children[j] is CheckBox) {
-        //                CheckBox check = panel.Children[j] as CheckBox;
-        //                if (check.IsChecked == true) {
-
-        //                    //Get day as an enum
-        //                    Enum.TryParse(check.Name, out DayOfWeek day);
-
-        //                    DateTime? startTime = (timeGrid.Children[0] as TimePicker).SelectedTime;
-        //                    DateTime? endTime = (timeGrid.Children[1] as TimePicker).SelectedTime;
-
-        //                    _class.className = txtClassName.Text;
-
-        //                    _class._classTimes[(int)day][0] = startTime;
-        //                    _class._classTimes[(int)day][1] = endTime;
-
-        //                    DataManager.Schedule.days[(int)day].classes.Add(_class);
-        //                }
-        //            }
-        //        }
-        //    }
 
         private void Handler() {
             bool dayChecked = false;

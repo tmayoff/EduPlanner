@@ -39,27 +39,14 @@
                                HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
                     <!-- Header Buttons -->
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Margin="10" Height="50">
-                            <StackPanel>
-                                <materialDesign:PackIcon Kind="ViewAgenda" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Today"/>
-                            </StackPanel>
-                        </Button>
-                        <Button Margin="10" Height="50" Click="BtnViewAgenda_Click">
-                            <StackPanel>
-                                <materialDesign:PackIcon Kind="ViewAgenda" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Agenda"/>
-                            </StackPanel>
-                        </Button>
+                    <Button HorizontalAlignment="Left"
+                            BorderBrush="Transparent"
+                            Background="Transparent" FontSize="36"
+                            Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" CommandParameter="{x:Static Dock.Left}">
 
-                        <Button Margin="10" Height="50" Click="BtnViewAssignments_Click">
-                            <StackPanel>
-                                <materialDesign:PackIcon Kind="Book" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Assignments"/>
-                            </StackPanel>
-                        </Button>
-                    </StackPanel>
+                        <materialDesign:PackIcon Kind="Menu"
+                                                 Height="24" Width="24"/>
+                    </Button>
 
                     <!-- 3 Dots Popup -->
                     <materialDesign:PopupBox HorizontalAlignment="Right">
@@ -79,6 +66,38 @@
                 </Grid>
             </DockPanel>
         </materialDesign:ColorZone>
+
+        <materialDesign:DrawerHost Name="host" Grid.Row="1" Grid.Column="0">
+
+            <materialDesign:DrawerHost.LeftDrawerContent>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+
+                    <Button Margin="10" Height="50">
+                        <StackPanel>
+                            <materialDesign:PackIcon Kind="ViewAgenda" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Today"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Margin="10" Height="50" Click="BtnViewAgenda_Click">
+                        <StackPanel>
+                            <materialDesign:PackIcon Kind="ViewAgenda" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Agenda"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Margin="10" Height="50" Click="BtnViewAssignments_Click">
+                        <StackPanel>
+                            <materialDesign:PackIcon Kind="Book" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Assignments"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+            </materialDesign:DrawerHost.LeftDrawerContent>
+
+        </materialDesign:DrawerHost>
 
         <!-- Main Content -->
         <ScrollViewer Grid.Row="1" Grid.Column="1" Margin="0 0 20 0"
@@ -128,7 +147,7 @@
         </ScrollViewer>
 
         <!-- Sidebar -->
-        <StackPanel Name="panelSidebar" 
+        <!--<StackPanel Name="panelSidebar" 
                     Grid.Row="1" Grid.Column="0"
                     Margin="10 10 0 0">
 
@@ -147,7 +166,7 @@
                 </StackPanel>
             </Button>
 
-        </StackPanel>
+        </StackPanel>-->
 
         <Button Name="btnAdd"
                             Margin="25"

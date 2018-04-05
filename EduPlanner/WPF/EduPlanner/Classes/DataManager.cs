@@ -49,6 +49,15 @@ namespace EduPlanner {
 
         private static bool _downloadSucceeded;
 
+        public static bool RemoteLastModified(string path) {
+            DateTime? local = System.IO.File.GetLastWriteTime(path);
+
+
+            DateTime? remote = GetFile(Path.GetFileName(path)).ModifiedTime;
+
+            return remote > local;
+        }
+
         public static bool GoogleAuthenticate() {
             try {
                 UserCredential credential =
@@ -97,13 +106,11 @@ namespace EduPlanner {
             string fileName = Path.GetFileName(path);
             string fileId = GetFileId(fileName);
 
-            File file = Service.Files.Get(fileId).Execute();
+            File file = new File();
+            byte[] byteArray = System.IO.File.ReadAllBytes(path);
+            MemoryStream stream = new MemoryStream(byteArray);
+            FilesResource.UpdateMediaUpload request = Service.Files.Update(file, fileId, stream, mimeType);
 
-            byte[] bytes = System.IO.File.ReadAllBytes(path);
-            MemoryStream stream = new MemoryStream(bytes);
-
-            FilesResource.UpdateMediaUpload request =
-                Service.Files.Update(file, fileId, stream, mimeType);
             request.Upload();
         }
 
@@ -137,6 +144,15 @@ namespace EduPlanner {
             request.PageSize = 10;
             FileList result = request.Execute();
             return result.Files.Any(file => file.Name == fileName);
+        }
+
+        public static File GetFile(string fileName) {
+            FilesResource.ListRequest request = Service.Files.List();
+            request.Spaces = "appDataFolder";
+            request.Fields = "nextPageToken, files(id, name)";
+            request.PageSize = 10;
+            FileList result = request.Execute();
+            return result.Files[0];
         }
 
         private static string GetFileId(string fileName) {
@@ -211,13 +227,13 @@ namespace EduPlanner {
                 if (!Directory.Exists(DataManager.Savefilepath))
                     Directory.CreateDirectory(DataManager.Savefilepath);
 
-                //if (DataManager.Authenticated) {
-                //    if (DataManager.FileExists(APPDATA_NAME))
-                //        DataManager.DownloadFiles(APPDATA_NAME);
+                if (DataManager.Authenticated) {
+                    if (DataManager.FileExists(APPDATA_NAME) && DataManager.RemoteLastModified(AppdataPath))
+                        DataManager.DownloadFiles(APPDATA_NAME);
 
-                //    if (DataManager.FileExists(SETTINGS_NAME))
-                //        DataManager.DownloadFiles(SETTINGS_NAME);
-                //}
+                    if (DataManager.FileExists(SETTINGS_NAME) && DataManager.RemoteLastModified(SettingsPath))
+                        DataManager.DownloadFiles(SETTINGS_NAME);
+                }
 
                 if (System.IO.File.Exists(SettingsPath))
                     DataManager.Settings = ReadFromXmlFile<Settings>(SettingsPath);
