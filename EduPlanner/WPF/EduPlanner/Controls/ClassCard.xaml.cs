@@ -16,6 +16,8 @@ namespace EduPlanner {
             this._class = _class;
 
             txtClassName.Text = _class.className;
+            startTime.Text = "";
+            endTime.Text = "";
         }
 
         public ClassCard(Class _class, Day day) {

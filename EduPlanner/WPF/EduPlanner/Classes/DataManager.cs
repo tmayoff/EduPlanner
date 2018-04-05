@@ -176,7 +176,7 @@ namespace EduPlanner {
 
     public class Data {
 
-        public int saveTime = 1000;
+        public int SaveTime = 1000;
 
         private const string APPDATA_NAME = "Data.xml";
         private const string SETTINGS_NAME = "Settings.xml";
@@ -240,6 +240,7 @@ namespace EduPlanner {
 
                 if (System.IO.File.Exists(AppdataPath))
                     DataManager.Schedule = ReadFromXmlFile<Schedule>(AppdataPath);
+
             } catch (Exception e) {
                 MessageBox.Show(e.Message);
             }
@@ -285,7 +286,7 @@ namespace EduPlanner {
 
             DataManager.MainWindow.UpdateAgendaView();
         }
-
+        
         #region Writers / Readers
 
         /// <summary>

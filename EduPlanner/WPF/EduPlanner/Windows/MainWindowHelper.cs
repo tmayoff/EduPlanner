@@ -194,7 +194,7 @@ namespace EduPlanner {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void BtnViewAssignments_Click(object sender, RoutedEventArgs e) {
-            ChangeView(homeworkView);
+            ChangeView(assignmentsView);
         }
 
         #endregion

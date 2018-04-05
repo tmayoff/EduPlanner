@@ -137,7 +137,7 @@
                 </Grid>
 
                 <!-- Homework View -->
-                <Grid Name="homeworkView"
+                <Grid Name="assignmentsView"
                       Visibility="Collapsed">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"/>
@@ -156,7 +156,7 @@
 
                     <StackPanel Grid.Column="1" Margin="5">
 
-                        <TextBlock Text="panelUpcoming Assignments"
+                        <TextBlock Text="Upcoming Assignments"
                                    FontSize="24" FontWeight="Bold"/>
 
                         <StackPanel Name="panelUpcoming"/>
