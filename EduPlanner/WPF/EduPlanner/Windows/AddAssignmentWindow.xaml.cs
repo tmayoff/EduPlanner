@@ -2,32 +2,28 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace EduPlanner {
-    /// <summary>
-    /// Interaction logic for AddHomeworkWindow.xaml
-    /// </summary>
-    public partial class AddHomeworkWindow : Window {
+namespace EduPlanner.Windows {
 
-        Class _class;
-        Day day;
+    public partial class AddAssignmentWindow : Window {
 
-        public AddHomeworkWindow() {
+        private Class _class;
+
+        public AddAssignmentWindow() {
             InitializeComponent();
 
-            cmbClasses.ItemsSource = DataManager.Schedule.classes;
+            cmbClasses.ItemsSource = DataManager.Schedule.Classes;
         }
 
-        public AddHomeworkWindow(Class _class, Day day) {
+        public AddAssignmentWindow(Class _class, Day day) {
             InitializeComponent();
 
             this._class = _class;
-            this.day = day;
 
-            cmbClasses.ItemsSource = DataManager.Schedule.classes;
+            cmbClasses.ItemsSource = DataManager.Schedule.Classes;
             cmbClasses.SelectedItem = _class;
 
-            dpDueDate.SelectedDate = _class.classTimes[(int)day.day][1];
-            tpDueTime.SelectedTime = _class.classTimes[(int)day.day][1];
+            dpDueDate.SelectedDate = _class.ClassTimes[(int)day.WeekDay][1];
+            tpDueTime.SelectedTime = _class.ClassTimes[(int)day.WeekDay][1];
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e) {
@@ -50,9 +46,8 @@ namespace EduPlanner {
             DateTime timeTime = tpDueTime.SelectedTime.Value;
             DateTime time = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, timeTime.Hour, timeTime.Minute, timeTime.Second);
 
-            Homework homework = new Homework(txtAssignmentName.Text, txtDescription.Text, time, _class);
-            _class.Homeworks.Add(homework);
-            _class.hasHomework = true;
+            Assignment assignment = new Assignment(txtAssignmentName.Text, txtDescription.Text, time, _class);
+            _class.Homeworks.Add(assignment);
 
             Close();
         }

@@ -10,10 +10,10 @@ namespace EduPlanner {
 
         public DayCard(Day day) {
             InitializeComponent();
-            
+
             this.day = day;
 
-            txtDayName.Text = day.day.ToString();
+            txtDayName.Text = day.WeekDay.ToString();
         }
     }
 }

@@ -27,7 +27,7 @@ namespace EduPlanner {
 
             this._class = _class;
 
-            ClassName = _class.className;
+            ClassName = _class.ClassName;
         }
 
         private void Expander_Expanded(object sender, System.Windows.RoutedEventArgs e) {

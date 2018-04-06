@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:eduPlanner="clr-namespace:EduPlanner"
+        xmlns:views="clr-namespace:EduPlanner.Views"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -116,59 +117,11 @@
 
             <Grid Name="contentViews">
 
-                <!-- Today View -->
-                <Grid Name="todayView"
-                      Visibility="Visible">
-                    <StackPanel Margin="10">
-                        <TextBlock Text="{Binding Path=UserName}"
-                                   FontSize="24" FontWeight="Bold"/>
+                <views:AgendaView x:Name="agendaView" Visibility="Collapsed"/>
+                <views:TodayView x:Name="todayView" Visibility="Collapsed"/>
+                <views:AssignmentsView x:Name="assignmentsView" Visibility="Collapsed"/>
+                <views:ClassListView x:Name="classListView" Visibility="Collapsed"/>
 
-                        <!--<TextBlock Text="Hello, Tyler" 
-                                   FontSize="24" FontWeight="Bold"/>-->
-
-                        <StackPanel Name="panelToday"/>
-                    </StackPanel>
-                </Grid>
-
-                <!-- Agenda View-->
-                <Grid Name="agendaView"
-                      Visibility="Collapsed">
-                    <StackPanel Name="panelAgenda" Margin="20 20 0 10"/>
-                </Grid>
-
-                <!-- Homework View -->
-                <Grid Name="assignmentsView"
-                      Visibility="Collapsed">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel Grid.Column="0" Margin="5">
-                        <TextBlock Text="All Assignments"
-                                   FontSize="24" FontWeight="Bold"/>
-
-
-                        <StackPanel Name="panelHomework"
-                                
-                                Margin="20 20 0 10"/>
-                    </StackPanel>
-
-                    <StackPanel Grid.Column="1" Margin="5">
-
-                        <TextBlock Text="Upcoming Assignments"
-                                   FontSize="24" FontWeight="Bold"/>
-
-                        <StackPanel Name="panelUpcoming"/>
-
-                    </StackPanel>
-                </Grid>
-
-                <!-- Class List View -->
-                <Grid Name="classListView"
-                      Visibility="Collapsed">
-                    <StackPanel Name="panelClassList"/>
-                </Grid>
             </Grid>
 
         </ScrollViewer>
@@ -179,7 +132,7 @@
                     Margin="10 10 0 0">
 
             <!--Today -->
-            <Button Background="Transparent" BorderBrush="Transparent" 
+            <Button Style="{DynamicResource MaterialDesignFlatButton}"
                     Margin="10" Height="75" 
                     Foreground="{DynamicResource PrimaryHueDarkBrush}"
                     Click="BtnTodayView_Click">
@@ -194,7 +147,7 @@
             </Button>
 
             <!-- Agenda -->
-            <Button Background="Transparent" BorderBrush="Transparent"
+            <Button Style="{DynamicResource MaterialDesignFlatButton}"
                     Margin="10" Height="75" 
                     Foreground="{DynamicResource PrimaryHueDarkBrush}"
                     Click="BtnViewAgenda_Click">
@@ -208,7 +161,7 @@
             </Button>
 
             <!-- Assignments -->
-            <Button Background="Transparent" BorderBrush="Transparent"
+            <Button Style="{DynamicResource MaterialDesignFlatButton}"
                     Margin="10" Height="75" 
                     Foreground="{DynamicResource PrimaryHueDarkBrush}"
                     Click="BtnViewAssignments_Click">
@@ -222,7 +175,7 @@
             </Button>
 
             <!-- Class list -->
-            <Button Background="Transparent" BorderBrush="Transparent"
+            <Button Style="{DynamicResource MaterialDesignFlatButton}"
                     Margin="10" Height="75"
                     Foreground="{DynamicResource PrimaryHueDarkBrush}"
                     Click="BtnClassList_Click">

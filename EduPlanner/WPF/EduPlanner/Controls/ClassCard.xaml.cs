@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using EduPlanner.Windows;
 
 namespace EduPlanner {
     /// <summary>
@@ -15,7 +16,7 @@ namespace EduPlanner {
 
             this._class = _class;
 
-            txtClassName.Text = _class.className;
+            txtClassName.Text = _class.ClassName;
             startTime.Text = "";
             endTime.Text = "";
         }
@@ -26,14 +27,14 @@ namespace EduPlanner {
             this._class = _class;
             this.day = day;
 
-            txtClassName.Text = _class.className;
+            txtClassName.Text = _class.ClassName;
 
-            startTime.Text = "Start Time: " + _class.classTimes[(int)day.day][0].Value.ToString("hh:mm:tt");
-            endTime.Text = "End Time: " + _class.classTimes[(int)day.day][1].Value.ToString("hh:mm:tt");
+            startTime.Text = "Start Time: " + _class.ClassTimes[(int)day.WeekDay][0].Value.ToString("hh:mm:tt");
+            endTime.Text = "End Time: " + _class.ClassTimes[(int)day.WeekDay][1].Value.ToString("hh:mm:tt");
         }
 
         private void AddHomework_Click(object sender, RoutedEventArgs e) {
-            AddHomeworkWindow window = new AddHomeworkWindow(_class, day);
+            AddAssignmentWindow window = new AddAssignmentWindow(_class, day);
             window.Closed += DataManager.MainWindow.WindowAddEditHomework_Closed;
             window.ShowDialog();
         }
