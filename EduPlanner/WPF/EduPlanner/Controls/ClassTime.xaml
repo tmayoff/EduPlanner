@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:EduPlanner"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="400">
+             d:DesignHeight="250" d:DesignWidth="420">
     <StackPanel>
 
         <Expander Name="excClassTime" Header="Time"

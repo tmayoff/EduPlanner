@@ -26,6 +26,11 @@ namespace EduPlanner {
             Handler();
         }
 
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
         public void AddClass_Click(object sender, RoutedEventArgs e) {
 
             //Class Times
@@ -93,7 +98,7 @@ namespace EduPlanner {
                 }
             }
 
-            if (dayChecked && timePicked && txtClassName.Text != "")
+            if (dayChecked && timePicked && txtClassName.Text != string.Empty)
                 btnAddClass.IsEnabled = true;
             else
                 btnAddClass.IsEnabled = false;

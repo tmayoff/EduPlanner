@@ -15,6 +15,7 @@ namespace EduPlanner {
             InitializeComponent();
 
             cmbClasses.ItemsSource = DataManager.Schedule.classes;
+            
         }
 
         public AddHomeworkWindow(Class _class, Day day) {
@@ -54,6 +55,11 @@ namespace EduPlanner {
             _class.Homeworks.Add(homework);
             _class.hasHomework = true;
 
+            Close();
+        }
+
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
             Close();
         }
 

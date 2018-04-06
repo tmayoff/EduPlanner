@@ -5,10 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EduPlanner"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d"
-        Title="New Class" Height="500" Width="400">
-
-    <Grid>
+        mc:Ignorable="d" ResizeMode="NoResize"
+        Title="New Class" Height="660" Width="420">
+    <StackPanel Margin="15">
+        <GroupBox Header="Class Details">
+            <TextBox Name="txtClassName" Margin="10,5,10,5"
+                     md:HintAssist.Hint="Name"
+                     md:ValidationAssist.UsePopup="True"
+                     TextChanged="ClassName_TextChanged"/>
+        </GroupBox>
+        <GroupBox Margin="0,20" Header="Schedule">
+            <StackPanel Margin="0,5">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" MinHeight="150" Height="290">
+                    <StackPanel Height="290" Name="spClassTimesViewer"/>
+                </ScrollViewer>
+                <Button Name="btnAddTime" Content="New Time"
+                HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                Margin="0" 
+                Click="AddTime_Click"/>
+            </StackPanel>
+        </GroupBox>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Name="btnAddClass" Content="Create"
+                    Margin="10"
+                    IsEnabled="False"
+                    Click="AddClass_Click"/>
+            <Button Name="btnCancel" Content="Cancel" Grid.Column="1"
+                Margin="15,25"
+                Click="BtnCancel_Click"/>
+        </Grid>
+    </StackPanel>
+        <!--<Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
@@ -16,11 +47,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Margin="10">
-            <TextBlock Text="Class: "/>
-            <TextBox Name="txtClassName" Margin="10 5 0 0"
-                     md:HintAssist.Hint="Class Name"
-                     md:ValidationAssist.UsePopup="True"
-                     TextChanged="ClassName_TextChanged"/>
+
         </StackPanel>
 
         <ScrollViewer Grid.Row="1">
@@ -40,5 +67,5 @@
                     Click="AddClass_Click"/>
 
         </StackPanel>
-    </Grid>
+    </Grid>!-->
 </Window>
