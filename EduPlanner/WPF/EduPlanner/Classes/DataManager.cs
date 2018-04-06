@@ -284,14 +284,14 @@ namespace EduPlanner {
                 MessageBox.Show(e.Message);
             }
 
-            DataManager.MainWindow.UpdateAgendaView();
+            //DataManager.MainWindow.UpdateAgendaView();
         }
-        
+
         #region Writers / Readers
 
         /// <summary>
         /// Writes the given object instance to an XML file.
-        /// <para>Only Public properties and variables will be written to the file. These can be any type though, even other classes.</para>
+        /// <para>Only Public properties and variables will be written to the file. These can be any type though, even other Classes.</para>
         /// <para>If there are public properties/variables that you do not want written to the file, decorate them with the [XmlIgnore] attribute.</para>
         /// <para>Object type must have a parameterless constructor.</para>
         /// </summary>

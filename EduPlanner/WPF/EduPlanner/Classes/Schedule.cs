@@ -1,29 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace EduPlanner {
+
     [Serializable]
     public class Schedule {
 
-        public Day[] days;
-        //public List<Day> days;
-        public List<Class> classes;
+        [XmlIgnore]
+        public Day[] Days;
+
+        public List<Class> Classes;
 
         public Schedule() {
-            classes = new List<Class>();
-            days = new Day[DataManager.DAYCOUNT];
+            Classes = new List<Class>();
+            Days = new Day[DataManager.DAYCOUNT];
 
-            for (int i = 0; i < days.Length; i++) {
-                days[i] = new Day((DayOfWeek)i);
+            for (int i = 0; i < Days.Length; i++) {
+                Days[i] = new Day((DayOfWeek)i);
             }
         }
 
         public static Class CheckClassExistence(string name) {
-            if (DataManager.Schedule.classes != null) {
-                for (int i = 0; i < DataManager.Schedule.classes.Count; i++) {
-                    if (DataManager.Schedule.classes[i].className == name)
-                        return DataManager.Schedule.classes[i];
-                }
+            if (DataManager.Schedule.Classes == null || DataManager.Schedule.Classes.Count == 0)
+                return null;
+
+            foreach (Class _class in DataManager.Schedule.Classes) {
+                if (_class.ClassName == name)
+                    return _class;
             }
 
             return null;

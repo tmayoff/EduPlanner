@@ -1,12 +1,9 @@
-﻿using MaterialDesignThemes.Wpf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Threading;
 using EduPlanner.Windows;
+
+//using EduPlanner.Windows;
 
 namespace EduPlanner {
 
@@ -17,29 +14,23 @@ namespace EduPlanner {
 
         private const int TIMERINTERVALMIN = 5;
 
-        private readonly Schedule _schedule;
         private readonly Data _data;
-        private readonly DateTime _upcomingTime;
-
         private readonly DispatcherTimer _timer = new DispatcherTimer();
 
-        private Class _currentClass;
-
         public MainWindow() {
-            DataManager.Authenticated = DataManager.GoogleAuthenticate();
 
             InitializeComponent();
+
+            DataManager.Authenticated = DataManager.GoogleAuthenticate();
+
             DataContext = this;
 
             //Load All Data Settings and data
             _data = new Data();
 
             //Initialize things
-            _upcomingTime = DateTime.Now + new TimeSpan(7, 0, 0, 0);
-
             Updater.CheckForUpdate(true);
 
-            _schedule = DataManager.Schedule;
             DataManager.MainWindow = this;
             ChangeView(todayView);
 
@@ -53,10 +44,10 @@ namespace EduPlanner {
         private void BtnImportData_Click(object sender, RoutedEventArgs e) {
             Data.Import();
 
-            UpdateAgendaView();
-            UpdateClassListView();
-            UpdateHomeworkView();
-            Refresh();
+            //UpdateAgendaView();
+            //UpdateClassListView();
+            //UpdateView();
+            //Refresh();
         }
 
         private void BtnExportData_Click(object sender, RoutedEventArgs e) {
@@ -84,9 +75,9 @@ namespace EduPlanner {
         }
 
         private void BtnAddAssignment_Click(object sender, RoutedEventArgs e) {
-            AddHomeworkWindow addHomework = new AddHomeworkWindow();
-            addHomework.Closed += WindowAddEditHomework_Closed;
-            addHomework.ShowDialog();
+            Windows.AddAssignmentWindow addAssignment = new Windows.AddAssignmentWindow();
+            addAssignment.Closed += WindowAddEditHomework_Closed;
+            addAssignment.ShowDialog();
         }
 
         #endregion
@@ -94,17 +85,15 @@ namespace EduPlanner {
         #region Window Event Handlers
 
         public void RefreshEvent(object sender, EventArgs e) {
-            Refresh();
+            //Refresh();
         }
 
         public void WindowAddEditClass_Closed(object sender, EventArgs e) {
-            UpdateAgendaView();
-            UpdateTodayView();
-            UpdateClassListView();
+            UpdateViews();
         }
 
         public void WindowAddEditHomework_Closed(object sender, EventArgs e) {
-            UpdateHomeworkView();
+            UpdateViews();
         }
 
         public void Window_Closed(object sender, EventArgs e) {
