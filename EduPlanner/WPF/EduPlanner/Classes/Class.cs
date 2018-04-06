@@ -1,41 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
+using EduPlanner;
 
 namespace EduPlanner {
-
     [Serializable]
     public class Class {
 
-        public string ClassName { get; set; }
+        public string className;
 
-        public DateTime?[][] ClassTimes;
+        public DateTime?[][] classTimes;
 
-        public List<Assignment> Homeworks = new List<Assignment>();
+        public List<Homework> Homeworks = new List<Homework>();
+
+        public bool hasHomework = false;
 
         public Class() { }
 
         public Class(string className) {
-            InitTimes();
-            Homeworks = new List<Assignment>();
+            ResetTimes();
+            Homeworks = new List<Homework>();
 
-            ClassName = className;
+            this.className = className;
         }
 
         public void SetTime(DayOfWeek day, DateTime start, DateTime end) {
-            ClassTimes[(int)day][0] = start;
-            ClassTimes[(int)day][1] = end;
+            classTimes[(int)day][0] = start;
+            classTimes[(int)day][1] = end;
         }
 
-        public void InitTimes() {
-            ClassTimes = new DateTime?[DataManager.DAYCOUNT][];
+        public void ResetTimes() {
+            classTimes = new DateTime?[DataManager.DAYCOUNT][];
 
-            for (int i = 0; i < ClassTimes.Length; i++) {
-                ClassTimes[i] = new DateTime?[2];
+            for (int i = 0; i < classTimes.Length; i++) {
+                classTimes[i] = new DateTime?[2];
             }
         }
 
         public override string ToString() {
-            return ClassName;
+            return className;
         }
     }
 }

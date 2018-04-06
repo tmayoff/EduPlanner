@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace EduPlanner.Windows {
+namespace EduPlanner {
     /// <summary>
     /// Interaction logic for AddClass.xaml
     /// </summary>
@@ -45,11 +45,11 @@ namespace EduPlanner.Windows {
                         Class newClass = Schedule.CheckClassExistence(txtClassName.Text);
                         if (newClass == null) {
                             newClass = new Class(txtClassName.Text);
-                            DataManager.Schedule.Classes.Add(newClass);
+                            DataManager.Schedule.classes.Add(newClass);
                         }
 
-                        newClass.ClassTimes[(int)day][0] = start;
-                        newClass.ClassTimes[(int)day][1] = end;
+                        newClass.classTimes[(int)day][0] = start;
+                        newClass.classTimes[(int)day][1] = end;
                     }
                 }
             }

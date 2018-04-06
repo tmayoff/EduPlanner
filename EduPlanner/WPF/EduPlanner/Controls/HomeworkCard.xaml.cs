@@ -7,26 +7,26 @@ namespace EduPlanner {
     /// </summary>
     public partial class HomeworkCard : UserControl {
 
-        public string HomeworkTitle => _assignment.AssignmentName;
+        public string HomeworkTitle => _homework.assignmentName;
 
 
         readonly Class _class;
-        readonly Assignment _assignment;
+        readonly Homework _homework;
 
-        public HomeworkCard(Class _class, Assignment assignment, bool upcoming) {
+        public HomeworkCard(Class _class, Homework homework, bool upcoming) {
             InitializeComponent();
             DataContext = this;
 
-            _assignment = assignment;
+            _homework = homework;
             this._class = _class;
 
-            txtDueDate.Text = "Due: " + assignment.DueDate.ToString("dd MMM");
+            txtDueDate.Text = "Due: " + homework.dueDate.ToString("dd MMM");
             if (upcoming)
-                txtClass.Text = _class.ClassName;
+                txtClass.Text = _class.className;
         }
 
         private void EditHomework_Click(object sender, RoutedEventArgs e) {
-            Windows.EditHomeworkWindow window = new Windows.EditHomeworkWindow(_class, _assignment);
+            EditHomeworkWindow window = new EditHomeworkWindow(_class, _homework);
             window.Closed += DataManager.MainWindow.WindowAddEditHomework_Closed;
             window.ShowDialog();
         }

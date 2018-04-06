@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace EduPlanner.Windows {
+namespace EduPlanner {
     /// <summary>
     /// Interaction logic for AddClass.xaml
     /// </summary>
@@ -18,18 +18,18 @@ namespace EduPlanner.Windows {
             InitializeComponent();
 
             this._class = _class;
-            txtClassName.Text = _class.ClassName;
+            txtClassName.Text = _class.className;
 
-            for (int i = 0; i < _class.ClassTimes.Length; i++) {
-                if (_class.ClassTimes[i][0] != null && _class.ClassTimes[i][1] != null) {
+            for (int i = 0; i < _class.classTimes.Length; i++) {
+                if (_class.classTimes[i][0] != null && _class.classTimes[i][1] != null) {
 
-                    ClassTime time = ClassTimeExist(_class.ClassTimes[i][0]);
+                    ClassTime time = ClassTimeExist(_class.classTimes[i][0]);
 
                     if (time == null)
                         time = new ClassTime();
 
-                    time.tpStartTime.SelectedTime = _class.ClassTimes[i][0];
-                    time.tpEndTime.SelectedTime = _class.ClassTimes[i][1];
+                    time.tpStartTime.SelectedTime = _class.classTimes[i][0];
+                    time.tpEndTime.SelectedTime = _class.classTimes[i][1];
 
                     //Loop through class times
                     WrapPanel wrap = time.FindName("wpDays") as WrapPanel;
@@ -76,7 +76,7 @@ namespace EduPlanner.Windows {
 
         private void BtnDeleteClass_Click(object sender, RoutedEventArgs e) {
 
-            DataManager.Schedule.Classes.Remove(_class);
+            DataManager.Schedule.classes.Remove(_class);
 
             Close();
         }
@@ -97,8 +97,8 @@ namespace EduPlanner.Windows {
                         DateTime? start = (timeGrid.Children[0] as TimePicker).SelectedTime;
                         DateTime? end = (timeGrid.Children[1] as TimePicker).SelectedTime;
 
-                        _class.ClassTimes[(int)day][0] = start;
-                        _class.ClassTimes[(int)day][1] = end;
+                        _class.classTimes[(int)day][0] = start;
+                        _class.classTimes[(int)day][1] = end;
                     }
                 }
             }

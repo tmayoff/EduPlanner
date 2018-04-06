@@ -146,23 +146,11 @@
     </ApplicationDefinition>
     <Compile Include="Classes\Settings.cs" />
     <Compile Include="Classes\Updater.cs" />
-    <Compile Include="Views\AgendaView.xaml.cs">
-      <DependentUpon>AgendaView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\AssignmentsView.xaml.cs">
-      <DependentUpon>AssignmentsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ClassListView.xaml.cs">
-      <DependentUpon>ClassListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TodayView.xaml.cs">
-      <DependentUpon>TodayView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\AddClassWindow.xaml.cs">
       <DependentUpon>AddClassWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\AddAssignmentWindow.xaml.cs">
-      <DependentUpon>AddAssignmentWindow.xaml</DependentUpon>
+    <Compile Include="Windows\AddHomeworkWindow.xaml.cs">
+      <DependentUpon>AddHomeworkWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Class.cs" />
     <Compile Include="Controls\ClassHomeworkCard.xaml.cs">
@@ -184,7 +172,7 @@
     <Compile Include="Windows\FirstSetup.xaml.cs">
       <DependentUpon>FirstSetup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Assignment.cs" />
+    <Compile Include="Classes\Homework.cs" />
     <Compile Include="Controls\HomeworkCard.xaml.cs">
       <DependentUpon>HomeworkCard.xaml</DependentUpon>
     </Compile>
@@ -196,27 +184,11 @@
     <Compile Include="Windows\ViewAllAssignments.xaml.cs">
       <DependentUpon>ViewAllAssignments.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\AgendaView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\AssignmentsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ClassListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\TodayView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Windows\AddClassWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\AddAssignmentWindow.xaml">
+    <Page Include="Windows\AddHomeworkWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
