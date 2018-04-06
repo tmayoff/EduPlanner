@@ -57,6 +57,11 @@ namespace EduPlanner {
             Close();
         }
 
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
         private void CmbClasses_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             _class = cmbClasses.SelectedItem as Class;
 

@@ -53,6 +53,12 @@ namespace EduPlanner.Windows {
             UseBetaVersion = DataManager.Settings.receiveBetaUpdates;
             CheckForUpdatesOnStartUp = DataManager.Settings.checkForUpdatesOnStartup;
             MinimizeToTray = DataManager.Settings.minimizeToTray;
+
+            if (DataManager.Authenticated == true)
+            {
+                tgDriveSync.IsChecked = true;
+                txtDriveSync.Text = String.Format("Your {0} data is currently being synced.", DataManager.APPLICATIONNAME);
+            }
         }
     }
 }

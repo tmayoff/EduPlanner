@@ -57,6 +57,11 @@ namespace EduPlanner {
             Close();
         }
 
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
         private void ClassName_TextChanged(object sender, TextChangedEventArgs e) {
             Handler();
         }

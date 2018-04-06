@@ -13,7 +13,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="EduPlanner" Height="800" Width="1200"
+        Title="EduPlanner" Height="650" Width="980" MinHeight="650" MinWidth="980" 
         Closed="Window_Closed">
     <Window.Resources>
         <ResourceDictionary>
