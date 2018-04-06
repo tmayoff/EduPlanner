@@ -4,67 +4,55 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EduPlanner.Windows"
-        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="Settings" Height="350" Width="450">
-    <TabControl Margin="0,10,0,0">
-        <TabItem Header="General">
-            <StackPanel>
-                <GroupBox Margin="30,20" Header="Updater">
-                    <StackPanel Margin="5">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="200"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Text="Check for Updates on Startup:" VerticalAlignment="Center"/>
-                            <ToggleButton Name="tgCheckForUpdatesOnStartup" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" IsChecked="{Binding Path=CheckForUpdatesOnStartUp}"/>
-                            <TextBlock Margin="0,10,0,0" Text="Receive Beta Updates:" Grid.Row="1" VerticalAlignment="Center"/>
-                            <ToggleButton Margin="0,10,0,0" Name="tgReceiveBetaUpdates" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="1" IsChecked="{Binding Path=UseBetaVersion}"/>
-                        </Grid>
-                    </StackPanel>
-                </GroupBox>
-            </StackPanel>
-        </TabItem>
-        <TabItem Header="Sync">
-            <StackPanel>
-                <GroupBox Margin="30,20" Header="Google Drive">
-                    <StackPanel>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="50"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <ToggleButton HorizontalAlignment="Left" Grid.Column="1" Name="tgDriveSync"/>
-                            <TextBlock>Status:</TextBlock>
-                        </Grid>
-                        <TextBlock Text="Connection status" TextWrapping="Wrap" Margin="0,10" Name="txtDriveSync" FontWeight="Bold"/>
-                    </StackPanel>
-                </GroupBox>
-            </StackPanel>
-        </TabItem>
-        <TabItem Header="Advanced">
-            <StackPanel Margin="20">
-                <Grid Margin="80,0,80,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Margin="0,10,0,0" Text="Minimize to Tray:" VerticalAlignment="Center"/>
-                    <ToggleButton Margin="0,10,0,0" Name="tgMinimizeToTray" Grid.Column="1" HorizontalAlignment="Right" IsChecked="{Binding Path=MinimizeToTray}"/>
-                    <TextBlock Margin="0,10,0,0" Text="Use Demo Content:" Grid.Row="1" VerticalAlignment="Center"/>
-                    <ToggleButton Margin="0,10,0,0" Name="tgUseDemoContent" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="1" IsChecked="{Binding Path=UseDemoContent}"/>
-                </Grid>
-            </StackPanel>
-        </TabItem>
-    </TabControl>
+        Title="Settings" Height="250" Width="350">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <!-- Startup Updates -->
+        <TextBlock Text="Check for Updates on Startup" 
+                   VerticalAlignment="Center" FontSize="16"/>
+
+        <ToggleButton Name="tgCheckForUpdatesOnStartup"
+                      Grid.Row="0"
+                      VerticalAlignment="Center" HorizontalAlignment="Right"  
+                      IsChecked="{Binding Path=CheckForUpdatesOnStartUp}"/>
+
+
+        <!-- Minimize to tray -->
+        <TextBlock Grid.Row="1" Text="Minimize to Tray"
+                   VerticalAlignment="Center"  
+                   FontSize="16"/>
+
+        <ToggleButton Name="tgMinimizeToTray"
+                      Grid.Row="1"
+                      VerticalAlignment="Center" HorizontalAlignment="Right" 
+                      IsChecked="{Binding Path=MinimizeToTray}"/>
+
+
+        <!-- Receive Beta Updates-->
+        <TextBlock Text="Receive Beta Updates"
+                   Grid.Row="2"
+                   VerticalAlignment="Center" 
+                   FontSize="16"/>
+
+        <ToggleButton Name="tgReceiveBetaUpdates"
+                      VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="2"  
+                      IsChecked="{Binding Path=UseBetaVersion}"/>
+        
+        <TextBlock Text="Use Demo Content"
+                   Grid.Row="3"
+                   VerticalAlignment="Center" 
+                   FontSize="16"/>
+
+        <ToggleButton Name="tgUseDemoContent"
+                      VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="3"  
+                      IsChecked="{Binding Path=UseDemoContent}"/>
+    </Grid>
 </Window>

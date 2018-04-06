@@ -5,54 +5,73 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EduPlanner"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d" ResizeMode="NoResize"
-        Title="New Assignment" Height="510" Width="310">
-    <StackPanel Margin="15">
-        <GroupBox Header="Class">
-            <ComboBox Margin="10,5,10,5" Name="cmbClasses" SelectionChanged="CmbClasses_SelectionChanged"/>
-        </GroupBox>
+        mc:Ignorable="d"
+        Title="New panelHomework Assignment" Height="600" Width="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
 
-        <GroupBox Margin="0,20" Header="Details">
-            <StackPanel Margin="0,5">
-                <TextBox Name="txtAssignmentName" Margin="10,0"
-                             md:HintAssist.Hint="Name"
-                             md:ValidationAssist.UsePopup="True"
-                             TextChanged="TextBox_TextChanged"/>
-                <TextBox Name="txtDescription" md:HintAssist.Hint="Description"
-                     Margin="10,10" TextWrapping="Wrap" Height="50"
-                     MinLines="1" MaxLines="3" AcceptsReturn="True"
-                     TextChanged="TextBox_TextChanged"/>
-            </StackPanel>
-        </GroupBox>
-        
-        <GroupBox Header="Due Date">
-            <Grid Margin="0,5">
+        <StackPanel Grid.Row="0" Margin="15">
+            <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <DatePicker Name="dpDueDate" 
-                            Grid.Column="0" Margin="10,0,10,0"
-                            GotFocus="DateTime_Changed" LostFocus="DateTime_Changed"/>
+                <StackPanel Grid.Column="0"
+                            Margin="0 0 10 0">
+                    <TextBlock Text="Assignment: " FontSize="20"/>
+                    <TextBox Name="txtAssignmentName" Margin="10 5 0 0"
+                             md:HintAssist.Hint="Assignment Name"
+                             md:ValidationAssist.UsePopup="True"
+                             TextChanged="TextBox_TextChanged"/>
+                </StackPanel>
 
-                <md:TimePicker Name="tpDueTime"
-                               Grid.Column="1" Margin="10,0,10,0"
-                               GotFocus="DateTime_Changed" LostFocus="DateTime_Changed"/>
+                <StackPanel Grid.Column="1"
+                            Margin="10 0 0 0">
+                    <TextBlock Text="Class: " FontSize="20"/>
+                    <ComboBox Name="cmbClasses" SelectionChanged="CmbClasses_SelectionChanged"/>
+                </StackPanel>
+
             </Grid>
-        </GroupBox>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-        <Button Name="btnAddHomeWork" Content="Create"
-                Margin="15,25"
-                Click="BtnAddHomeWork_Click" IsEnabled="False"/>
-        <Button Name="btnCancel" Content="Cancel" Grid.Column="1"
-                Margin="15,25"
-                Click="BtnCancel_Click"/>
-        </Grid>
+        </StackPanel>
 
-    </StackPanel>
+        <StackPanel Grid.Row="1" Margin="25">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Due Date" Grid.Row="0" Grid.ColumnSpan="2"/>
+
+                <DatePicker Name="dpDueDate" 
+                            Grid.Row="1" Grid.Column="0" Margin="10 0 10 15"
+                            GotFocus="DateTime_Changed" LostFocus="DateTime_Changed"/>
+                <md:TimePicker Name="tpDueTime"
+                               Grid.Row="1" Grid.Column="1" Margin="10 0 0 0"
+                               GotFocus="DateTime_Changed" LostFocus="DateTime_Changed"/>
+
+            </Grid>
+
+            <TextBlock Text="Description"/>
+            <TextBox Name="txtDescription" md:HintAssist.Hint="Description"
+                     Margin="10 0 10 0" 
+                     MinLines="1" AcceptsReturn="True"
+                     TextChanged="TextBox_TextChanged"/>
+
+        </StackPanel>
+
+        <Button Name="btnAddHomeWork" Content="Add panelHomework"
+                Grid.Row="2" Margin="15"
+                Click="BtnAddHomeWork_Click" IsEnabled="False"/>
+
+    </Grid>
 </Window>

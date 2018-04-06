@@ -73,7 +73,7 @@ namespace EduPlanner {
 
                 Service = new DriveService(new BaseClientService.Initializer {
                     HttpClientInitializer = credential,
-                    ApplicationName = APPLICATIONNAME
+                    ApplicationName = "EduPlanner"
                 });
 
             } catch {

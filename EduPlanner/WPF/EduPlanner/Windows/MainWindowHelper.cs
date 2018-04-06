@@ -8,7 +8,7 @@ using MaterialDesignThemes.Wpf;
 namespace EduPlanner {
     public partial class MainWindow : Window {
 
-        public string UserName => String.Format("Hello, {0}! Today is {1}, {2} {3}, {4}.", Environment.UserName, DateTime.Now.DayOfWeek, DateTime.Today.ToString("MMMM"), DateTime.Today.Day, DateTime.Now.Year);
+        public string UserName => "Hello, " + Environment.UserName;
 
         public void ChangeView(Grid newView) {
             for (int i = 0; i < contentViews.Children.Count; i++) {
