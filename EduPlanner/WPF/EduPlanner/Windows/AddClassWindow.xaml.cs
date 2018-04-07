@@ -1,15 +1,13 @@
 ﻿using MaterialDesignThemes.Wpf;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using EduPlanner.Classes;
+using EduPlanner.Controls;
 
 namespace EduPlanner.Windows {
 
     public partial class AddClassWindow : Window {
-
-        List<ClassTime> classTimes = new List<ClassTime>();
 
         public AddClassWindow() {
             InitializeComponent();
@@ -20,7 +18,6 @@ namespace EduPlanner.Windows {
         private void AddTime_Click(object sender, RoutedEventArgs e) {
             ClassTime time = new ClassTime();
             time.ClassTimeChanged += Handler;
-            classTimes.Add(time);
             spClassTimesViewer.Children.Add(time);
             Handler();
         }
@@ -29,27 +26,28 @@ namespace EduPlanner.Windows {
 
             //Class Times
             foreach (ClassTime time in spClassTimesViewer.Children) {
-                WrapPanel daysPanel = time.FindName("wpDays") as WrapPanel;
-                Grid timeGrid = time.FindName("TimeGrid") as Grid;
+                if (!(time.FindName("wpDays") is WrapPanel daysPanel))
+                    continue;
+
+                if (!(time.FindName("TimeGrid") is Grid timeGrid)) continue;
 
                 //Days
                 foreach (CheckBox box in daysPanel.Children) {
-                    if (box.IsChecked == true) {
+                    if (box.IsChecked != true) continue;
 
-                        Enum.TryParse(box.Name, out DayOfWeek day);
+                    Enum.TryParse(box.Name, out DayOfWeek day);
 
-                        DateTime? start = (timeGrid.Children[0] as TimePicker).SelectedTime;
-                        DateTime? end = (timeGrid.Children[1] as TimePicker).SelectedTime;
+                    DateTime? start = (timeGrid.Children[0] as TimePicker).SelectedTime;
+                    DateTime? end = (timeGrid.Children[1] as TimePicker).SelectedTime;
 
-                        Class newClass = Schedule.CheckClassExistence(txtClassName.Text);
-                        if (newClass == null) {
-                            newClass = new Class(txtClassName.Text);
-                            DataManager.Schedule.Classes.Add(newClass);
-                        }
-
-                        newClass.ClassTimes[(int)day][0] = start;
-                        newClass.ClassTimes[(int)day][1] = end;
+                    Class newClass = Schedule.CheckClassExistence(txtClassName.Text);
+                    if (newClass == null) {
+                        newClass = new Class(txtClassName.Text);
+                        DataManager.Schedule.Classes.Add(newClass);
                     }
+
+                    newClass.ClassTimes[(int)day][0] = start;
+                    newClass.ClassTimes[(int)day][1] = end;
                 }
             }
 
@@ -71,28 +69,20 @@ namespace EduPlanner.Windows {
             bool timePicked = false;
 
             //Loop through class times
-            for (int i = 0; i < spClassTimesViewer.Children.Count; i++) {
-                ClassTime time = spClassTimesViewer.Children[i] as ClassTime;
+            foreach (ClassTime time in spClassTimesViewer.Children) {
 
-                WrapPanel panel = time.FindName("wpDays") as WrapPanel;
-                Grid timeGrid = time.FindName("TimeGrid") as Grid;
+                if (!(time.FindName("wpDays") is WrapPanel panel)) continue;
+                if (!(time.FindName("TimeGrid") is Grid timeGrid)) continue;
 
                 //Loop through checkboxes
-                for (int j = 0; j < panel.Children.Count; j++) {
-
-                    if (panel.Children[i] is CheckBox) {
-                        CheckBox check = panel.Children[j] as CheckBox;
-                        if (check.IsChecked == true)
-                            dayChecked = true;
-                    }
+                foreach (CheckBox check in panel.Children) {
+                    if (check.IsChecked == true)
+                        dayChecked = true;
                 }
 
                 //Loop through time pickers
-                for (int j = 0; j < timeGrid.Children.Count; j++) {
-                    if (timeGrid.Children[j] is TimePicker) {
-                        TimePicker picker = timeGrid.Children[j] as TimePicker;
-                        timePicked = picker.SelectedTime != null;
-                    }
+                foreach (TimePicker picker in timeGrid.Children) {
+                    timePicked = picker.SelectedTime != null;
                 }
             }
 

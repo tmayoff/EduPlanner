@@ -112,19 +112,16 @@
         </materialDesign:DrawerHost>-->
 
         <!-- Main Content -->
-        <ScrollViewer Grid.Row="1" Grid.Column="1" Margin="0 0 20 0"
-                      VerticalScrollBarVisibility="Auto">
 
-            <Grid Name="contentViews">
+        <Grid Name="contentViews" 
+                  Grid.Row="1" Grid.Column="1" Margin="0 0 20 0">
 
-                <views:AgendaView x:Name="agendaView" Visibility="Collapsed"/>
-                <views:TodayView x:Name="todayView" Visibility="Collapsed"/>
-                <views:AssignmentsView x:Name="assignmentsView" Visibility="Collapsed"/>
-                <views:ClassListView x:Name="classListView" Visibility="Collapsed"/>
+            <views:AgendaView x:Name="agendaView" Visibility="Collapsed"/>
+            <views:TodayView x:Name="todayView" Visibility="Collapsed"/>
+            <views:AssignmentsView x:Name="assignmentsView" Visibility="Collapsed"/>
+            <views:ClassListView x:Name="classListView" Visibility="Collapsed"/>
 
-            </Grid>
-
-        </ScrollViewer>
+        </Grid>
 
         <!-- Sidebar -->
         <StackPanel Name="panelSidebar" 

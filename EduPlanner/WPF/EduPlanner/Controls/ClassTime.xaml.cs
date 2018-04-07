@@ -1,10 +1,9 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
-namespace EduPlanner {
-    /// <summary>
-    /// Interaction logic for ClassTime.xaml
-    /// </summary>
+namespace EduPlanner.Controls {
+
     public partial class ClassTime : UserControl {
 
         public delegate void ClassTimeDelegate();

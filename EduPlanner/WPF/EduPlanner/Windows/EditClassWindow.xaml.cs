@@ -4,11 +4,10 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using EduPlanner.Classes;
+using EduPlanner.Controls;
 
 namespace EduPlanner.Windows {
-    /// <summary>
-    /// Interaction logic for AddClass.xaml
-    /// </summary>
+
     public partial class EditClassWindow : Window {
 
         private readonly List<ClassTime> _classTimes = new List<ClassTime>();
@@ -22,34 +21,24 @@ namespace EduPlanner.Windows {
             txtClassName.Text = _class.ClassName;
 
             for (int i = 0; i < _class.ClassTimes.Length; i++) {
-                if (_class.ClassTimes[i][0] != null && _class.ClassTimes[i][1] != null) {
+                if (_class.ClassTimes[i][0] == null || _class.ClassTimes[i][1] == null) continue;
+                ClassTime time = ClassTimeExist(_class.ClassTimes[i][0]) ?? new ClassTime();
 
-                    ClassTime time = ClassTimeExist(_class.ClassTimes[i][0]);
+                time.tpStartTime.SelectedTime = _class.ClassTimes[i][0];
+                time.tpEndTime.SelectedTime = _class.ClassTimes[i][1];
 
-                    if (time == null)
-                        time = new ClassTime();
-
-                    time.tpStartTime.SelectedTime = _class.ClassTimes[i][0];
-                    time.tpEndTime.SelectedTime = _class.ClassTimes[i][1];
-
-                    //Loop through class times
-                    WrapPanel wrap = time.FindName("wpDays") as WrapPanel;
-                    for (int j = 0; j < wrap.Children.Count; j++) {
-
-                        if (wrap.Children[j] is CheckBox) {
-                            CheckBox check = wrap.Children[j] as CheckBox;
-
-                            if (check.Content.ToString() == ((DayOfWeek)i).ToString()) {
-                                check.IsChecked = true;
-                            }
-                        }
+                //Loop through class times
+                WrapPanel wrap = time.FindName("wpDays") as WrapPanel;
+                foreach (CheckBox check in wrap.Children) {
+                    if (check.Content.ToString() == ((DayOfWeek)i).ToString()) {
+                        check.IsChecked = true;
                     }
-
-                    time.ClassTimeChanged += Handler;
-                    _classTimes.Add(time);
-                    if (!spClassTimesViewer.Children.Contains(time))
-                        spClassTimesViewer.Children.Add(time);
                 }
+
+                time.ClassTimeChanged += Handler;
+                _classTimes.Add(time);
+                if (!spClassTimesViewer.Children.Contains(time))
+                    spClassTimesViewer.Children.Add(time);
             }
         }
 

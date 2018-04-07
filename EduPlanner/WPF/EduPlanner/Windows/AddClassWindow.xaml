@@ -8,14 +8,13 @@
          mc:Ignorable="d" ResizeMode="NoResize"
         Title="New Class" Height="660" Width="420">
     <StackPanel Margin="15">
+
         <GroupBox Header="Class Details">
             <TextBox Name="txtClassName" Margin="10,5,10,5"
                      md:HintAssist.Hint="Name"
                      md:ValidationAssist.UsePopup="True"
                      TextChanged="ClassName_TextChanged"/>
         </GroupBox>
-
-
 
         <GroupBox Margin="0,20" Header="Schedule">
 

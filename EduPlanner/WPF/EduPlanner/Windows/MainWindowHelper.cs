@@ -10,6 +10,7 @@ namespace EduPlanner.Windows {
     public partial class MainWindow : Window {
 
         public delegate void UpdateView();
+
         public static event UpdateView UpdateViews;
 
         public string UserName => "Hello, " + Environment.UserName;
