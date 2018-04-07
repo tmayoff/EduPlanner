@@ -2,7 +2,7 @@
 using System.Xml;
 using System.Windows;
 
-namespace EduPlanner {
+namespace EduPlanner.Classes {
     public static class Updater {
         public static void CheckForUpdate(bool startup = false) {
             string newVersion = string.Empty;
@@ -61,7 +61,7 @@ namespace EduPlanner {
                 string curVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(2);
 
                 if (curVersion.CompareTo(newVersion) < 0) {
-                    if (betaUpdate == true && DataManager.Settings.receiveBetaUpdates == true) {
+                    if (betaUpdate == true && DataManager.Settings.ReceiveBetaUpdates) {
                         mbText = String.Format("New version detected. Would you like to download it now?\n\n" +
                                               "Current version: {0}\n" +
                                               "New beta version: {1}b", curVersion, newVersion);
@@ -79,7 +79,7 @@ namespace EduPlanner {
                             System.Diagnostics.Process.Start(downloadUrl);
                         }
                     }
-                    if (betaUpdate == true && DataManager.Settings.receiveBetaUpdates == false && !startup) {
+                    if (betaUpdate == true && DataManager.Settings.ReceiveBetaUpdates && !startup) {
                         MessageBox.Show("You are running the latest version of EduPlanner!", mbHeader, MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 } else if (!startup) {
@@ -93,9 +93,7 @@ namespace EduPlanner {
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message, mbHeader, MessageBoxButton.OK, MessageBoxImage.Error);
             } finally {
-                if (reader != null) {
-                    reader.Close();
-                }
+                reader?.Close();
             }
         }
     }

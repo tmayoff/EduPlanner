@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using EduPlanner.Classes;
 
 namespace EduPlanner.Windows {
     /// <summary>
@@ -19,23 +9,22 @@ namespace EduPlanner.Windows {
     public partial class SettingsWindow : Window {
 
         public bool CheckForUpdatesOnStartUp {
-            get { return DataManager.Settings.checkForUpdatesOnStartup; }
-            set { DataManager.Settings.checkForUpdatesOnStartup = value; }
+            get { return DataManager.Settings.CheckForUpdatesOnStartup; }
+            set { DataManager.Settings.CheckForUpdatesOnStartup = value; }
         }
         public bool MinimizeToTray {
-            get { return DataManager.Settings.minimizeToTray; }
-            set { DataManager.Settings.minimizeToTray = value; }
+            get { return DataManager.Settings.MinimizeToTray; }
+            set { DataManager.Settings.MinimizeToTray = value; }
         }
 
         public bool UseBetaVersion {
-            get { return DataManager.Settings.receiveBetaUpdates; }
-            set { DataManager.Settings.receiveBetaUpdates = value; }
+            get { return DataManager.Settings.ReceiveBetaUpdates; }
+            set { DataManager.Settings.ReceiveBetaUpdates = value; }
         }
 
-        public bool UseDemoContent
-        {
-            get { return DataManager.Settings.useDemoContent; }
-            set { DataManager.Settings.useDemoContent = value; }
+        public bool UseDemoContent {
+            get { return DataManager.Settings.UseDemoContent; }
+            set { DataManager.Settings.UseDemoContent = value; }
         }
 
         public SettingsWindow() {
@@ -46,16 +35,12 @@ namespace EduPlanner.Windows {
         }
 
         private void LoadSettings() {
-            UseBetaVersion = DataManager.Settings.receiveBetaUpdates;
-            CheckForUpdatesOnStartUp = DataManager.Settings.checkForUpdatesOnStartup;
-            MinimizeToTray = DataManager.Settings.minimizeToTray;
-            UseDemoContent = DataManager.Settings.useDemoContent;
-            UseBetaVersion = DataManager.Settings.receiveBetaUpdates;
-            CheckForUpdatesOnStartUp = DataManager.Settings.checkForUpdatesOnStartup;
-            MinimizeToTray = DataManager.Settings.minimizeToTray;
+            UseBetaVersion = DataManager.Settings.ReceiveBetaUpdates;
+            CheckForUpdatesOnStartUp = DataManager.Settings.CheckForUpdatesOnStartup;
+            MinimizeToTray = DataManager.Settings.MinimizeToTray;
+            UseDemoContent = DataManager.Settings.UseDemoContent;
 
-            if (DataManager.Authenticated == true)
-            {
+            if (DataManager.Authenticated) {
                 tgDriveSync.IsChecked = true;
                 txtDriveSync.Text = String.Format("Your {0} data is currently being synced.", DataManager.APPLICATIONNAME);
             }

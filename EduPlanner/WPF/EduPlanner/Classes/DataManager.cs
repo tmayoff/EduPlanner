@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using EduPlanner.Windows;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Download;
 using Google.Apis.Drive.v3;
@@ -15,7 +16,7 @@ using Google.Apis.Util.Store;
 using Microsoft.Win32;
 using File = Google.Apis.Drive.v3.Data.File;
 
-namespace EduPlanner {
+namespace EduPlanner.Classes {
 
     public static class DataManager {
 
@@ -284,9 +285,9 @@ namespace EduPlanner {
                 MessageBox.Show(e.Message);
             }
 
-            DataManager.MainWindow.UpdateAgendaView();
+            //DataManager.MainWindow.UpdateAgendaView();
         }
-        
+
         #region Writers / Readers
 
         /// <summary>

@@ -1,35 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using EduPlanner.Classes;
 
-namespace EduPlanner {
-    /// <summary>
-    /// Interaction logic for EditHomeworkWindow.xaml
-    /// </summary>
+namespace EduPlanner.Windows {
+
     public partial class EditHomeworkWindow : Window {
 
-        Class _class;
-        Homework homework;
+        private readonly Class _class;
+        private readonly Assignment _assignment;
 
-        public EditHomeworkWindow(Class _class, Homework homework) {
+        public EditHomeworkWindow(Class _class, Assignment assignment) {
             InitializeComponent();
 
-            this.homework = homework;
+            _assignment = assignment;
             this._class = _class;
 
-            txtAssignmentName.Text = homework.assignmentName;
-            dpDueDate.SelectedDate = homework.dueDate;
-            tpDueTime.SelectedTime = homework.dueDate;
+            txtAssignmentName.Text = assignment.AssignmentName;
+            dpDueDate.SelectedDate = assignment.DueDate;
+            tpDueTime.SelectedTime = assignment.DueDate;
 
             Handler();
         }
@@ -49,15 +38,15 @@ namespace EduPlanner {
             DateTime timeTime = tpDueTime.SelectedTime.Value;
             DateTime time = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, timeTime.Hour, timeTime.Minute, timeTime.Second);
 
-            homework.assignmentName = txtAssignmentName.Text;
-            homework.dueDate = time;
-            homework.description = txtDescription.Text;
-            homework.completed = cbCompleted.IsChecked == true;
+            _assignment.AssignmentName = txtAssignmentName.Text;
+            _assignment.DueDate = time;
+            _assignment.Description = txtDescription.Text;
+            _assignment.Completed = cbCompleted.IsChecked == true;
             Close();
         }
 
         private void BtnDeleteHomework_Click(object sender, RoutedEventArgs e) {
-            _class.Homeworks.Remove(homework);
+            _class.Homeworks.Remove(_assignment);
             Close();
         }
 

@@ -1,10 +1,10 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using EduPlanner.Classes;
+using EduPlanner.Windows;
 
-namespace EduPlanner {
-    /// <summary>
-    /// Interaction logic for Class.xaml
-    /// </summary>
+namespace EduPlanner.Controls {
+
     public partial class ClassCard : UserControl {
 
         public Class _class;
@@ -15,7 +15,7 @@ namespace EduPlanner {
 
             this._class = _class;
 
-            txtClassName.Text = _class.className;
+            txtClassName.Text = _class.ClassName;
             startTime.Text = "";
             endTime.Text = "";
         }
@@ -26,10 +26,10 @@ namespace EduPlanner {
             this._class = _class;
             this.day = day;
 
-            txtClassName.Text = _class.className;
+            txtClassName.Text = _class.ClassName;
 
-            startTime.Text = "Start Time: " + _class.classTimes[(int)day.day][0].Value.ToString("hh:mm:tt");
-            endTime.Text = "End Time: " + _class.classTimes[(int)day.day][1].Value.ToString("hh:mm:tt");
+            startTime.Text = "Start Time: " + _class.ClassTimes[(int)day.WeekDay][0].Value.ToString("hh:mm:tt");
+            endTime.Text = "End Time: " + _class.ClassTimes[(int)day.WeekDay][1].Value.ToString("hh:mm:tt");
         }
 
         private void AddHomework_Click(object sender, RoutedEventArgs e) {

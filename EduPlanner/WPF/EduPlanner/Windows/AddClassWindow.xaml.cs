@@ -3,11 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using EduPlanner.Classes;
 
-namespace EduPlanner {
-    /// <summary>
-    /// Interaction logic for AddClass.xaml
-    /// </summary>
+namespace EduPlanner.Windows {
+
     public partial class AddClassWindow : Window {
 
         List<ClassTime> classTimes = new List<ClassTime>();
@@ -45,11 +44,11 @@ namespace EduPlanner {
                         Class newClass = Schedule.CheckClassExistence(txtClassName.Text);
                         if (newClass == null) {
                             newClass = new Class(txtClassName.Text);
-                            DataManager.Schedule.classes.Add(newClass);
+                            DataManager.Schedule.Classes.Add(newClass);
                         }
 
-                        newClass.classTimes[(int)day][0] = start;
-                        newClass.classTimes[(int)day][1] = end;
+                        newClass.ClassTimes[(int)day][0] = start;
+                        newClass.ClassTimes[(int)day][1] = end;
                     }
                 }
             }
@@ -57,8 +56,7 @@ namespace EduPlanner {
             Close();
         }
 
-        private void BtnCancel_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnCancel_Click(object sender, RoutedEventArgs e) {
             Close();
         }
 

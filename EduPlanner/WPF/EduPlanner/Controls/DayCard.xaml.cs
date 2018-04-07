@@ -1,19 +1,18 @@
 ﻿using System.Windows.Controls;
+using EduPlanner.Classes;
 
-namespace EduPlanner {
-    /// <summary>
-    /// Interaction logic for DayCard.xaml
-    /// </summary>
+namespace EduPlanner.Controls {
+
     public partial class DayCard : UserControl {
 
-        public Day day;
+        public Day Day;
 
         public DayCard(Day day) {
             InitializeComponent();
-            
-            this.day = day;
 
-            txtDayName.Text = day.day.ToString();
+            Day = day;
+
+            txtDayName.Text = day.WeekDay.ToString();
         }
     }
 }

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Controls;
+using EduPlanner.Classes;
 
-namespace EduPlanner {
+namespace EduPlanner.Controls {
     /// <summary>
     /// Interaction logic for ClassHomeworkCard.xaml
     /// </summary>
@@ -27,7 +28,7 @@ namespace EduPlanner {
 
             this._class = _class;
 
-            ClassName = _class.className;
+            ClassName = _class.ClassName;
         }
 
         private void Expander_Expanded(object sender, System.Windows.RoutedEventArgs e) {

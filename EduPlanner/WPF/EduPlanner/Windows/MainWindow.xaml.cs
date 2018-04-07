@@ -1,18 +1,10 @@
-﻿using MaterialDesignThemes.Wpf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Threading;
-using EduPlanner.Windows;
+using EduPlanner.Classes;
 
-namespace EduPlanner {
+namespace EduPlanner.Windows {
 
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window {
 
         private const int TIMERINTERVALMIN = 5;
@@ -26,9 +18,10 @@ namespace EduPlanner {
         private Class _currentClass;
 
         public MainWindow() {
-            DataManager.Authenticated = DataManager.GoogleAuthenticate();
 
             InitializeComponent();
+            DataManager.Authenticated = DataManager.GoogleAuthenticate();
+
             DataContext = this;
 
             //Load All Data Settings and data
@@ -84,9 +77,9 @@ namespace EduPlanner {
         }
 
         private void BtnAddAssignment_Click(object sender, RoutedEventArgs e) {
-            AddHomeworkWindow addHomework = new AddHomeworkWindow();
-            addHomework.Closed += WindowAddEditHomework_Closed;
-            addHomework.ShowDialog();
+            AddAssignmentWindow addAssignment = new AddAssignmentWindow();
+            addAssignment.Closed += WindowAddEditHomework_Closed;
+            addAssignment.ShowDialog();
         }
 
         #endregion
@@ -94,17 +87,15 @@ namespace EduPlanner {
         #region Window Event Handlers
 
         public void RefreshEvent(object sender, EventArgs e) {
-            Refresh();
+            //Refresh();
         }
 
         public void WindowAddEditClass_Closed(object sender, EventArgs e) {
-            UpdateAgendaView();
-            UpdateTodayView();
-            UpdateClassListView();
+            UpdateViews();
         }
 
         public void WindowAddEditHomework_Closed(object sender, EventArgs e) {
-            UpdateHomeworkView();
+            UpdateViews();
         }
 
         public void Window_Closed(object sender, EventArgs e) {
