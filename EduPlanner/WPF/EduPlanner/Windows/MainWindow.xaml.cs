@@ -9,9 +9,7 @@ namespace EduPlanner.Windows {
 
         private const int TIMERINTERVALMIN = 5;
 
-        private readonly Schedule _schedule;
         private readonly Data _data;
-        private readonly DateTime _upcomingTime;
 
         private readonly DispatcherTimer _timer = new DispatcherTimer();
 
@@ -25,12 +23,9 @@ namespace EduPlanner.Windows {
             //Load All Data Settings and data
             _data = new Data();
 
-            //Initialize things
-            _upcomingTime = DateTime.Now + new TimeSpan(7, 0, 0, 0);
 
             Updater.CheckForUpdate(true);
 
-            _schedule = DataManager.Schedule;
             DataManager.MainWindow = this;
             ChangeView(todayView);
 
