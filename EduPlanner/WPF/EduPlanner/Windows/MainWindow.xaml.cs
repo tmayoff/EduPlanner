@@ -15,8 +15,6 @@ namespace EduPlanner.Windows {
 
         private readonly DispatcherTimer _timer = new DispatcherTimer();
 
-        private Class _currentClass;
-
         public MainWindow() {
 
             InitializeComponent();
@@ -45,11 +43,7 @@ namespace EduPlanner.Windows {
 
         private void BtnImportData_Click(object sender, RoutedEventArgs e) {
             Data.Import();
-
-            UpdateAgendaView();
-            UpdateClassListView();
-            UpdateHomeworkView();
-            Refresh();
+            UpdateViews();
         }
 
         private void BtnExportData_Click(object sender, RoutedEventArgs e) {

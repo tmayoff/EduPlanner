@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using EduPlanner.Classes;
+using EduPlanner.Windows;
 
 namespace EduPlanner.Controls {
 
