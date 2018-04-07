@@ -53,8 +53,9 @@ namespace EduPlanner.Classes {
         public static bool RemoteLastModified(string path) {
             DateTime? local = System.IO.File.GetLastWriteTime(path);
 
+            File remoteFile = GetFile(Path.GetFileName(path));
 
-            DateTime? remote = GetFile(Path.GetFileName(path)).ModifiedTime;
+            DateTime? remote = remoteFile.ModifiedTime;
 
             return remote > local;
         }
@@ -151,6 +152,7 @@ namespace EduPlanner.Classes {
             FilesResource.ListRequest request = Service.Files.List();
             request.Spaces = "appDataFolder";
             request.Fields = "nextPageToken, files(id, name)";
+            request.Q = "name='" + fileName + "'";
             request.PageSize = 10;
             FileList result = request.Execute();
             return result.Files[0];
@@ -229,10 +231,10 @@ namespace EduPlanner.Classes {
                     Directory.CreateDirectory(DataManager.Savefilepath);
 
                 if (DataManager.Authenticated) {
-                    if (DataManager.FileExists(APPDATA_NAME) && DataManager.RemoteLastModified(AppdataPath))
+                    if (DataManager.FileExists(APPDATA_NAME))
                         DataManager.DownloadFiles(APPDATA_NAME);
 
-                    if (DataManager.FileExists(SETTINGS_NAME) && DataManager.RemoteLastModified(SettingsPath))
+                    if (DataManager.FileExists(SETTINGS_NAME))
                         DataManager.DownloadFiles(SETTINGS_NAME);
                 }
 
