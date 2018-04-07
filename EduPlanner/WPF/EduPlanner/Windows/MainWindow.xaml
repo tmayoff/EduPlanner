@@ -69,7 +69,7 @@
                                     Click="BtnSettings_Click"/>
                             <Button Content="Check for Updates"
                                     Click="BtnCheckForUpdates_Click"/>
-                            <Button Content="Import Schedule Data"
+                            <Button Content="Import Data"
                                     Click="BtnImportData_Click"/>
                             <Button Content="Export Data"
                                     Click="BtnExportData_Click"/>
@@ -195,11 +195,11 @@
                                  Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
                                  HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <StackPanel>
-                <Button ToolTip="Add Class" Click="BtnAddClass_Click">
+                <Button ToolTip="New Class" Click="BtnAddClass_Click">
                     <materialDesign:PackIcon Kind="FileDocument"/>
                 </Button>
 
-                <Button ToolTip="Add Assignment" Click="BtnAddAssignment_Click">
+                <Button ToolTip="New Assignment" Click="BtnAddAssignment_Click">
                     <materialDesign:PackIcon Kind="Book"/>
                 </Button>
             </StackPanel>

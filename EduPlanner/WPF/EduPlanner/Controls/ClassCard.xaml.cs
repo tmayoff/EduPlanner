@@ -28,8 +28,8 @@ namespace EduPlanner.Controls {
 
             txtClassName.Text = _class.ClassName;
 
-            startTime.Text = "Start Time: " + _class.ClassTimes[(int)day.WeekDay][0].Value.ToString("hh:mm:tt");
-            endTime.Text = "End Time: " + _class.ClassTimes[(int)day.WeekDay][1].Value.ToString("hh:mm:tt");
+            startTime.Text = "Start Time: " + _class.ClassTimes[(int)day.WeekDay][0].Value.ToString("hh:mm tt");
+            endTime.Text = "End Time: " + _class.ClassTimes[(int)day.WeekDay][1].Value.ToString("hh:mm tt");
         }
 
         private void AddHomework_Click(object sender, RoutedEventArgs e) {

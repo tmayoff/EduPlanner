@@ -9,7 +9,6 @@ namespace EduPlanner.Classes {
         public bool MinimizeToTray;
         public bool ReceiveBetaUpdates;
         public bool DriveIntergration;
-
         public bool UseDemoContent;
     }
 }

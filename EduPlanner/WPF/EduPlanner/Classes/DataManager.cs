@@ -183,6 +183,7 @@ namespace EduPlanner.Classes {
 
         private const string APPDATA_NAME = "Data.xml";
         private const string SETTINGS_NAME = "Settings.xml";
+        private const string filter = "XML file (*.xml)|*.xml";
         private static readonly string AppdataPath = DataManager.Savefilepath + APPDATA_NAME;
         private static readonly string SettingsPath = DataManager.Savefilepath + SETTINGS_NAME;
 
@@ -250,41 +251,51 @@ namespace EduPlanner.Classes {
         }
 
         public static void Export() {
-            SaveFileDialog saveFileDialog = new SaveFileDialog {
-                Filter = "xml file (*.xml)|*.xml",
-                FileName = String.Format("{0} Export ({1})", DataManager.APPLICATIONNAME, DateTime.Now)
-            };
+            try
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    Filter = filter,
+                    FileName = String.Format("{0} Export ({1})", DataManager.APPLICATIONNAME, DateTime.Now.ToShortDateString())
+                };
 
-            if (saveFileDialog.ShowDialog() != true) return;
+                if (saveFileDialog.ShowDialog() != true) return;
 
-            string exportedFile = saveFileDialog.FileName;
-            string currentFile = DataManager.Savefilepath + APPDATA_NAME;
-            System.IO.File.Copy(currentFile, exportedFile);
+                string exportedFile = saveFileDialog.FileName;
+                string currentFile = DataManager.Savefilepath + APPDATA_NAME;
+                System.IO.File.Copy(currentFile, exportedFile);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, DataManager.APPLICATIONNAME, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         public static void Import() {
             try {
 
                 OpenFileDialog openFile = new OpenFileDialog {
-                    Filter = "xml file (*.xml)|*.xml",
+                    Filter = filter,
                     FileName = APPDATA_NAME
                 };
 
-                if (openFile.ShowDialog() == null) return;
+                if (openFile.ShowDialog() == true)
+                {
+                    string filePath = openFile.FileName;
 
-                string filePath = openFile.FileName;
+                    if (DataManager.Authenticated)
+                    {
+                        if (DataManager.FileExists(APPDATA_NAME))
+                            DataManager.UpdateFiles(filePath);
+                        else
+                            DataManager.UploadFiles(filePath);
+                    }
 
-                if (DataManager.Authenticated) {
-                    if (DataManager.FileExists(APPDATA_NAME))
-                        DataManager.UpdateFiles(filePath);
-                    else
-                        DataManager.UploadFiles(filePath);
+                    if (System.IO.File.Exists(AppdataPath))
+                        DataManager.Schedule = ReadFromXmlFile<Schedule>(filePath);
                 }
-
-                if (System.IO.File.Exists(AppdataPath))
-                    DataManager.Schedule = ReadFromXmlFile<Schedule>(filePath);
-            } catch (Exception e) {
-                MessageBox.Show(e.Message);
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message, DataManager.APPLICATIONNAME, MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             //DataManager.MainWindow.UpdateAgendaView();

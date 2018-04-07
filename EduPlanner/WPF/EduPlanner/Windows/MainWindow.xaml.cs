@@ -50,8 +50,8 @@ namespace EduPlanner.Windows {
         }
 
         private void BtnAbout_Click(object sender, RoutedEventArgs e) {
-            //About about = new About();
-            //about.Show();
+            AboutWindow about = new AboutWindow();
+            about.Show();
         }
 
         private void BtnSettings_Click(object sender, RoutedEventArgs e) {

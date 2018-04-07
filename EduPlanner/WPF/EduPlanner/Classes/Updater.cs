@@ -4,8 +4,8 @@ using System.Windows;
 
 namespace EduPlanner.Classes {
     public static class Updater {
+        public static string newVersion, curVersion = string.Empty;
         public static void CheckForUpdate(bool startup = false) {
-            string newVersion = string.Empty;
             bool betaUpdate = false;
             string mbText = string.Empty;
             //string xmlUrl = "D:\\Desktop\\update.xml";
@@ -58,7 +58,7 @@ namespace EduPlanner.Classes {
                     throw new Exception(msgError);
                 }
 
-                string curVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(2);
+                curVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(2);
 
                 if (curVersion.CompareTo(newVersion) < 0) {
                     if (betaUpdate == true && DataManager.Settings.ReceiveBetaUpdates) {
