@@ -2,10 +2,12 @@
 using System.Xml;
 using System.Windows;
 using System.Reflection;
+using System.Net;
+using System.ComponentModel;
 
 namespace EduPlanner.Classes
 {
-    public static class Updater
+    public partial class Updater
     {
 
         public static void CheckForUpdate(bool startup = false)
@@ -14,13 +16,23 @@ namespace EduPlanner.Classes
             Version newVersion = null;
             bool betaUpdate = false, requiredUpdate = false;
 
-            string mbNewVersion = string.Empty, mbCurrentVersion = string.Empty, mbText = string.Empty;
-            //string xmlUrl = @"D:\Desktop\update.xml";
-            string xmlUrl = "https://raw.githubusercontent.com/tyxman/EduPlanner/master/EduPlanner/update.xml";
+            string xmlUrl = string.Empty, elementName = string.Empty, mbNewVersion = string.Empty, mbCurrentVersion = string.Empty, mbText = string.Empty;
             string downloadUrl = "https://github.com/tyxman/EduPlanner/releases/";
 
             string mbHeader = DataManager.APPLICATIONNAME + " Updater";
             string msgError = "An unknown error occured while checking for updates.";
+
+            if (DataManager.Settings.ReceiveBetaUpdates == true)
+            {
+                //xmlUrl = @"D:\Desktop\update.xml";
+                xmlUrl = "https://raw.githubusercontent.com/tyxman/EduPlanner/master/EduPlanner/WPF/Updater/beta.xml";
+            }
+
+            if (DataManager.Settings.ReceiveBetaUpdates == false)
+            {
+                //xmlUrl = @"D:\Desktop\update.xml";
+                xmlUrl = "https://raw.githubusercontent.com/tyxman/EduPlanner/master/EduPlanner/WPF/Updater/stable.xml";
+            }
 
             XmlTextReader reader = new XmlTextReader(xmlUrl);
             try
@@ -33,10 +45,7 @@ namespace EduPlanner.Classes
                 // in elementName variable. When we parse a  
                 // text node, we refer to elementName to check  
                 // what was the node name  
-                string elementName = string.Empty;
 
-                // we check if the xml starts with a proper  
-                // "ourfancyapp" element node  
                 if (reader.NodeType == XmlNodeType.Element && reader.Name == DataManager.APPLICATIONNAME)
                 {
                     while (reader.Read())
@@ -83,7 +92,6 @@ namespace EduPlanner.Classes
                     throw new Exception(msgError);
                 }
 
-
                 string[] currentBuild = About.currentVersion.ToString().Split('.');
                 if (currentBuild[2] == "0")
                 {
@@ -114,12 +122,19 @@ namespace EduPlanner.Classes
                         MessageBoxResult result = MessageBox.Show(mbText, mbHeader, MessageBoxButton.OKCancel, MessageBoxImage.Warning);
                         if (result == MessageBoxResult.OK)
                         {
-                            System.Diagnostics.Process.Start(downloadUrl);
+                            using (WebClient wc = new WebClient())
+                            {
+                                wc.DownloadFileCompleted += InstallUpdate;
+                                wc.DownloadFileAsync(new Uri(downloadUrl), "setup.exe");
+                            }
                         }
-                        Environment.Exit(0);
+                        if (result == MessageBoxResult.Cancel)
+                        {
+                            Environment.Exit(0);
+                        }
                     }
 
-                    if (startup == true && DataManager.Settings.CheckForUpdatesOnStartup == true)
+                    if (requiredUpdate == false && startup == true && DataManager.Settings.CheckForUpdatesOnStartup == true)
                     {
                         if (betaUpdate == true && DataManager.Settings.ReceiveBetaUpdates == true)
                         {
@@ -177,7 +192,11 @@ namespace EduPlanner.Classes
                 MessageBoxResult result = MessageBox.Show(mbText, mbHeader, MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
-                    System.Diagnostics.Process.Start(downloadUrl);
+                    using (WebClient wc = new WebClient())
+                    {
+                        wc.DownloadFileCompleted += InstallUpdate;
+                        wc.DownloadFileAsync(new Uri(downloadUrl), "setup.exe");
+                    }
                 }
             }
 
@@ -189,13 +208,34 @@ namespace EduPlanner.Classes
                 MessageBoxResult result = MessageBox.Show(mbText, mbHeader, MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
-                    System.Diagnostics.Process.Start(downloadUrl);
+                    using (WebClient wc = new WebClient())
+                    {
+                        wc.DownloadFileCompleted += InstallUpdate;
+                        wc.DownloadFileAsync(new Uri(downloadUrl), "setup.exe");
+                    }
                 }
             }
 
             void LatestVersionDialog()
             {
                 MessageBox.Show("You are running the latest version of EduPlanner!", mbHeader, MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+            void InstallUpdate(object sender, AsyncCompletedEventArgs e)
+            {
+                MessageBoxResult result = MessageBox.Show("EduPlanner will now restart to install an update.", mbHeader, MessageBoxButton.OK, MessageBoxImage.Information);
+                if (result == MessageBoxResult.OK)
+                {
+                    try
+                    {
+                        System.Diagnostics.Process.Start("setup.exe");
+                        Environment.Exit(0);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, mbHeader, MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
             }
         }
     }
