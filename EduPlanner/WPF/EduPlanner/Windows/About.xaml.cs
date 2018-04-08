@@ -1,22 +1,33 @@
 ﻿using EduPlanner.Classes;
 using System;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Navigation;
 
 namespace EduPlanner
 {
-    /// <summary>
-    /// Interaction logic for AboutWindow.xaml
-    /// </summary>
-    public partial class AboutWindow : Window
+    public partial class About : Window
     {
-        public AboutWindow()
+        public static Version currentVersion = new Version(Assembly.GetExecutingAssembly().GetName().Version.ToString(3));// = string.Format("{0} ({1})", Assembly.GetExecutingAssembly().GetName().Version.ToString(2), Assembly.GetExecutingAssembly().GetName().Version.Build);
+
+        public About()
         {
             InitializeComponent();
 
             Title = "About " + DataManager.APPLICATIONNAME;
             txtAppName.Text = DataManager.APPLICATIONNAME;
-            txtVersion.Text = "Version " + Updater.curVersion;
+
+            string[] currentBuild = currentVersion.ToString().Split('.');
+            if (currentBuild[2] == "0")
+            {
+                txtVersion.Text = "Version " + currentVersion.ToString(2);
+            }
+            else
+            {
+                txtVersion.Text = string.Format("Version {0} ({1})", currentVersion.ToString(2), currentBuild[2]);
+            }
+
+
             hlWebsite.TextDecorations = null;
             txtCopyright.Text = string.Format("© {0} Tyler Mayoff & Joseph Di Pasquale. All Rights Reserved.", DateTime.Now.Year);
         }
