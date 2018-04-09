@@ -251,10 +251,8 @@ namespace EduPlanner.Classes {
         }
 
         public static void Export() {
-            try
-            {
-                SaveFileDialog saveFileDialog = new SaveFileDialog
-                {
+            try {
+                SaveFileDialog saveFileDialog = new SaveFileDialog {
                     Filter = filter,
                     FileName = String.Format("{0} Export ({1})", DataManager.APPLICATIONNAME, DateTime.Now.ToShortDateString())
                 };
@@ -264,9 +262,7 @@ namespace EduPlanner.Classes {
                 string exportedFile = saveFileDialog.FileName;
                 string currentFile = DataManager.Savefilepath + APPDATA_NAME;
                 System.IO.File.Copy(currentFile, exportedFile);
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 MessageBox.Show(ex.Message, DataManager.APPLICATIONNAME, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -279,12 +275,10 @@ namespace EduPlanner.Classes {
                     FileName = APPDATA_NAME
                 };
 
-                if (openFile.ShowDialog() == true)
-                {
+                if (openFile.ShowDialog() == true) {
                     string filePath = openFile.FileName;
 
-                    if (DataManager.Authenticated)
-                    {
+                    if (DataManager.Authenticated) {
                         if (DataManager.FileExists(APPDATA_NAME))
                             DataManager.UpdateFiles(filePath);
                         else

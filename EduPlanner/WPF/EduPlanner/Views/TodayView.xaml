@@ -9,10 +9,8 @@
 
     <Grid>
         <StackPanel Margin="10">
-            <!--<TextBlock Text=""
-                       FontSize="24" FontWeight="Bold"/>-->
 
-            <TextBlock Text="{Binding Path=txtWelcome}" 
+            <TextBlock Text="{Binding Path=WelcomeText}" 
                        FontSize="24" FontWeight="Bold"/>
 
             <StackPanel Name="panelToday"/>
