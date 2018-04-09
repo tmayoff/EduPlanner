@@ -146,6 +146,9 @@
     </ApplicationDefinition>
     <Compile Include="Classes\Settings.cs" />
     <Compile Include="Classes\Updater.cs" />
+    <Compile Include="Windows\DownloadUpdate.xaml.cs">
+      <DependentUpon>DownloadUpdate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AgendaView.xaml.cs">
       <DependentUpon>AgendaView.xaml</DependentUpon>
     </Compile>
@@ -158,8 +161,8 @@
     <Compile Include="Views\TodayView.xaml.cs">
       <DependentUpon>TodayView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\AboutWindow.xaml.cs">
-      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    <Compile Include="Windows\About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\AddClassWindow.xaml.cs">
       <DependentUpon>AddClassWindow.xaml</DependentUpon>
@@ -199,6 +202,10 @@
     <Compile Include="Windows\ViewAllAssignments.xaml.cs">
       <DependentUpon>ViewAllAssignments.xaml</DependentUpon>
     </Compile>
+    <Page Include="Windows\DownloadUpdate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AgendaView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -215,7 +222,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\AboutWindow.xaml">
+    <Page Include="Windows\About.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
