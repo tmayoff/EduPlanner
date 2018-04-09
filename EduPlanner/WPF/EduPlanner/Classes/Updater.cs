@@ -25,13 +25,13 @@ namespace EduPlanner.Classes
             if (DataManager.Settings.ReceiveBetaUpdates == true)
             {
                 //xmlUrl = @"D:\Desktop\update.xml";
-                xmlUrl = "https://raw.githubusercontent.com/tyxman/EduPlanner/master/EduPlanner/WPF/Updater/beta.xml";
+                xmlUrl = "https://josephdp.com/eduplanner/updater/beta.xml";
             }
 
             if (DataManager.Settings.ReceiveBetaUpdates == false)
             {
                 //xmlUrl = @"D:\Desktop\update.xml";
-                xmlUrl = "https://raw.githubusercontent.com/tyxman/EduPlanner/master/EduPlanner/WPF/Updater/stable.xml";
+                xmlUrl = "https://josephdp.com/eduplanner/updater/stable.xml";
             }
 
             XmlTextReader reader = new XmlTextReader(xmlUrl);
